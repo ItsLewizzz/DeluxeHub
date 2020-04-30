@@ -3,7 +3,6 @@ package fun.lewisdev.deluxehub.inventory;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.Map;
 import java.util.UUID;
 
 public class InventoryTask implements Runnable {

@@ -3,7 +3,6 @@ package fun.lewisdev.deluxehub.command.commands;
 import com.sk89q.minecraft.util.commands.Command;
 import com.sk89q.minecraft.util.commands.CommandContext;
 import com.sk89q.minecraft.util.commands.CommandException;
-import com.sun.javafx.scene.control.skin.Utils;
 import fun.lewisdev.deluxehub.DeluxeHub;
 import fun.lewisdev.deluxehub.Permissions;
 import fun.lewisdev.deluxehub.config.Messages;

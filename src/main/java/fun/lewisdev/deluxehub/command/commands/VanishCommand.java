@@ -11,8 +11,6 @@ import fun.lewisdev.deluxehub.module.modules.player.PlayerVanish;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-
 public class VanishCommand {
 
 	private DeluxeHub plugin;

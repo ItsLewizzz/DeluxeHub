@@ -70,14 +70,10 @@ public class Hologram {
 			count++;
 		}
 
-		for (ArmorStand stand : standsTemp) stand.teleport(stand.getLocation().add(0, 0.25, 0));    
-		
-		if(count < 1) {
-			return false;
-		}
-		
-		return true;
-	}
+		for (ArmorStand stand : standsTemp) stand.teleport(stand.getLocation().add(0, 0.25, 0));
+
+        return count >= 1;
+    }
 	
 	public Hologram setLocation(Location location) {
 		this.location = location;

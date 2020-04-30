@@ -1,16 +1,17 @@
 package fun.lewisdev.deluxehub;
 
 import com.sk89q.minecraft.util.commands.*;
-import fun.lewisdev.deluxehub.config.*;
+import fun.lewisdev.deluxehub.action.ActionManager;
+import fun.lewisdev.deluxehub.command.CommandManager;
+import fun.lewisdev.deluxehub.config.ConfigManager;
+import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.config.Messages;
+import fun.lewisdev.deluxehub.cooldown.CooldownManager;
+import fun.lewisdev.deluxehub.hook.HooksManager;
 import fun.lewisdev.deluxehub.inventory.InventoryManager;
 import fun.lewisdev.deluxehub.module.ModuleManager;
 import fun.lewisdev.deluxehub.module.ModuleType;
-import fun.lewisdev.deluxehub.command.CommandManager;
-import fun.lewisdev.deluxehub.cooldown.CooldownManager;
 import fun.lewisdev.deluxehub.module.modules.hologram.HologramManager;
-import fun.lewisdev.deluxehub.hook.HooksManager;
-import fun.lewisdev.deluxehub.action.ActionManager;
 import fun.lewisdev.deluxehub.utility.UpdateChecker;
 import org.bstats.bukkit.MetricsLite;
 import org.bukkit.Bukkit;

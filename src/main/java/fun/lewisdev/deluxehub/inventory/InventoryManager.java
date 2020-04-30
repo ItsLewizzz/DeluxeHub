@@ -2,15 +2,14 @@ package fun.lewisdev.deluxehub.inventory;
 
 import fun.lewisdev.deluxehub.DeluxeHub;
 import fun.lewisdev.deluxehub.inventory.inventories.CustomGUI;
-import fun.lewisdev.deluxehub.module.Module;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class InventoryManager {
 

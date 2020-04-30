@@ -9,7 +9,6 @@ import fun.lewisdev.deluxehub.module.modules.hotbar.items.PlayerHider;
 import fun.lewisdev.deluxehub.utility.ItemStackBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;

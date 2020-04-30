@@ -1,10 +1,10 @@
 package fun.lewisdev.deluxehub.module.modules.chat;
 
 import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.command.CustomCommand;
 import fun.lewisdev.deluxehub.config.Messages;
 import fun.lewisdev.deluxehub.module.Module;
 import fun.lewisdev.deluxehub.module.ModuleType;
-import fun.lewisdev.deluxehub.command.CustomCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;

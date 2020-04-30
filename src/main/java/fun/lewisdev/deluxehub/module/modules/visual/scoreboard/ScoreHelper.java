@@ -1,8 +1,6 @@
 package fun.lewisdev.deluxehub.module.modules.visual.scoreboard;
 
 import fun.lewisdev.deluxehub.utility.PlaceholderUtil;
-import me.clip.placeholderapi.PlaceholderAPI;
-import fun.lewisdev.deluxehub.DeluxeHub;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

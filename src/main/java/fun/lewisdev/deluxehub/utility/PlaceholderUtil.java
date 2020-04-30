@@ -1,7 +1,6 @@
 package fun.lewisdev.deluxehub.utility;
 
 import me.clip.placeholderapi.PlaceholderAPI;
-import fun.lewisdev.deluxehub.DeluxeHub;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -20,7 +19,7 @@ public class PlaceholderUtil {
 		
 		if (text.contains("%location%") && player != null) {
 			Location l = player.getLocation();
-			text = text.replace("%location%", String.valueOf(l.getBlockX() + ", " + l.getBlockY() + ", " + l.getBlockZ()));
+			text = text.replace("%location%", l.getBlockX() + ", " + l.getBlockY() + ", " + l.getBlockZ());
         }
 		
 		/*try {

@@ -4,7 +4,6 @@ import fun.lewisdev.deluxehub.DeluxeHub;
 import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.cooldown.CooldownManager;
 import fun.lewisdev.deluxehub.cooldown.CooldownType;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;

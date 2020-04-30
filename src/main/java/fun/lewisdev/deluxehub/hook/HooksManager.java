@@ -5,7 +5,6 @@ import fun.lewisdev.deluxehub.hook.hooks.head.BaseHead;
 import fun.lewisdev.deluxehub.hook.hooks.head.DatabaseHead;
 import fun.lewisdev.deluxehub.utility.PlaceholderUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
 import java.util.Map;

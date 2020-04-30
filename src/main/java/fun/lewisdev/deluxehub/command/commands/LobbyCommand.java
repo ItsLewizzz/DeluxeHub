@@ -37,9 +37,9 @@ public class LobbyCommand {
 		if(location == null) {
 			sender.sendMessage(TextUtil.color("&cThe spawn location has not been set &7(/setlobby)&c."));
 			return;
-		};
+		}
 
-		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> ((Player) sender).teleport(location), 3L);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> ((Player) sender).teleport(location), 3L);
 
 	}
 	
