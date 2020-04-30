@@ -1,0 +1,377 @@
+#    ____       __                __  __      __       _____
+#   / __ \___  / /_  ___  _____  / / / /_  __/ /_     |__  /
+#  / / / / _ \/ / / / / |/_/ _ \/ /_/ / / / / __ \     /_ <
+# / /_/ /  __/ / /_/ />  </  __/ __  / /_/ / /_/ /   ___/ /
+#/_____/\___/_/\__,_/_/|_|\___/_/ /_/\__,_/_.___/   /____/
+#
+# AUTHOR: Lewis D (ItsLewizzz)
+# WIKI: https://wiki.lewisdev.fun/free-resources/deluxehub
+# Copyright Lewis D 2020. All rights reserved.
+#--------
+# CUSTOM MENUS
+#   You can add more menus to the "DeluxeHub/menus" directory,
+#   copy and paste the default, server selector, menu and edit the file.
+#   Use the name of the file as the action ID.
+#--------
+# BUILT IN PLUGIN PLACEHOLDERS:
+#
+#   %player% - Returns player name
+#   %location% - Returns player location
+#   %online% - Returns number of players online
+#   %online_max% - Returns number of max player slots
+# 
+#        *** USE PLACEHOLDERAPI TO GET MORE ***
+#  (https://www.spigotmc.org/resources/placeholderapi.6245/)
+#--------
+# ACTIONS:
+#
+# [MESSAGE] - Send a message to the player
+# [BROADCAST] - Broadcast a message to everyone
+# [TITLE] e.g. MainTitle;Subtitle;FadeIn;Stay:FadeOut - Send the player a title message
+# [ACTIONBAR] Send an actionbar message
+# [SOUND] - Send the player a sound
+# [COMMAND] - Execute a command as the player
+# [CONSOLE] - Execute a command as console
+# [GAMEMODE] - Change a players' gamemode
+# [BUNGEE] - Send a player to a server
+# [EFFECT] e.g. EFFECT;LEVEL - Give a potion effect
+# [MENU] - Open a menu from (plugins/DeluxeHub/menus)
+# [CLOSE] - Close an open inventory gui
+#--------
+# MESSAGE FORMATTING:
+# <center> Centered message! </center> - Centers a message in chat
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# | GENERAL SETTINGS                         |
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+# Check for latest SpigotMC updates (recommended).
+check-updates: true
+
+# List any worlds you don't want DeluxeHub to manage.
+disabled-worlds:
+  # Should we invert the list making it a whitelist rather than a blacklist?
+  invert: false
+  # List your worlds here, set "worlds: {}" to disable
+  worlds:
+    - world_nether
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# | ANTI-WORLD DOWNLOADER                    | 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+# Prevent users downloading your world via the world downloader mod
+anti_wdl:
+  # Should AntiWDL be enabled?
+  enabled: true
+
+  # Should players with 'deluxehub.antiwdl.alert' will be notified?
+  notify_admins: true
+
+  # There is no need to kick the player if he is running WDL as our system hooks into the mod to prevent a world download
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# | SCOREBOARD                               |
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+scoreboard:
+  # Should the scoreboard feature be enabled?
+  enabled: true
+
+  # Should we delay showing the scoreboard?
+  # Value in ticks (20 ticks = 1 second), 0 to disable
+  display_delay:
+    server_enter: 60 # 3 seconds
+    world_change: 40 # 2 seconds
+
+  # Should we refresh the scoreboard (update placeholders)?
+  refresh:
+    enabled: true
+    rate: 200 # In ticks (20 ticks = 1 second)
+
+  title: "&d&lDeluxeHub 3 &7(%online%/%online_max%)"
+  lines:
+    - "&7&m----------------------"
+    - "&e&lPlayer:"
+    - "  &f%player%"
+    - ""
+    - "&e&lRank:"
+    - "  &f%vault_rank%"
+    - "&7&m----------------------"
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# |TABLIST                                   |
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+tablist:
+  # Should the tablist feature be enabled?
+  enabled: true
+
+  # Should we refresh the tablist (update placeholders)?
+  refresh:
+    enabled: true
+    rate: 400 # In ticks (20 ticks = 1 second)
+
+  # Modify the header of the tablist
+  header:
+    - ""
+    - "&d&lDeluxeHub &7(%online%/%online_max%)"
+    - ""
+
+  # Modify the footer of the tablist
+  footer:
+    - ""
+    - "&6&lWebsite &fwww.examplemc.net"
+    - "&e&lStore &fbuy.examplemc.net"
+    - ""
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# | AUTO BROADCAST                           |
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+announcements:
+  # Should the announcements system be enabled ?
+  enabled: true
+
+  # Delay to send announcements (in seconds)
+  delay: 60
+
+  sound:
+    enabled: true
+    value: BLOCK_NOTE_BLOCK_PLING
+    volume: 1.0
+    pitch: 1.0
+
+  # Announcement list
+  announcements:
+    test1:
+      - "&r"
+      - "<center>&e&lANNOUNCEMENT</center>"
+      - "<center>&7Rate this plugin 5 stars on Spigot!</center>"
+      - "&r"
+    test2:
+      - "&r"
+      - "<center>&e&lANNOUNCEMENT</center>"
+      - "<center>&7This plugin was created by &eItsLewizzz</center>"
+      - "&r"
+    test3:
+      - "&r"
+      - "<center>&e&lANNOUNCEMENT</center>"
+      - "<center>&7Configure these messages in the &bconfig.yml</center>"
+      - "&r"
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# | LAUNCHPAD                                |
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+launchpad:
+  # Should the launchpad feature be enabled ?
+  enabled: true
+
+  # Launch power for launchpad (max 4.0)
+  launch_power: 3.0
+  launch_power_y: 1.0
+
+  # Top and bottom block required to make a launchpad
+  top_block: STONE_PRESSURE_PLATE
+  bottom_block: REDSTONE_BLOCK
+
+  # Actions executed upon use of a launchpad
+  actions:
+    - '[SOUND] ENTITY_BAT_TAKEOFF'
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# | DOUBLE JUMP                              |
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+double_jump:
+  # Should the double jump feature be enabled?
+  enabled: true
+
+  # Launch power for double jump (max 4.0)
+  launch_power: 1.0
+  launch_power_y: 0.9
+
+  # Cooldown time in seconds (0 to disable)
+  cooldown: 3
+
+  # Actions executed upon use of double jump
+  actions:
+    - '[SOUND] ENTITY_BAT_TAKEOFF'
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# | CHAT MANAGEMENT                          |
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+command_block:
+  # Should the command blocker feature be enabled?
+  enabled: true
+
+  # List of commands that will be blocked
+  blocked_commands:
+    - /pl
+    - /plugins
+    - /?
+    - /bukkit:?
+    - /bukkit:plugins
+    - /bukkit:pl
+    - /bukkit:help
+    - /ver
+    - /version
+    - /bukkit:version
+    - /bukkit:ver
+
+anti_swear:
+  # Should the anti-swear feature be enabled?
+  enabled: true
+
+  # List of words that will be blocked
+  blocked_words:
+    - fuck
+    - shit
+    - bitch
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# | WORLD EVENT SETTINGS                     |
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+world_settings:
+
+  # Player
+  disable_hunger_loss: true
+  disable_fall_damage: true
+  disable_player_pvp: true
+  disable_void_death: true
+
+  # Misc
+  disable_weather_change: true
+  disable_death_message: true
+  disable_mob_spawning: true
+
+  # Item entities
+  disable_item_drop: true
+  disable_item_pickup: true
+
+  # Blocks
+  disable_block_break: true
+  disable_block_place: true
+  disable_block_interact: true # Chest, furnace, crop tample, etc
+  disable_block_burn: true
+  disable_block_fire_spread: true
+  disable_block_leaf_decay: true
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# | PLAYER JOIN EVENT                        |
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+join_leave_messages:
+  # Should deluxehub handle join/quit messages?
+  enabled: true
+
+  # Set to '' if you want silent join/quit messages
+  join_message: "&2&l+ &6%player% &7Connected"
+  quit_message: "&4&l- &6%player% &7Disconnected"
+
+# Actions executed upon join
+join_events:
+  - "[MESSAGE] &8&m+---------------***---------------+"
+  - "[MESSAGE] &r"
+  - "[MESSAGE] &r    &7Welcome, &b&n%player%&r &7to the server"
+  - "[MESSAGE] &r"
+  - "[MESSAGE] &r  &2&lWEBSITE &fwww.examplemc.net"
+  - "[MESSAGE] &r  &3&lSTORE &fstore.examplemc.net"
+  - "[MESSAGE] &r  &9&lDISCORD &fhttps://discord.lewisdev.fun"
+  - "[MESSAGE] &r"
+  - "[MESSAGE] &r            &7&oPowered By DeluxeHub"
+  - "[MESSAGE] &8&m+---------------***---------------+"
+  - "[TITLE] &b&lWELCOME;&f%player%;1;2;1"
+  - "[SOUND] ENTITY_PLAYER_LEVELUP"
+  - "[GAMEMODE] survival"
+  - "[EFFECT] SPEED;1"
+
+join_settings:
+  # Should we teleport the player to the spawn point (if set) on join?
+  spawn_join: true
+  # Should we heal the player?
+  heal: true
+  # Should we extinguish the player?
+  extinguish: true
+  # Should we clear their inventory?
+  clear_inventory: false
+  # Spawn a firework on join
+  firework:
+    # Should we send a firework on join?
+    enabled: true
+    # Should we only send the firework on their first join?
+    first_join_only: true
+
+    type: BALL_LARGE
+    power: 1
+    flicker: true
+    trail: true
+    colors:
+      - AQUA
+      - RED
+      - TEAL
+      - WHITE
+
+custom_join_items:
+  # Should custom join items be enabled?
+  enabled: true
+  # Should we prevent them from moving/dropping the items?
+  disable_inventory_movement: true
+
+  items:
+    infobook:
+      material: BOOK
+      amount: 1
+      slot: 0
+      display_name: "&dServer Information"
+      lore:
+        - "&7Right-click to see information about the server!"
+      actions:
+        - "[MESSAGE] &r"
+        - "[MESSAGE] &e&lServer Information"
+        - "[MESSAGE] &r"
+        - "[MESSAGE] &bWebsite: &fwww.examplemc.net"
+        - "[MESSAGE] &cStore: &fbuy.examplemc.net"
+        - "[MESSAGE] &dDiscord: &fhttps://discord.lewisdev.fun"
+        - "[MESSAGE] &r"
+    server_selector:
+      material: NETHER_STAR
+      amount: 1
+      slot: 4
+      display_name: "&eServer Selector"
+      lore:
+        - "&7Right-click to open the server selector!"
+      actions:
+        - "[MENU] serverselector"
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# | PLAYER HIDER                             |
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+player_hider:
+  # Should the player hider feature be enabled?
+  enabled: true
+  # Slot the item should be given to?
+  slot: 8
+  # Should we prevent them from moving/dropping the item?
+  disable_inventory_movement: true
+  # Cooldown in seconds
+  # Set to 0 to disable
+  cooldown: 3
+
+  not_hidden:
+    material: LIME_DYE
+    amount: 1
+    display_name: '&dPlayers &8&l> &aShown &7(Right-Click)'
+    lore:
+      - '&7Click to hide all players!'
+
+  hidden:
+    material: GRAY_DYE
+    amount: 1
+    display_name: '&dPlayers &8&l> &cHidden &7(Right-Click)'
+    lore:
+      - '&7Click to show all players!'

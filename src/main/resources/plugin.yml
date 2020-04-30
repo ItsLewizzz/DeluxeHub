@@ -1,0 +1,64 @@
+name: ${project.name}
+author: ItsLewizzz
+version: ${project.version}
+description: ${project.description}
+website: ${project.url}
+api-version: 1.13
+main: fun.lewisdev.deluxehub.DeluxeHub
+loadbefore: [Essentials]
+softdepend: [PlaceholderAPI, HeadDatabase]
+permissions:
+  deluxehub.*:
+    description: Gives access to all DeluxeHub permissions
+    children:
+      deluxehub.command.*: true
+      deluxehub.bypass.*: true
+      deluxehub.alert.*: true
+      deluxehub.item.*: true
+      deluxehub.player.*: true
+      deluxehub.block.*: true
+  deluxehub.command.*:
+    description: Gives access to all command permissions
+    children:
+      deluxehub.command.help: true
+      deluxehub.command.reload: true
+      deluxehub.command.scoreboard: true
+      deluxehub.command.openmenu: true
+      deluxehub.command.holograms: true
+      deluxehub.command.gamemode: true
+      deluxehub.command.gamemode.others: true
+      deluxehub.command.clearchat: true
+      deluxehub.command.lockchat: true
+      deluxehub.command.fly: true
+      deluxehub.command.fly.others: true
+      deluxehub.command.setlobby: true
+      deluxehub.command.vanish: true
+  deluxehub.bypass.*:
+    description: Gives access to all bypass permissions
+    children:
+      deluxehub.bypass.antiswear: true
+      deluxehub.bypass.commands: true
+      deluxehub.bypass.lockchat: true
+      deluxehub.bypass.antiwdl: true
+      deluxehub.bypass.doublejump: true
+  deluxehub.alert.*:
+    description: Gives access to all alert permissions
+    children:
+      deluxehub.alert.updates: true
+      deluxehub.alert.antiswear: true
+      deluxehub.alert.antiwdl: true
+  deluxehub.item.*:
+    description: Gives access to all item based permissions
+    children:
+      deluxehub.item.drop: true
+      deluxehub.item.pickup: true
+  deluxehub.player.*:
+    description: Gives access to all player based permissions
+    children:
+      deluxehub.player.pvp: true
+  deluxehub.block.*:
+    description: Gives access to all block based permissions
+    children:
+      deluxehub.block.break: true
+      deluxehub.block.place: true
+      deluxehub.block.interact: true

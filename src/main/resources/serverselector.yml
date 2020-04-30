@@ -1,0 +1,78 @@
+# Server Selector GUI
+# The ID of this inventory is 'serverselector' which you can open using the [MENU] action (e.g. "[MENU] serverselector").
+# You can create more custom GUIs, just copy this entire file and paste a new one in the menus directory. The name of the file is the menu ID.
+#
+# PLAYER HEADS
+#   You can have player heads, using player names, base64 or HeadDatabase IDs.
+#   Examples
+#     Username (must have logged into the server once)
+#       material: PLAYER_HEAD
+#       username: <name>
+#
+#     Base64
+#       material: PLAYER_HEAD
+#       base64: <base64 id>
+#
+#     HeadDatabase
+#       material: PLAYER_HEAD
+#       hdb: <hdb id>
+#
+# ITEM FLAGS
+#   You can add flags to the item (https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/inventory/ItemFlag.html)
+#   Example:
+#     item_flags:
+#       - HIDE_ATTRIBUTES
+#       - HIDE_DESTROYS
+#       - HIDE_ENCHANTS
+#       - HIDE_PLACED_ON
+#       - HIDE_POTION_EFFECTS
+#       - HIDE_UNBREAKABLE
+#
+# ITEM ACTIONS
+#   All item actions can be found here https://wiki.lewisdev.fun/free-resources/deluxehub/action-types
+
+# Slots of the GUI
+slots: 27
+
+# Title of the GUI
+title: "Server Selector"
+
+# Automatically update open inventories.
+# This can be used to update placeholders in the GUI.
+refresh:
+  enabled: false
+  rate: 40
+
+# The items inside the GUI can be listed here
+items:
+  filler:
+    material: GRAY_STAINED_GLASS_PANE
+    slot: -1 # Setting the slot to -1 will fill every empty slot, you can also do "slots: [0, 1, 2]"
+  factions:
+    material: TNT
+    slot: 11
+    amount: 1
+    glow: true
+    display_name: '&eFactions'
+    lore:
+      - '&7Join now!'
+      - '&aPlaceholderAPI support!'
+    actions:
+      - '[CLOSE]'
+      - '[MESSAGE] &7Sending you to: &eFactions'
+      - '[BUNGEE] factions'
+      # For multi-world servers using Multiverse-Core, use the action:
+      # - '[CONSOLE] mvtp %player% world'
+  survival:
+    material: GRASS
+    slot: 15
+    amount: 1
+    glow: false
+    display_name: '&aSurvival'
+    lore:
+      - '&7Join now!'
+      - '&aMulti lore support too!'
+    actions:
+      - '[CLOSE]'
+      - '[MESSAGE] &7Sending you to: &eSurvival'
+      - '[BUNGEE] survival'
