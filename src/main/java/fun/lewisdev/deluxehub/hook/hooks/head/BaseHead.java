@@ -24,7 +24,7 @@ public class BaseHead implements PluginHook, HeadHook {
 
     @Override
     public ItemStack getHead(String data) {
-        if(cache.containsKey(data)) return cache.get(data);
+        if (cache.containsKey(data)) return cache.get(data);
 
         ItemStack head = XMaterial.PLAYER_HEAD.parseItem();
         SkullMeta meta = (SkullMeta) head.getItemMeta();

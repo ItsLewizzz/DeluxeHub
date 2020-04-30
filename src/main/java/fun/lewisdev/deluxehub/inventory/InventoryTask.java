@@ -15,9 +15,9 @@ public class InventoryTask implements Runnable {
 
     @Override
     public void run() {
-        for(UUID uuid : inventory.getOpenInventories()) {
+        for (UUID uuid : inventory.getOpenInventories()) {
             Player player = Bukkit.getPlayer(uuid);
-            if(player != null) {
+            if (player != null) {
                 inventory.refreshInventory(player, player.getOpenInventory().getTopInventory());
             }
         }

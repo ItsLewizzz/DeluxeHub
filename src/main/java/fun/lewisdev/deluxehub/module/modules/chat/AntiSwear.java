@@ -27,7 +27,8 @@ public class AntiSwear extends Module {
     }
 
     @Override
-    public void onDisable() {}
+    public void onDisable() {
+    }
 
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {

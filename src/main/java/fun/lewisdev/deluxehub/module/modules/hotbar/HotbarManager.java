@@ -27,23 +27,23 @@ public class HotbarManager extends Module {
         hotbarItems = new ArrayList<>();
         FileConfiguration config = getConfig(ConfigType.SETTINGS);
 
-        if(config.getBoolean("custom_join_items.enabled")) {
+        if (config.getBoolean("custom_join_items.enabled")) {
 
             for (String entry : config.getConfigurationSection("custom_join_items.items").getKeys(false)) {
-               ItemStack item = ItemStackBuilder.getItemStack(config.getConfigurationSection("custom_join_items.items." + entry)).build();
-               CustomItem customItem = new CustomItem(this, item, config.getInt("custom_join_items.items." + entry + ".slot"), entry);
+                ItemStack item = ItemStackBuilder.getItemStack(config.getConfigurationSection("custom_join_items.items." + entry)).build();
+                CustomItem customItem = new CustomItem(this, item, config.getInt("custom_join_items.items." + entry + ".slot"), entry);
 
-               if(config.contains("custom_join_items.items." + entry + ".permission")) {
-                   customItem.setPermission(config.getString("custom_join_items.items." + entry + ".permission"));
-               }
+                if (config.contains("custom_join_items.items." + entry + ".permission")) {
+                    customItem.setPermission(config.getString("custom_join_items.items." + entry + ".permission"));
+                }
 
-               customItem.setAllowMovement(config.getBoolean("custom_join_items.disable_inventory_movement"));
-               registerHotbarItem(customItem);
+                customItem.setAllowMovement(config.getBoolean("custom_join_items.disable_inventory_movement"));
+                registerHotbarItem(customItem);
             }
 
         }
 
-        if(config.getBoolean("player_hider.enabled")) {
+        if (config.getBoolean("player_hider.enabled")) {
             ItemStack item = ItemStackBuilder.getItemStack(config.getConfigurationSection("player_hider.not_hidden")).build();
             PlayerHider playerHider = new PlayerHider(this, item, config.getInt("player_hider.slot"), "PLAYER_HIDER");
 

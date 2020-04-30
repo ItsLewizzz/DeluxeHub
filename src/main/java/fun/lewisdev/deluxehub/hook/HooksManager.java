@@ -12,36 +12,36 @@ import java.util.Objects;
 
 public class HooksManager {
 
-	private Map<String, PluginHook> hooks;
-	
-	public HooksManager(DeluxeHub plugin) {
-		hooks = new HashMap<>();
+    private Map<String, PluginHook> hooks;
 
-		// Base64 head
-		hooks.put("BASE64", new BaseHead());
+    public HooksManager(DeluxeHub plugin) {
+        hooks = new HashMap<>();
 
-		// PlaceholderAPI
-    	if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-    		hooks.put("PLACEHOLDER_API", null);
-			PlaceholderUtil.PAPI = true;
-    		plugin.getLogger().info(" Hooked into PlaceholderAPI");
-		}
+        // Base64 head
+        hooks.put("BASE64", new BaseHead());
 
-		if (Bukkit.getPluginManager().isPluginEnabled("HeadDatabase")) {
-			hooks.put("HEAD_DATABASE", new DatabaseHead());
-			plugin.getLogger().info(" Hooked into HeadDatabase");
-		}
+        // PlaceholderAPI
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            hooks.put("PLACEHOLDER_API", null);
+            PlaceholderUtil.PAPI = true;
+            plugin.getLogger().info(" Hooked into PlaceholderAPI");
+        }
 
-		hooks.values().stream().filter(Objects::nonNull).forEach(pluginHook -> pluginHook.onEnable(plugin));
+        if (Bukkit.getPluginManager().isPluginEnabled("HeadDatabase")) {
+            hooks.put("HEAD_DATABASE", new DatabaseHead());
+            plugin.getLogger().info(" Hooked into HeadDatabase");
+        }
 
-	}
+        hooks.values().stream().filter(Objects::nonNull).forEach(pluginHook -> pluginHook.onEnable(plugin));
 
-	public boolean isHookEnabled(String id) {
-		return hooks.containsKey(id);
-	}
+    }
 
-	public PluginHook getPluginHook(String id) {
-		return hooks.get(id);
-	}
+    public boolean isHookEnabled(String id) {
+        return hooks.containsKey(id);
+    }
+
+    public PluginHook getPluginHook(String id) {
+        return hooks.get(id);
+    }
 
 }

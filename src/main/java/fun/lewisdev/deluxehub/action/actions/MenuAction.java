@@ -17,9 +17,9 @@ public class MenuAction implements Action {
     public void execute(DeluxeHub plugin, Player player, String data) {
         AbstractInventory inventory = plugin.getInventoryManager().getInventory(data);
 
-        if(inventory != null) {
+        if (inventory != null) {
             inventory.openInventory(player);
-        }else{
+        } else {
             plugin.getLogger().warning("[MENU] Action Failed: Menu '" + data + "' not found.");
         }
     }

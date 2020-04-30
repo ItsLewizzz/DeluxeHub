@@ -35,14 +35,14 @@ public class PlayerVanish extends Module {
     }
 
     public void toggleVanish(Player player) {
-        if(isVanished(player)) {
+        if (isVanished(player)) {
             vanished.remove(player.getUniqueId());
             Bukkit.getOnlinePlayers().forEach(pl -> pl.showPlayer(player));
 
             player.sendMessage(Messages.VANISH_DISABLE.toString());
             player.removePotionEffect(PotionEffectType.NIGHT_VISION);
 
-        }else{
+        } else {
             vanished.add(player.getUniqueId());
             Bukkit.getOnlinePlayers().forEach(pl -> pl.hidePlayer(player));
 

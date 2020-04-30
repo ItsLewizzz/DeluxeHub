@@ -16,31 +16,31 @@ import org.bukkit.entity.Player;
 
 public class LobbyCommand {
 
-	private DeluxeHub plugin;
+    private DeluxeHub plugin;
 
-	public LobbyCommand(DeluxeHub plugin) {
-		this.plugin = plugin;
-	}
+    public LobbyCommand(DeluxeHub plugin) {
+        this.plugin = plugin;
+    }
 
-	@Command(
-			aliases = {"lobby"},
-			desc = "Teleport to the lobby (if set)"
-	)
-	public void lobby(final CommandContext args, final CommandSender sender) throws CommandException {
+    @Command(
+            aliases = {"lobby"},
+            desc = "Teleport to the lobby (if set)"
+    )
+    public void lobby(final CommandContext args, final CommandSender sender) throws CommandException {
 
-		if (!(sender instanceof Player)) {
-			sender.sendMessage("Console cannot teleport to spawn");
-			return;
-		}
+        if (!(sender instanceof Player)) {
+            sender.sendMessage("Console cannot teleport to spawn");
+            return;
+        }
 
-		Location location = ((LobbySpawn) plugin.getModuleManager().getModule(ModuleType.LOBBY)).getLocation();
-		if(location == null) {
-			sender.sendMessage(TextUtil.color("&cThe spawn location has not been set &7(/setlobby)&c."));
-			return;
-		}
+        Location location = ((LobbySpawn) plugin.getModuleManager().getModule(ModuleType.LOBBY)).getLocation();
+        if (location == null) {
+            sender.sendMessage(TextUtil.color("&cThe spawn location has not been set &7(/setlobby)&c."));
+            return;
+        }
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> ((Player) sender).teleport(location), 3L);
 
-	}
-	
+    }
+
 }

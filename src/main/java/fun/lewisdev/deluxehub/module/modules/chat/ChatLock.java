@@ -32,7 +32,7 @@ public class ChatLock extends Module {
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
 
-        if(!isChatLocked || player.hasPermission(Permissions.LOCK_CHAT_BYPASS.getPermission())) return;
+        if (!isChatLocked || player.hasPermission(Permissions.LOCK_CHAT_BYPASS.getPermission())) return;
 
         event.setCancelled(true);
         player.sendMessage(Messages.CHAT_LOCKED.toString());

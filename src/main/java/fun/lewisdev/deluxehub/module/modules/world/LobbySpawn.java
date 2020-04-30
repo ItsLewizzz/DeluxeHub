@@ -24,7 +24,7 @@ public class LobbySpawn extends Module {
     @Override
     public void onEnable() {
         FileConfiguration config = getConfig(ConfigType.DATA);
-        if(config.isSet("spawn")) location = (Location) config.get("spawn");
+        if (config.isSet("spawn")) location = (Location) config.get("spawn");
     }
 
     @Override
@@ -43,7 +43,8 @@ public class LobbySpawn extends Module {
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        if(location != null && !inDisabledWorld(player.getLocation())) Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> player.teleport(location), 3L);
+        if (location != null && !inDisabledWorld(player.getLocation()))
+            Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> player.teleport(location), 3L);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

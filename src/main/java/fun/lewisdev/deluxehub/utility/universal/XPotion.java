@@ -112,8 +112,8 @@ public enum XPotion {
      * @return a Material enum name.
      * @since 1.0.0
      */
-    
-    private static String format( String name) {
+
+    private static String format(String name) {
         return FORMAT_PATTERN.matcher(
                 name.trim().replace('-', '_').replace(' ', '_')).replaceAll("").toUpperCase(Locale.ENGLISH);
     }
@@ -126,8 +126,8 @@ public enum XPotion {
      * @return a potion effect type.
      * @since 1.0.0
      */
-    
-    public static Optional<XPotion> matchXPotion( String potion) {
+
+    public static Optional<XPotion> matchXPotion(String potion) {
         Validate.notEmpty(potion, "Cannot match XPotion of a null or empty potion effect type");
         PotionEffectType idType = getIdFromString(potion);
         if (idType != null) return Optional.of(matchXPotion(idType));
@@ -146,8 +146,8 @@ public enum XPotion {
      * @throws IllegalArgumentException may be thrown as an unexpected exception.
      * @since 1.0.0
      */
-    
-    public static XPotion matchXPotion( PotionEffectType type) {
+
+    public static XPotion matchXPotion(PotionEffectType type) {
         Objects.requireNonNull(type, "Cannot match XPotion of a null potion effect type");
         try {
             return valueOf(type.getName());
@@ -163,9 +163,9 @@ public enum XPotion {
      * @return a potion effect type from the ID, or null if it's not an ID or the effect is not found.
      * @since 1.0.0
      */
-    
+
     @SuppressWarnings("deprecation")
-    private static PotionEffectType getIdFromString( String type) {
+    private static PotionEffectType getIdFromString(String type) {
         try {
             int id = Integer.parseInt(type);
             return PotionEffectType.getById(id);
@@ -188,8 +188,8 @@ public enum XPotion {
      * @see #parsePotion(int, int)
      * @since 1.0.0
      */
-    
-    public static PotionEffect parsePotionEffectFromString( String potion) {
+
+    public static PotionEffect parsePotionEffectFromString(String potion) {
         if (Strings.isNullOrEmpty(potion) || potion.equalsIgnoreCase("none")) return null;
         String[] split = StringUtils.contains(potion, ',') ?
                 StringUtils.split(StringUtils.deleteWhitespace(potion), ',') :
@@ -221,7 +221,7 @@ public enum XPotion {
      * @see #parsePotionEffectFromString(String)
      * @since 1.0.0
      */
-    public static void addPotionEffectsFromString( Player player,  List<String> effects) {
+    public static void addPotionEffectsFromString(Player player, List<String> effects) {
         if (effects == null || effects.isEmpty()) return;
         Objects.requireNonNull(player, "Cannot add potion effects to null player");
 
@@ -241,8 +241,8 @@ public enum XPotion {
      * @return a thrown splash potion.
      * @since 1.0.0
      */
-    
-    public static ThrownPotion throwPotion( LivingEntity entity,  Color color,  PotionEffect... effects) {
+
+    public static ThrownPotion throwPotion(LivingEntity entity, Color color, PotionEffect... effects) {
         Objects.requireNonNull(entity, "Cannot throw potion from null entity");
         @SuppressWarnings("deprecation")
         ItemStack potion = Material.getMaterial("SPLASH_POTION") == null ?
@@ -278,8 +278,8 @@ public enum XPotion {
      * @return an item with the specified effects.
      * @since 1.0.0
      */
-    
-    public static ItemStack buildItemWithEffects( Material type,  Color color,  PotionEffect... effects) {
+
+    public static ItemStack buildItemWithEffects(Material type, Color color, PotionEffect... effects) {
         Objects.requireNonNull(type, "Cannot build an effected item with null type");
         Validate.isTrue(canHaveEffects(type), "Cannot build item with " + type.name() + " potion type");
 
@@ -303,7 +303,7 @@ public enum XPotion {
      * @return true if the material is a potion, otherwise false.
      * @since 1.0.0
      */
-    public static boolean canHaveEffects( Material material) {
+    public static boolean canHaveEffects(Material material) {
         if (material == null) return false;
         return material.name().endsWith("POTION") || material.name().startsWith("TI"); // TIPPED_ARROW
     }
@@ -315,7 +315,7 @@ public enum XPotion {
      * @return true of the aliases contains the potion type.
      * @since 1.0.0
      */
-    private boolean anyMatchAliases( String potionEffect) {
+    private boolean anyMatchAliases(String potionEffect) {
         for (String alias : aliases)
             if (potionEffect.equals(alias) || potionEffect.equals(StringUtils.remove(alias, '_'))) return true;
         return false;
@@ -328,7 +328,7 @@ public enum XPotion {
      * @see #getPotionType()
      * @since 1.0.0
      */
-    
+
     public PotionEffectType parsePotionEffectType() {
         return PotionEffectType.getByName(this.name());
     }
@@ -358,7 +358,7 @@ public enum XPotion {
      * @since 1.0.0
      * @deprecated not for removal. Use {@link PotionEffectType} instead.
      */
-    
+
     @Deprecated
     public PotionType getPotionType() {
         PotionEffectType type = this.parsePotionEffectType();
@@ -374,13 +374,13 @@ public enum XPotion {
      * @see #parsePotionEffectFromString(String)
      * @since 1.0.0
      */
-    
+
     public PotionEffect parsePotion(int duration, int amplifier) {
         PotionEffectType type = this.parsePotionEffectType();
         return type == null ? null : new PotionEffect(type, duration, amplifier);
     }
 
-    
+
     public String[] getAliases() {
         return aliases;
     }

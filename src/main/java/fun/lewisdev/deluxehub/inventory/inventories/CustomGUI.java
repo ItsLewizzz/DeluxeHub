@@ -28,7 +28,7 @@ public class CustomGUI extends AbstractInventory {
             setInventoryRefresh(config.getLong("refresh.rate"));
         }
 
-        for(String entry : config.getConfigurationSection("items").getKeys(false)) {
+        for (String entry : config.getConfigurationSection("items").getKeys(false)) {
 
             try {
                 ItemStackBuilder builder = ItemStackBuilder.getItemStack(config.getConfigurationSection("items." + entry));
@@ -46,14 +46,14 @@ public class CustomGUI extends AbstractInventory {
                     }
                 } else if (config.contains("items." + entry + ".slot")) {
                     int slot = config.getInt("items." + entry + ".slot");
-                    if(slot == -1) {
-                        while(inventoryBuilder.getInventory().firstEmpty() != -1) {
+                    if (slot == -1) {
+                        while (inventoryBuilder.getInventory().firstEmpty() != -1) {
                             inventoryBuilder.setItem(inventoryBuilder.getInventory().firstEmpty(), inventoryItem);
                         }
-                    }else inventoryBuilder.setItem(slot, inventoryItem);
+                    } else inventoryBuilder.setItem(slot, inventoryItem);
                 }
 
-            }catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 getPlugin().getLogger().warning("There was an error loading GUI item ID '" + entry + "', skipping..");
             }

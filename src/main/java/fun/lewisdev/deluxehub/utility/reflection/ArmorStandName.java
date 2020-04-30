@@ -6,12 +6,12 @@ import org.bukkit.entity.ArmorStand;
 public class ArmorStandName {
 
     public static String getName(ArmorStand stand) {
-        if(DeluxeHub.SERVER_VERSION > 8) return stand.getCustomName();
+        if (DeluxeHub.SERVER_VERSION > 8) return stand.getCustomName();
 
         String name = null;
         try {
             name = (String) ArmorStand.class.getMethod("getCustomName").invoke(stand);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return name;

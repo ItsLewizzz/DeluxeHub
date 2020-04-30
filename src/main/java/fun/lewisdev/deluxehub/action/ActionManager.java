@@ -49,8 +49,8 @@ public class ActionManager {
             String actionName = StringUtils.substringBetween(item, "[", "]").toUpperCase();
             Action action = actionName.isEmpty() ? null : actions.get(actionName);
 
-            if(action != null) {
-                item = item.contains(" ") ?  item.split(" ", 2)[1] : "";
+            if (action != null) {
+                item = item.contains(" ") ? item.split(" ", 2)[1] : "";
                 item = PlaceholderUtil.setPlaceholders(item, player);
 
                 action.execute(plugin, player, item);

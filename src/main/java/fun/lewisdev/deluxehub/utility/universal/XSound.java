@@ -919,8 +919,8 @@ public enum XSound {
      * @return a Sound enum name.
      * @since 1.0.0
      */
-    
-    private static String format( String name) {
+
+    private static String format(String name) {
         return FORMAT_PATTERN.matcher(
                 name.trim().replace('-', '_').replace(' ', '_')).replaceAll("").toUpperCase(Locale.ENGLISH);
     }
@@ -932,7 +932,7 @@ public enum XSound {
      * @return true if XSound enum has this sound.
      * @since 1.0.0
      */
-    public static boolean contains( String sound) {
+    public static boolean contains(String sound) {
         Validate.notEmpty(sound, "Cannot check for null or empty sound name");
         sound = format(sound);
 
@@ -948,8 +948,8 @@ public enum XSound {
      * @return a matched XSound.
      * @since 1.0.0
      */
-    
-    public static Optional<XSound> matchXSound( String sound) {
+
+    public static Optional<XSound> matchXSound(String sound) {
         Validate.notEmpty(sound, "Cannot match XSound of a null or empty sound name");
         sound = format(sound);
 
@@ -966,8 +966,8 @@ public enum XSound {
      * @throws IllegalArgumentException may be thrown as an unexpected exception.
      * @since 2.0.0
      */
-    
-    public static XSound matchXSound( Sound sound) {
+
+    public static XSound matchXSound(Sound sound) {
         Objects.requireNonNull(sound, "Cannot match XSound of a null sound");
         return matchXSound(sound.name())
                 .orElseThrow(() -> new IllegalArgumentException("Unsupported Sound: " + sound.name()));
@@ -996,7 +996,7 @@ public enum XSound {
      * @param sound  the string of the sound with volume and pitch (if needed).
      * @since 1.0.0
      */
-    public static CompletableFuture<Void> playSoundFromString( Player player,  String sound) {
+    public static CompletableFuture<Void> playSoundFromString(Player player, String sound) {
         Objects.requireNonNull(player, "Cannot play sound to null player");
         return CompletableFuture.runAsync(() -> {
             if (Strings.isNullOrEmpty(sound) || sound.equalsIgnoreCase("none")) return;
@@ -1041,7 +1041,7 @@ public enum XSound {
      * @see #stopSound(Player)
      * @since 2.0.0
      */
-    public static CompletableFuture<Void> stopMusic( Player player) {
+    public static CompletableFuture<Void> stopMusic(Player player) {
         Objects.requireNonNull(player, "Cannot stop playing musics from null player");
 
         // We don't need to cache because it's rarely used.
@@ -1075,7 +1075,7 @@ public enum XSound {
      * @return a list of legacy sound names.
      * @since 1.0.0
      */
-    
+
     public String[] getLegacy() {
         return legacy;
     }
@@ -1086,7 +1086,7 @@ public enum XSound {
      * @return the vanilla sound.
      * @since 1.0.0
      */
-    
+
     @SuppressWarnings({"Guava", "OptionalAssignedToNull"})
     public Sound parseSound() {
         com.google.common.base.Optional<Sound> cachedSound = CACHE.getIfPresent(this);
@@ -1132,7 +1132,7 @@ public enum XSound {
      * @return true if it's one of the legacy names.
      * @since 1.0.0
      */
-    public boolean anyMatchLegacy( String name) {
+    public boolean anyMatchLegacy(String name) {
         Validate.notEmpty(name, "Cannot check for legacy name for null or empty sound name");
         return Arrays.asList(this.legacy).contains(format(name));
     }
@@ -1179,7 +1179,7 @@ public enum XSound {
      * @param delay       the delay between each play.
      * @since 2.0.0
      */
-    public void playAscendingNote( JavaPlugin plugin,  Player player,  Entity playTo, Instrument instrument, int ascendLevel, int delay) {
+    public void playAscendingNote(JavaPlugin plugin, Player player, Entity playTo, Instrument instrument, int ascendLevel, int delay) {
         Objects.requireNonNull(player, "Cannot play note from null player");
         Objects.requireNonNull(playTo, "Cannot play note to null entity");
 
@@ -1205,7 +1205,7 @@ public enum XSound {
      * @see #stopMusic(Player)
      * @since 2.0.0
      */
-    public void stopSound( Player player) {
+    public void stopSound(Player player) {
         Objects.requireNonNull(player, "Cannot stop playing sound from null player");
 
         Sound sound = this.parseSound();
@@ -1218,7 +1218,7 @@ public enum XSound {
      * @param entity the entity to play the sound to.
      * @since 1.0.0
      */
-    public void playSound( Entity entity) {
+    public void playSound(Entity entity) {
         playSound(entity, 1.0f, 1.0f);
     }
 
@@ -1230,7 +1230,7 @@ public enum XSound {
      * @param pitch  the pitch of the sound, 0 is normal.
      * @since 1.0.0
      */
-    public void playSound( Entity entity, float volume, float pitch) {
+    public void playSound(Entity entity, float volume, float pitch) {
         Objects.requireNonNull(entity, "Cannot play sound to a null entity");
         playSound(entity.getLocation(), volume, pitch);
     }
@@ -1241,7 +1241,7 @@ public enum XSound {
      * @param location the location to play the sound in.
      * @since 2.0.0
      */
-    public void playSound( Location location) {
+    public void playSound(Location location) {
         playSound(location, 1.0f, 1.0f);
     }
 
@@ -1253,7 +1253,7 @@ public enum XSound {
      * @param pitch    the pitch of the sound, 0 is normal.
      * @since 2.0.0
      */
-    public void playSound( Location location, float volume, float pitch) {
+    public void playSound(Location location, float volume, float pitch) {
         Objects.requireNonNull(location, "Cannot play sound to null location");
         Sound sound = this.parseSound();
 

@@ -12,9 +12,7 @@ import org.bukkit.scoreboard.Team;
 import java.util.List;
 
 /**
- *
  * @author crisdev333
- *
  */
 public class ScoreHelper {
 
@@ -29,7 +27,7 @@ public class ScoreHelper {
         sidebar = scoreboard.registerNewObjective("sidebar", "dummy");
         sidebar.setDisplaySlot(DisplaySlot.SIDEBAR);
         // Create Teams
-        for(int i=1; i<=15; i++) {
+        for (int i = 1; i <= 15; i++) {
             Team team = scoreboard.registerNewTeam("SLOT_" + i);
             team.addEntry(genEntry(i));
         }
@@ -39,13 +37,13 @@ public class ScoreHelper {
     public void setTitle(String title) {
         title = PlaceholderUtil.setPlaceholders(title, this.player);
         title = ChatColor.translateAlternateColorCodes('&', title);
-        sidebar.setDisplayName(title.length()>32 ? title.substring(0, 32) : title);
+        sidebar.setDisplayName(title.length() > 32 ? title.substring(0, 32) : title);
     }
 
     public void setSlot(int slot, String text) {
         Team team = scoreboard.getTeam("SLOT_" + slot);
         String entry = genEntry(slot);
-        if(!scoreboard.getEntries().contains(entry)) {
+        if (!scoreboard.getEntries().contains(entry)) {
             sidebar.getScore(entry).setScore(slot);
         }
 
@@ -59,25 +57,25 @@ public class ScoreHelper {
 
     public void removeSlot(int slot) {
         String entry = genEntry(slot);
-        if(scoreboard.getEntries().contains(entry)) {
+        if (scoreboard.getEntries().contains(entry)) {
             scoreboard.resetScores(entry);
         }
     }
 
     public void setSlotsFromList(List<String> list) {
-        while(list.size()>15) {
-            list.remove(list.size()-1);
+        while (list.size() > 15) {
+            list.remove(list.size() - 1);
         }
 
         int slot = list.size();
 
-        if(slot<15) {
-            for(int i=(slot +1); i<=15; i++) {
+        if (slot < 15) {
+            for (int i = (slot + 1); i <= 15; i++) {
                 removeSlot(i);
             }
         }
 
-        for(String line : list) {
+        for (String line : list) {
             setSlot(slot, line);
             slot--;
         }
@@ -88,14 +86,14 @@ public class ScoreHelper {
     }
 
     private String getFirstSplit(String s) {
-        return s.length()>16 ? s.substring(0, 16) : s;
+        return s.length() > 16 ? s.substring(0, 16) : s;
     }
 
     private String getSecondSplit(String s) {
-        if(s.length()>32) {
+        if (s.length() > 32) {
             s = s.substring(0, 32);
         }
-        return s.length()>16 ? s.substring(16) : "";
+        return s.length() > 16 ? s.substring(16) : "";
     }
 
 }

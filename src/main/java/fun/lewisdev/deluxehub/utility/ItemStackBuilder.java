@@ -37,36 +37,34 @@ public class ItemStackBuilder {
 
         ItemStack item = XMaterial.matchXMaterial(section.getString("material")).get().parseItem();
 
-        if(item.getType() == XMaterial.PLAYER_HEAD.parseMaterial()) {
+        if (item.getType() == XMaterial.PLAYER_HEAD.parseMaterial()) {
 
-            if(section.contains("base64")) {
+            if (section.contains("base64")) {
                 item = ((HeadHook) PLUGIN.getHookManager().getPluginHook("BASE64")).getHead(section.getString("base64"));
-            }
-
-            else if(section.contains("hdb") && PLUGIN.getHookManager().isHookEnabled("HEAD_DATABASE")) {
+            } else if (section.contains("hdb") && PLUGIN.getHookManager().isHookEnabled("HEAD_DATABASE")) {
                 item = ((HeadHook) PLUGIN.getHookManager().getPluginHook("HEAD_DATABASE")).getHead(section.getString("hdb"));
             }
         }
 
         ItemStackBuilder builder = new ItemStackBuilder(item);
 
-        if(section.contains("amount")) {
+        if (section.contains("amount")) {
             builder.withAmount(section.getInt("amount"));
         }
 
-        if(section.contains("username")) {
+        if (section.contains("username")) {
             builder.setSkullOwner(section.getString("username"));
         }
 
-        if(section.contains("display_name")) {
+        if (section.contains("display_name")) {
             builder.withName(section.getString("display_name"));
         }
 
-        if(section.contains("lore")) {
+        if (section.contains("lore")) {
             builder.withLore(section.getStringList("lore"));
         }
 
-        if(section.contains("glow") && section.getBoolean("glow")) {
+        if (section.contains("glow") && section.getBoolean("glow")) {
             builder.withGlow();
         }
 
@@ -76,7 +74,8 @@ public class ItemStackBuilder {
                 try {
                     ItemFlag flag = ItemFlag.valueOf(text);
                     flags.add(flag);
-                } catch (IllegalArgumentException ignored) {}
+                } catch (IllegalArgumentException ignored) {
+                }
             });
             builder.withFlags(flags.toArray(new ItemFlag[0]));
         }
@@ -110,7 +109,7 @@ public class ItemStackBuilder {
         return this;
     }
 
-	public ItemStackBuilder setSkullOwner(String owner) {
+    public ItemStackBuilder setSkullOwner(String owner) {
         try {
             SkullMeta im = (SkullMeta) ITEM_STACK.getItemMeta();
             im.setOwner(owner);
@@ -119,13 +118,13 @@ public class ItemStackBuilder {
         }
         return this;
     }
-    
+
     public ItemStackBuilder withLore(List<String> lore, Player player) {
         final ItemMeta meta = ITEM_STACK.getItemMeta();
         List<String> coloredLore = new ArrayList<String>();
         for (String s : lore) {
-        	s = PlaceholderUtil.setPlaceholders(s, player);
-        	coloredLore.add(ChatColor.translateAlternateColorCodes('&', s));
+            s = PlaceholderUtil.setPlaceholders(s, player);
+            coloredLore.add(ChatColor.translateAlternateColorCodes('&', s));
         }
         meta.setLore(coloredLore);
         ITEM_STACK.setItemMeta(meta);
@@ -144,13 +143,13 @@ public class ItemStackBuilder {
     }
 
     @SuppressWarnings("deprecation")
-	public ItemStackBuilder withDurability(int durability) {
+    public ItemStackBuilder withDurability(int durability) {
         ITEM_STACK.setDurability((short) durability);
         return this;
     }
 
     @SuppressWarnings("deprecation")
-	public ItemStackBuilder withData(int data) {
+    public ItemStackBuilder withData(int data) {
         ITEM_STACK.setDurability((short) data);
         return this;
     }
@@ -164,9 +163,9 @@ public class ItemStackBuilder {
         ITEM_STACK.addUnsafeEnchantment(enchantment, 1);
         return this;
     }
-    
+
     public ItemStackBuilder withGlow() {
-    	final ItemMeta meta = ITEM_STACK.getItemMeta();
+        final ItemMeta meta = ITEM_STACK.getItemMeta();
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         ITEM_STACK.setItemMeta(meta);
         ITEM_STACK.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1);
@@ -203,6 +202,7 @@ public class ItemStackBuilder {
             throw new IllegalArgumentException("withColor is only applicable for leather armor!");
         }
     }
+
     public ItemStack build() {
         return ITEM_STACK;
     }

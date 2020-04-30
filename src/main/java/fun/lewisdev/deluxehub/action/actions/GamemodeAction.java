@@ -17,7 +17,7 @@ public class GamemodeAction implements Action {
     public void execute(DeluxeHub plugin, Player player, String data) {
         try {
             player.setGameMode(GameMode.valueOf(data.toUpperCase()));
-        } catch(IllegalArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Bukkit.getLogger().warning("[DeluxeHub Action] Invalid gamemode name: " + data.toUpperCase());
         }
     }

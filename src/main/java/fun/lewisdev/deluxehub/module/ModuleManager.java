@@ -29,19 +29,20 @@ public class ModuleManager {
     private Map<ModuleType, Module> modules = new HashMap<>();
 
     public void loadModules(DeluxeHub plugin) {
-        if(!modules.isEmpty()) unloadModules();
+        if (!modules.isEmpty()) unloadModules();
 
         FileConfiguration config = plugin.getConfigManager().getFile(ConfigType.SETTINGS).getConfig();
-        if(config.getBoolean("disabled-worlds.invert")) {
-            for(World world : Bukkit.getWorlds()) {
-                if(!config.getStringList("disabled-worlds.worlds").contains(world.getName())) disabledWorlds.add(world.getName());
+        if (config.getBoolean("disabled-worlds.invert")) {
+            for (World world : Bukkit.getWorlds()) {
+                if (!config.getStringList("disabled-worlds.worlds").contains(world.getName()))
+                    disabledWorlds.add(world.getName());
             }
-        }else{
+        } else {
             disabledWorlds = config.getStringList("disabled-worlds.worlds");
         }
 
         registerModule(new AntiWorldDownloader(plugin), "anti_wdl.enabled");
-        registerModule(new DoubleJump(plugin),"double_jump.enabled");
+        registerModule(new DoubleJump(plugin), "double_jump.enabled");
         registerModule(new Launchpad(plugin), "launchpad.enabled");
         registerModule(new ScoreboardManager(plugin), "scoreboard.enabled");
         registerModule(new TablistManager(plugin), "tablist.enabled");
@@ -61,7 +62,7 @@ public class ModuleManager {
             try {
                 module.setDisabledWorlds(disabledWorlds);
                 module.onEnable();
-            }catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 plugin.getLogger().severe("There was an error loading the " + module.getModuleType().toString() + " module.");
                 modules.remove(module.getModuleType());
@@ -90,7 +91,8 @@ public class ModuleManager {
     public void registerModule(Module module, String isEnabledPath) {
         DeluxeHub plugin = module.getPlugin();
 
-        if(isEnabledPath != null) if(!plugin.getConfigManager().getFile(ConfigType.SETTINGS).getConfig().getBoolean(isEnabledPath)) return;
+        if (isEnabledPath != null)
+            if (!plugin.getConfigManager().getFile(ConfigType.SETTINGS).getConfig().getBoolean(isEnabledPath)) return;
 
         plugin.getServer().getPluginManager().registerEvents(module, plugin);
         modules.put(module.getModuleType(), module);

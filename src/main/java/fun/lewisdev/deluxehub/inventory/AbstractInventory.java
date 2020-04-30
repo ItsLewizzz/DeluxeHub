@@ -27,12 +27,13 @@ public abstract class AbstractInventory implements Listener {
     }
 
     public void setInventoryRefresh(long value) {
-        if(value <= 0) return;
+        if (value <= 0) return;
         plugin.getServer().getScheduler().runTaskTimer(plugin, new InventoryTask(this), 0L, value);
         refreshEnabled = true;
     }
 
     public abstract void onEnable();
+
     protected abstract Inventory getInventory();
 
     protected DeluxeHub getPlugin() {
@@ -41,23 +42,23 @@ public abstract class AbstractInventory implements Listener {
 
     public void refreshInventory(Player player, Inventory inventory) {
 
-        for(int i = 0; i < inventory.getSize(); i++) {
+        for (int i = 0; i < inventory.getSize(); i++) {
             ItemStack item = getInventory().getItem(i);
-            if(item == null || item.getType() == Material.AIR || !item.hasItemMeta()) continue;
+            if (item == null || item.getType() == Material.AIR || !item.hasItemMeta()) continue;
 
             ItemStackBuilder newItem = new ItemStackBuilder(item.clone());
-            if(item.getItemMeta().hasDisplayName()) newItem.withName(item.getItemMeta().getDisplayName(), player);
-            if(item.getItemMeta().hasLore()) newItem.withLore(item.getItemMeta().getLore(), player);
+            if (item.getItemMeta().hasDisplayName()) newItem.withName(item.getItemMeta().getDisplayName(), player);
+            if (item.getItemMeta().hasLore()) newItem.withLore(item.getItemMeta().getLore(), player);
             inventory.setItem(i, newItem.build());
         }
     }
 
     public void openInventory(Player player) {
-        if(getInventory() == null) return;
+        if (getInventory() == null) return;
 
         player.openInventory(getInventory());
         refreshInventory(player, player.getOpenInventory().getTopInventory());
-        if(refreshEnabled && !openInventories.contains(player.getUniqueId())) {
+        if (refreshEnabled && !openInventories.contains(player.getUniqueId())) {
             //System.out.println("added " + player.getName());
             openInventories.add(player.getUniqueId());
         }

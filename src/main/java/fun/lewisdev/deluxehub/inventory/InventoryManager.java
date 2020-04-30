@@ -35,7 +35,7 @@ public class InventoryManager {
 
         File directory = new File(plugin.getDataFolder().getAbsolutePath() + File.separator + "menus");
 
-        if(!directory.exists()) {
+        if (!directory.exists()) {
             directory.mkdir();
             File file = new File(plugin.getDataFolder().getAbsolutePath() + File.separator + "menus", "serverselector.yml");
             try {
@@ -53,11 +53,11 @@ public class InventoryManager {
 
         // Load all menu files
         File[] yamlFiles = new File(plugin.getDataFolder().getAbsolutePath() + File.separator + "menus").listFiles((dir, name) -> name.toLowerCase().endsWith(".yml"));
-        if(yamlFiles == null) return;
+        if (yamlFiles == null) return;
 
-        for(File file : yamlFiles) {
+        for (File file : yamlFiles) {
             String name = file.getName().replace(".yml", "");
-            if(inventories.containsKey(name)) {
+            if (inventories.containsKey(name)) {
                 plugin.getLogger().warning("Inventory with name '" + file.getName() + "' already exists, skipping duplicate..");
                 continue;
             }
@@ -65,7 +65,7 @@ public class InventoryManager {
             CustomGUI customGUI;
             try {
                 customGUI = new CustomGUI(plugin, YamlConfiguration.loadConfiguration(file));
-            }catch (Exception e) {
+            } catch (Exception e) {
                 plugin.getLogger().severe("Could not load file '" + name + "' (YAML error).");
                 e.printStackTrace();
                 continue;

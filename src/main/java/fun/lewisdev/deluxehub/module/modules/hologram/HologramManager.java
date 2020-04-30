@@ -17,91 +17,90 @@ import java.util.List;
 import java.util.Set;
 
 public class HologramManager extends Module implements Listener {
-	
-	private Set<Hologram> holograms;
-	
-	public HologramManager(DeluxeHub plugin) {
-		super(plugin, ModuleType.HOLOGRAMS);
-	}
 
-	@Override
-	public void onEnable() {
-		holograms = new HashSet<>();
-		loadHolograms();
-	}
+    private Set<Hologram> holograms;
 
-	@Override
-	public void onDisable() {
-		saveHolograms();
-	}
+    public HologramManager(DeluxeHub plugin) {
+        super(plugin, ModuleType.HOLOGRAMS);
+    }
 
-	public void loadHolograms() {
-		Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> {
+    @Override
+    public void onEnable() {
+        holograms = new HashSet<>();
+        loadHolograms();
+    }
 
-			FileConfiguration config = getConfig(ConfigType.DATA);
+    @Override
+    public void onDisable() {
+        saveHolograms();
+    }
 
-			if (config.contains("holograms")) {
-				for (String key : config.getConfigurationSection("holograms").getKeys(false)) {
-					List<String> lines = config.getStringList("holograms." + key + ".lines");
+    public void loadHolograms() {
+        Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> {
 
-					Location loc = (Location) config.get("holograms." + key + ".location");
-					deleteNearbyHolograms(loc);
+            FileConfiguration config = getConfig(ConfigType.DATA);
 
-					Hologram holo = createHologram(key, loc);
-					holo.setLines(lines);
-				}
-			}
-		}, 40L);
-	}
+            if (config.contains("holograms")) {
+                for (String key : config.getConfigurationSection("holograms").getKeys(false)) {
+                    List<String> lines = config.getStringList("holograms." + key + ".lines");
 
-	public void saveHolograms() {
-		FileConfiguration config = getConfig(ConfigType.DATA);
-		holograms.forEach(hologram -> {
-			config.set("holograms." + hologram.getName() + ".location", hologram.getLocation());
-			List<String> lines = new ArrayList<String>();
-			for(ArmorStand stand : hologram.getStands()) lines.add(stand.getCustomName());
-			config.set("holograms." + hologram.getName() + ".lines", lines);
-		});
-		getPlugin().getConfigManager().getFile(ConfigType.DATA).save();
-		deleteAllHolograms();
-	}
-	
-	public Set<Hologram> getHolograms() {
-		return holograms;
-	}
-	
-	public boolean hasHologram(String name) {
-		return getHolograms().stream().anyMatch(hologram -> hologram.getName().equalsIgnoreCase(name));
-	}
-	
-	public Hologram getHologram(String name) {
-		return getHolograms().stream().filter(hologram -> hologram.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
-	}
-	
-	public Hologram createHologram(String name, Location location) {
-		Hologram holo = new Hologram(name, location);
-		holograms.add(holo);
-		return holo;
-	}
-	
-	public void deleteHologram(String name) {
-		Hologram holo = getHologram(name);
-		holo.remove();
-		
-		holograms.remove(holo);
-		getConfig(ConfigType.DATA).set("holograms." + name, null);
-		getPlugin().getConfigManager().getFile(ConfigType.DATA).save();
-	}
-	
-	public void deleteAllHolograms() {
-		holograms.forEach(Hologram::remove);
-		holograms.clear();
-	}
-	
-	public void deleteNearbyHolograms(Location location) {
-		location.getWorld().getNearbyEntities(location, 0, 20, 0).stream().filter(entity -> entity instanceof ArmorStand).forEach(Entity::remove);
-	}
+                    Location loc = (Location) config.get("holograms." + key + ".location");
+                    deleteNearbyHolograms(loc);
+
+                    Hologram holo = createHologram(key, loc);
+                    holo.setLines(lines);
+                }
+            }
+        }, 40L);
+    }
+
+    public void saveHolograms() {
+        FileConfiguration config = getConfig(ConfigType.DATA);
+        holograms.forEach(hologram -> {
+            config.set("holograms." + hologram.getName() + ".location", hologram.getLocation());
+            List<String> lines = new ArrayList<String>();
+            for (ArmorStand stand : hologram.getStands()) lines.add(stand.getCustomName());
+            config.set("holograms." + hologram.getName() + ".lines", lines);
+        });
+        getPlugin().getConfigManager().getFile(ConfigType.DATA).save();
+        deleteAllHolograms();
+    }
+
+    public Set<Hologram> getHolograms() {
+        return holograms;
+    }
+
+    public boolean hasHologram(String name) {
+        return getHolograms().stream().anyMatch(hologram -> hologram.getName().equalsIgnoreCase(name));
+    }
+
+    public Hologram getHologram(String name) {
+        return getHolograms().stream().filter(hologram -> hologram.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
+    }
+
+    public Hologram createHologram(String name, Location location) {
+        Hologram holo = new Hologram(name, location);
+        holograms.add(holo);
+        return holo;
+    }
+
+    public void deleteHologram(String name) {
+        Hologram holo = getHologram(name);
+        holo.remove();
+
+        holograms.remove(holo);
+        getConfig(ConfigType.DATA).set("holograms." + name, null);
+        getPlugin().getConfigManager().getFile(ConfigType.DATA).save();
+    }
+
+    public void deleteAllHolograms() {
+        holograms.forEach(Hologram::remove);
+        holograms.clear();
+    }
+
+    public void deleteNearbyHolograms(Location location) {
+        location.getWorld().getNearbyEntities(location, 0, 20, 0).stream().filter(entity -> entity instanceof ArmorStand).forEach(Entity::remove);
+    }
 
 
-	
 }

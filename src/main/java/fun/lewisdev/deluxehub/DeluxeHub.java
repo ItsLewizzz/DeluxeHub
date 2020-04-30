@@ -23,161 +23,164 @@ import java.util.logging.Level;
 
 public class DeluxeHub extends JavaPlugin {
 
-	private static final int BSTATS_ID = 3151;
-	public static int SERVER_VERSION;
-	private boolean loaded = false;
+    private static final int BSTATS_ID = 3151;
+    public static int SERVER_VERSION;
+    private boolean loaded = false;
 
-	private ConfigManager configManager;
-	private ActionManager actionManager;
-	private HooksManager hooksManager;
-	private CommandManager commandManager;
-	private CooldownManager cooldownManager;
-	private ModuleManager moduleManager;
-	private InventoryManager inventoryManager;
+    private ConfigManager configManager;
+    private ActionManager actionManager;
+    private HooksManager hooksManager;
+    private CommandManager commandManager;
+    private CooldownManager cooldownManager;
+    private ModuleManager moduleManager;
+    private InventoryManager inventoryManager;
 
-	public void onEnable() {
-		long start = System.currentTimeMillis();
-		
-		getLogger().log(Level.INFO, " _   _            _          _    _ ");
-		getLogger().log(Level.INFO, "| \\ |_ |  | | \\/ |_ |_| | | |_)   _)");
-		getLogger().log(Level.INFO, "|_/ |_ |_ |_| /\\ |_ | | |_| |_)   _)");
-		getLogger().log(Level.INFO, "");
-		getLogger().log(Level.INFO, "Version: " + getDescription().getVersion());
-		getLogger().log(Level.INFO, "Author: ItsLewizzz");
-		getLogger().log(Level.INFO, "");
+    public void onEnable() {
+        long start = System.currentTimeMillis();
 
-		// Check if using Spigot
-		try {
-			Class.forName("org.spigotmc.SpigotConfig");
-		} catch (ClassNotFoundException ex) {
-			getLogger().severe("============= SPIGOT NOT DETECTED =============");
-			getLogger().severe("DeluxeHub requires Spigot to run, you can download");
-			getLogger().severe("Spigot here: https://www.spigotmc.org/wiki/spigot-installation/.");
-			getLogger().severe("The plugin will now disable.");
-			getLogger().severe("============= SPIGOT NOT DETECTED =============");
-			getPluginLoader().disablePlugin(this);
-			return;
-		}
+        getLogger().log(Level.INFO, " _   _            _          _    _ ");
+        getLogger().log(Level.INFO, "| \\ |_ |  | | \\/ |_ |_| | | |_)   _)");
+        getLogger().log(Level.INFO, "|_/ |_ |_ |_| /\\ |_ | | |_| |_)   _)");
+        getLogger().log(Level.INFO, "");
+        getLogger().log(Level.INFO, "Version: " + getDescription().getVersion());
+        getLogger().log(Level.INFO, "Author: ItsLewizzz");
+        getLogger().log(Level.INFO, "");
 
-		SERVER_VERSION = Integer.parseInt(Bukkit.getBukkitVersion().split("-")[0].replace(".","#").split("#")[1]);
+        // Check if using Spigot
+        try {
+            Class.forName("org.spigotmc.SpigotConfig");
+        } catch (ClassNotFoundException ex) {
+            getLogger().severe("============= SPIGOT NOT DETECTED =============");
+            getLogger().severe("DeluxeHub requires Spigot to run, you can download");
+            getLogger().severe("Spigot here: https://www.spigotmc.org/wiki/spigot-installation/.");
+            getLogger().severe("The plugin will now disable.");
+            getLogger().severe("============= SPIGOT NOT DETECTED =============");
+            getPluginLoader().disablePlugin(this);
+            return;
+        }
 
-		// Enable bStats metrics
-		new MetricsLite(this, BSTATS_ID);
-		
-		// Check plugin hooks
-		hooksManager = new HooksManager(this);
-		
-		// Load config files
-		configManager = new ConfigManager();
-		configManager.loadFiles(this);
+        SERVER_VERSION = Integer.parseInt(Bukkit.getBukkitVersion().split("-")[0].replace(".", "#").split("#")[1]);
 
-		// Command manager
-		commandManager = new CommandManager(this);
-		commandManager.reload();
+        // Enable bStats metrics
+        new MetricsLite(this, BSTATS_ID);
 
-		// Cooldown manager
-		cooldownManager = new CooldownManager();
+        // Check plugin hooks
+        hooksManager = new HooksManager(this);
 
-		// Inventory (GUI) manager
-		inventoryManager = new InventoryManager();
-		if(!hooksManager.isHookEnabled("HEAD_DATABASE")) inventoryManager.onEnable(this);
+        // Load config files
+        configManager = new ConfigManager();
+        configManager.loadFiles(this);
 
-		// Core plugin modules
-		moduleManager = new ModuleManager();
-		moduleManager.loadModules(this);
+        // Command manager
+        commandManager = new CommandManager(this);
+        commandManager.reload();
 
-		// Action system
-		actionManager = new ActionManager(this);
+        // Cooldown manager
+        cooldownManager = new CooldownManager();
 
-		// Load update checker (if enabled)
-		if(getConfigManager().getFile(ConfigType.SETTINGS).getConfig().getBoolean("update-check")) new UpdateChecker(this).checkForUpdate();
-		
-		// Register BungeeCord channels
-		getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-		
-		getLogger().log(Level.INFO, "");
-		getLogger().log(Level.INFO, "Successfully loaded in " + (System.currentTimeMillis() - start) + "ms");
-		loaded = true;
-	}
+        // Inventory (GUI) manager
+        inventoryManager = new InventoryManager();
+        if (!hooksManager.isHookEnabled("HEAD_DATABASE")) inventoryManager.onEnable(this);
 
-	public void onDisable() {
-		Bukkit.getScheduler().cancelTasks(this);
-		if(loaded) {
-			moduleManager.unloadModules();
-			inventoryManager.onDisable();
-			configManager.saveFiles();
-		}
-	}
+        // Core plugin modules
+        moduleManager = new ModuleManager();
+        moduleManager.loadModules(this);
 
-	public void reload() {
-		Bukkit.getScheduler().cancelTasks(this);
-		HandlerList.unregisterAll(this);
+        // Action system
+        actionManager = new ActionManager(this);
 
-		configManager.reloadFiles();
+        // Load update checker (if enabled)
+        if (getConfigManager().getFile(ConfigType.SETTINGS).getConfig().getBoolean("update-check"))
+            new UpdateChecker(this).checkForUpdate();
 
-		inventoryManager.onDisable();
-		inventoryManager.onEnable(this);
+        // Register BungeeCord channels
+        getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
-		getCommandManager().reload();
+        getLogger().log(Level.INFO, "");
+        getLogger().log(Level.INFO, "Successfully loaded in " + (System.currentTimeMillis() - start) + "ms");
+        loaded = true;
+    }
 
-		moduleManager.loadModules(this);
-	}
+    public void onDisable() {
+        Bukkit.getScheduler().cancelTasks(this);
+        if (loaded) {
+            moduleManager.unloadModules();
+            inventoryManager.onDisable();
+            configManager.saveFiles();
+        }
+    }
 
-	@Override
-	public boolean onCommand(CommandSender sender, org.bukkit.command.Command cmd, String commandLabel, String[] args) {
-		try {
-			getCommandManager().execute(cmd.getName(), args, sender);
-		} catch (CommandPermissionsException e) {
-			sender.sendMessage(Messages.NO_PERMISSION.toString());
-		} catch (MissingNestedCommandException e) {
-			sender.sendMessage(ChatColor.RED + e.getUsage());
-		} catch (CommandUsageException e) {
-			//sender.sendMessage(ChatColor.RED + e.getMessage());
-			sender.sendMessage(ChatColor.RED + "Usage: " + e.getUsage());
-		} catch (WrappedCommandException e) {
-			if (e.getCause() instanceof NumberFormatException) {
-				sender.sendMessage(ChatColor.RED + "Number expected, string received instead.");
-			} else {
-				sender.sendMessage(ChatColor.RED + "An internal error has occurred. See console.");
-				e.printStackTrace();
-			}
-		} catch (CommandException e) {
-			sender.sendMessage(ChatColor.RED + e.getMessage());
-		}
-		return true;
-	}
+    public void reload() {
+        Bukkit.getScheduler().cancelTasks(this);
+        HandlerList.unregisterAll(this);
 
-	public HologramManager getHologramManager() {
-		return (HologramManager) moduleManager.getModule(ModuleType.HOLOGRAMS);
-	}
+        configManager.reloadFiles();
 
-	public HooksManager getHookManager() {
-		return hooksManager;
-	}
+        inventoryManager.onDisable();
+        inventoryManager.onEnable(this);
 
-	public ModuleManager getModuleManager() {
-		return moduleManager;
-	}
+        getCommandManager().reload();
 
-	public CommandManager getCommandManager() {
-		return commandManager;
-	}
-	
-	public CooldownManager getCooldownManager() {
-		return cooldownManager;
-	}
+        moduleManager.loadModules(this);
+    }
 
-	public InventoryManager getInventoryManager() { return inventoryManager; }
+    @Override
+    public boolean onCommand(CommandSender sender, org.bukkit.command.Command cmd, String commandLabel, String[] args) {
+        try {
+            getCommandManager().execute(cmd.getName(), args, sender);
+        } catch (CommandPermissionsException e) {
+            sender.sendMessage(Messages.NO_PERMISSION.toString());
+        } catch (MissingNestedCommandException e) {
+            sender.sendMessage(ChatColor.RED + e.getUsage());
+        } catch (CommandUsageException e) {
+            //sender.sendMessage(ChatColor.RED + e.getMessage());
+            sender.sendMessage(ChatColor.RED + "Usage: " + e.getUsage());
+        } catch (WrappedCommandException e) {
+            if (e.getCause() instanceof NumberFormatException) {
+                sender.sendMessage(ChatColor.RED + "Number expected, string received instead.");
+            } else {
+                sender.sendMessage(ChatColor.RED + "An internal error has occurred. See console.");
+                e.printStackTrace();
+            }
+        } catch (CommandException e) {
+            sender.sendMessage(ChatColor.RED + e.getMessage());
+        }
+        return true;
+    }
 
-	public int getServerVersionNumber() {
-		return SERVER_VERSION;
-	}
+    public HologramManager getHologramManager() {
+        return (HologramManager) moduleManager.getModule(ModuleType.HOLOGRAMS);
+    }
 
-	public ConfigManager getConfigManager() {
-		return configManager;
-	}
+    public HooksManager getHookManager() {
+        return hooksManager;
+    }
 
-	public ActionManager getActionManager() {
-		return actionManager;
-	}
+    public ModuleManager getModuleManager() {
+        return moduleManager;
+    }
+
+    public CommandManager getCommandManager() {
+        return commandManager;
+    }
+
+    public CooldownManager getCooldownManager() {
+        return cooldownManager;
+    }
+
+    public InventoryManager getInventoryManager() {
+        return inventoryManager;
+    }
+
+    public int getServerVersionNumber() {
+        return SERVER_VERSION;
+    }
+
+    public ConfigManager getConfigManager() {
+        return configManager;
+    }
+
+    public ActionManager getActionManager() {
+        return actionManager;
+    }
 }
