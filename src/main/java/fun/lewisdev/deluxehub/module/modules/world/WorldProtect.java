@@ -249,11 +249,8 @@ public class WorldProtect extends Module {
                 }
             }
 
-        } else if (event.getAction() == Action.PHYSICAL) {
-            if (block.getType() == XMaterial.FARMLAND.parseMaterial()) {
-                event.setCancelled(true);
-            }
-        }
+        } else if (event.getAction() == Action.PHYSICAL && block.getType() == XMaterial.FARMLAND.parseMaterial())
+            event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

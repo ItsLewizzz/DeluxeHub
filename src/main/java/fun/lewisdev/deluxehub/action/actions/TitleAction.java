@@ -33,7 +33,7 @@ public class TitleAction implements Action {
             fadeOut = 1;
         }
 
-        if (plugin.getServerVersionNumber() > 8) {
+        if (plugin.getServerVersionNumber() > 10) {
             player.sendTitle(mainTitle, subTitle, fadeIn * 20, stay * 20, fadeOut * 20);
         } else {
             Titles.sendTitle(player, fadeIn * 20, stay * 20, fadeOut * 20, mainTitle, subTitle);
