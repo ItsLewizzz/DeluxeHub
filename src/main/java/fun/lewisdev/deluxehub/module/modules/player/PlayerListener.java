@@ -6,6 +6,7 @@ import fun.lewisdev.deluxehub.module.Module;
 import fun.lewisdev.deluxehub.module.ModuleType;
 import fun.lewisdev.deluxehub.utility.PlaceholderUtil;
 import fun.lewisdev.deluxehub.utility.TextUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -76,9 +77,8 @@ public class PlayerListener extends Module {
 
     }
 
-    @EventHandler(priority = EventPriority.LOW)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerJoin(PlayerJoinEvent event) {
-
         Player player = event.getPlayer();
         if (inDisabledWorld(player.getLocation())) return;
 
@@ -103,17 +103,19 @@ public class PlayerListener extends Module {
         // Clear the player inventory
         if (clearInventory) player.getInventory().clear();
 
-        // Join events
-        executeActions(player, joinActions);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> {
+            // Join events
+            executeActions(player, joinActions);
 
-        // Firework
-        if (fireworkEnabled) {
-            if (fireworkFirstJoin) {
-                if (!player.hasPlayedBefore()) spawnFirework(player);
-            } else {
-                spawnFirework(player);
+            // Firework
+            if (fireworkEnabled) {
+                if (fireworkFirstJoin) {
+                    if (!player.hasPlayedBefore()) spawnFirework(player);
+                } else {
+                    spawnFirework(player);
+                }
             }
-        }
+        }, 3L);
     }
 
     @EventHandler(priority = EventPriority.HIGH)

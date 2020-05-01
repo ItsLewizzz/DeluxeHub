@@ -57,8 +57,11 @@ public class AutoBroadcast extends Module implements Runnable {
     @Override
     public void run() {
         if (count == size) count = 0;
+
         if (count < size) {
             for (Player player : Bukkit.getOnlinePlayers()) {
+                if(inDisabledWorld(player.getLocation())) continue;
+
                 broadcasts.get(count).forEach(message -> {
                     if (message.contains("<center>") && message.contains("</center>"))
                         message = TextUtil.getCenteredMessage(message);
@@ -69,5 +72,6 @@ public class AutoBroadcast extends Module implements Runnable {
             }
             count++;
         }
+
     }
 }

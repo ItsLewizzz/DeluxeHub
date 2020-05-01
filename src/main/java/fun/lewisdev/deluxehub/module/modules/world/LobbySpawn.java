@@ -44,7 +44,7 @@ public class LobbySpawn extends Module {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         if (location != null && !inDisabledWorld(player.getLocation()))
-            Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> player.teleport(location), 3L);
+            player.teleport(location);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

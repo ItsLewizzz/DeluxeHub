@@ -9,6 +9,7 @@ import fun.lewisdev.deluxehub.command.CommandManager;
 import fun.lewisdev.deluxehub.config.Messages;
 import fun.lewisdev.deluxehub.inventory.AbstractInventory;
 import fun.lewisdev.deluxehub.inventory.InventoryManager;
+import fun.lewisdev.deluxehub.module.ModuleManager;
 import fun.lewisdev.deluxehub.module.ModuleType;
 import fun.lewisdev.deluxehub.module.modules.hologram.Hologram;
 import fun.lewisdev.deluxehub.module.modules.hotbar.HotbarItem;
@@ -146,8 +147,11 @@ public class DeluxeHubCommand {
 
             sender.sendMessage("");
 
+            ModuleManager moduleManager = plugin.getModuleManager();
+            sender.sendMessage(TextUtil.color("&7Disabled Worlds (" + moduleManager.getDisabledWorlds().size() + ") &8- &a" + (String.join(", ", moduleManager.getDisabledWorlds()))));
+
             InventoryManager inventoryManager = plugin.getInventoryManager();
-            sender.sendMessage(TextUtil.color("&7Custom menus (" + inventoryManager.getInventories().size() + ")" + " &8- &a" + (String.join(",", inventoryManager.getInventories().keySet()))));
+            sender.sendMessage(TextUtil.color("&7Custom menus (" + inventoryManager.getInventories().size() + ")" + " &8- &a" + (String.join(", ", inventoryManager.getInventories().keySet()))));
 
             HotbarManager hotbarManager = ((HotbarManager) plugin.getModuleManager().getModule(ModuleType.HOTBAR_ITEMS));
             sender.sendMessage(TextUtil.color("&7Hotbar items (" + hotbarManager.getHotbarItems().size() + ")" + " &8- &a" + (hotbarManager.getHotbarItems().stream().map(HotbarItem::getKey).collect(Collectors.joining(", ")))));

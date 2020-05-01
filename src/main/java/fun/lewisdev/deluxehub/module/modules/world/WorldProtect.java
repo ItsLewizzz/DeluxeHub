@@ -27,6 +27,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
 import java.util.List;
@@ -76,9 +77,9 @@ public class WorldProtect extends Module {
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onBlockBreak(BlockBreakEvent event) {
-        if (!blockBreak) return;
+        if (!blockBreak || event.isCancelled()) return;
 
         Player player = event.getPlayer();
         if (inDisabledWorld(player.getLocation())) return;
@@ -91,12 +92,14 @@ public class WorldProtect extends Module {
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onBlockPlace(BlockPlaceEvent event) {
-        if (!blockPlace) return;
+        if (!blockPlace || event.isCancelled()) return;
 
         Player player = event.getPlayer();
         if (inDisabledWorld(player.getLocation())) return;
+        ItemStack item = event.getItemInHand();
+        if(item.getType() == Material.AIR) return;
 
         if (new NBTItem(event.getItemInHand()).hasKey("hotbarItem")) {
             event.setCancelled(true);
@@ -119,7 +122,7 @@ public class WorldProtect extends Module {
         event.setCancelled(true);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onBlockInteract(PlayerInteractEvent event) {
         if (!blockInteract) return;
         if (inDisabledWorld(event.getPlayer().getLocation())) return;

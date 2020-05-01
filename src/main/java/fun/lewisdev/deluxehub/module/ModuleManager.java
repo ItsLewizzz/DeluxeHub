@@ -1,5 +1,6 @@
 package fun.lewisdev.deluxehub.module;
 
+import com.google.gson.internal.$Gson$Preconditions;
 import fun.lewisdev.deluxehub.DeluxeHub;
 import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.module.modules.chat.*;
@@ -22,23 +23,25 @@ import org.bukkit.event.HandlerList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ModuleManager {
 
+    private DeluxeHub plugin;
     private List<String> disabledWorlds;
     private Map<ModuleType, Module> modules = new HashMap<>();
 
     public void loadModules(DeluxeHub plugin) {
+        this.plugin = plugin;
+
         if (!modules.isEmpty()) unloadModules();
 
         FileConfiguration config = plugin.getConfigManager().getFile(ConfigType.SETTINGS).getConfig();
+        disabledWorlds = config.getStringList("disabled-worlds.worlds");
+
         if (config.getBoolean("disabled-worlds.invert")) {
-            for (World world : Bukkit.getWorlds()) {
-                if (!config.getStringList("disabled-worlds.worlds").contains(world.getName()))
-                    disabledWorlds.add(world.getName());
-            }
-        } else {
-            disabledWorlds = config.getStringList("disabled-worlds.worlds");
+            disabledWorlds = Bukkit.getWorlds().stream().map(World::getName).collect(Collectors.toList());
+                for (String world : config.getStringList("disabled-worlds.worlds")) disabledWorlds.remove(world);
         }
 
         registerModule(new AntiWorldDownloader(plugin), "anti_wdl.enabled");
@@ -74,8 +77,13 @@ public class ModuleManager {
 
     public void unloadModules() {
         modules.values().forEach(module -> {
-            module.onDisable();
-            HandlerList.unregisterAll(module);
+            try {
+                HandlerList.unregisterAll(module);
+                module.onDisable();
+            } catch (Exception e) {
+                e.printStackTrace();
+                plugin.getLogger().severe("There was an error unloading the " + module.getModuleType().toString() + " module.");
+            }
         });
         modules.clear();
     }
