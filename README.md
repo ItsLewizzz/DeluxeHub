@@ -3,4 +3,4 @@ All-in-one hub core.
 
 [Spigot Page](https://www.spigotmc.org/resources/49425/)
 
-[Wiki](https://wikilewisdev.fun)
+[Wiki](https://wiki.lewisdev.fun)
