@@ -68,6 +68,7 @@ public class ModuleManager {
                 e.printStackTrace();
                 plugin.getLogger().severe("There was an error loading the " + module.getModuleType().toString() + " module.");
                 modules.remove(module.getModuleType());
+                HandlerList.unregisterAll(module);
             }
         });
 
@@ -97,9 +98,8 @@ public class ModuleManager {
 
     public void registerModule(Module module, String isEnabledPath) {
         DeluxeHub plugin = module.getPlugin();
-
-        if (isEnabledPath != null)
-            if (!plugin.getConfigManager().getFile(ConfigType.SETTINGS).getConfig().getBoolean(isEnabledPath)) return;
+        if (isEnabledPath != null && !plugin.getConfigManager().getFile(ConfigType.SETTINGS).getConfig().getBoolean(isEnabledPath, false))
+            return;
 
         plugin.getServer().getPluginManager().registerEvents(module, plugin);
         modules.put(module.getModuleType(), module);

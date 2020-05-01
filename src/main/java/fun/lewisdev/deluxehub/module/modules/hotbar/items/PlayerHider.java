@@ -88,13 +88,9 @@ public class PlayerHider extends HotbarItem {
     @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
-        if (getHotbarManager().inDisabledWorld(player.getLocation())) {
-            if (hidden.contains(player.getUniqueId())) {
-                for (Player p : Bukkit.getOnlinePlayers()) {
-                    player.showPlayer(p);
-                }
-                hidden.remove(player.getUniqueId());
-            }
+        if (getHotbarManager().inDisabledWorld(player.getLocation()) && hidden.contains(player.getUniqueId())) {
+            for (Player p : Bukkit.getOnlinePlayers()) player.showPlayer(p);
+            hidden.remove(player.getUniqueId());
         }
     }
 
