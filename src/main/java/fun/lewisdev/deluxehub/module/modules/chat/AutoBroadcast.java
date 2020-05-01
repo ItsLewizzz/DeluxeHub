@@ -18,10 +18,13 @@ import java.util.Map;
 public class AutoBroadcast extends Module implements Runnable {
 
     private Map<Integer, List<String>> broadcasts;
-    private int broadcastTask, count, size = 0;
+    private int broadcastTask = 0;
+    private int count = 0;
+    private int size = 0;
 
     private Sound sound = null;
-    private double volume, pitch;
+    private double volume;
+    private double pitch;
 
     public AutoBroadcast(DeluxeHub plugin) {
         super(plugin, ModuleType.ANNOUNCEMENTS);

@@ -4,7 +4,6 @@ import fun.lewisdev.deluxehub.DeluxeHub;
 import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.module.Module;
 import fun.lewisdev.deluxehub.module.ModuleType;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -15,6 +14,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 
 public class LobbySpawn extends Module {
 
+    private boolean spawnJoin;
     private Location location = null;
 
     public LobbySpawn(DeluxeHub plugin) {
@@ -25,6 +25,7 @@ public class LobbySpawn extends Module {
     public void onEnable() {
         FileConfiguration config = getConfig(ConfigType.DATA);
         if (config.isSet("spawn")) location = (Location) config.get("spawn");
+        spawnJoin = getConfig(ConfigType.SETTINGS).getBoolean("join_settings.spawn_join", false);
     }
 
     @Override
@@ -43,7 +44,7 @@ public class LobbySpawn extends Module {
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        if (location != null && !inDisabledWorld(player.getLocation()))
+        if (spawnJoin && location != null && !inDisabledWorld(player.getLocation()))
             player.teleport(location);
     }
 

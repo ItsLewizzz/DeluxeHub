@@ -34,8 +34,65 @@ import java.util.List;
 
 public class WorldProtect extends Module {
 
-    private boolean hungerLoss, fallDamage, weatherChange, deathMessage, fireSpread, leafDecay, mobSpawning,
-            blockBurn, voidDeath, itemDrop, itemPickup, blockBreak, blockPlace, blockInteract, playerPvP;
+    private boolean hungerLoss;
+    private boolean fallDamage;
+    private boolean weatherChange;
+    private boolean deathMessage;
+    private boolean fireSpread;
+    private boolean leafDecay;
+    private boolean mobSpawning;
+    private boolean blockBurn;
+    private boolean voidDeath;
+    private boolean itemDrop;
+    private boolean itemPickup;
+    private boolean blockBreak;
+    private boolean blockPlace;
+    private boolean blockInteract;
+    private boolean playerPvP;
+
+    private List<Material> interactables = Arrays.asList(
+            XMaterial.ACACIA_DOOR.parseMaterial(),
+            XMaterial.ACACIA_FENCE_GATE.parseMaterial(),
+            XMaterial.ANVIL.parseMaterial(),
+            XMaterial.BEACON.parseMaterial(),
+            XMaterial.RED_BED.parseMaterial(),
+            XMaterial.BIRCH_DOOR.parseMaterial(),
+            XMaterial.BIRCH_FENCE_GATE.parseMaterial(),
+            XMaterial.OAK_BOAT.parseMaterial(),
+            XMaterial.BREWING_STAND.parseMaterial(),
+            XMaterial.COMMAND_BLOCK.parseMaterial(),
+            XMaterial.CHEST.parseMaterial(),
+            XMaterial.DARK_OAK_DOOR.parseMaterial(),
+            XMaterial.DARK_OAK_FENCE_GATE.parseMaterial(),
+            XMaterial.DAYLIGHT_DETECTOR.parseMaterial(),
+            XMaterial.DAYLIGHT_DETECTOR.parseMaterial(),
+            XMaterial.DISPENSER.parseMaterial(),
+            XMaterial.DROPPER.parseMaterial(),
+            XMaterial.ENCHANTING_TABLE.parseMaterial(),
+            XMaterial.ENDER_CHEST.parseMaterial(),
+            XMaterial.OAK_FENCE_GATE.parseMaterial(),
+            XMaterial.FURNACE.parseMaterial(),
+            XMaterial.HOPPER.parseMaterial(),
+            XMaterial.HOPPER_MINECART.parseMaterial(),
+            XMaterial.ITEM_FRAME.parseMaterial(),
+            XMaterial.JUNGLE_DOOR.parseMaterial(),
+            XMaterial.JUNGLE_FENCE_GATE.parseMaterial(),
+            XMaterial.LEVER.parseMaterial(),
+            XMaterial.MINECART.parseMaterial(),
+            XMaterial.NOTE_BLOCK.parseMaterial(),
+            XMaterial.MINECART.parseMaterial(),
+            XMaterial.COMPARATOR.parseMaterial(),
+            XMaterial.ACACIA_SIGN.parseMaterial(),
+            XMaterial.BIRCH_SIGN.parseMaterial(),
+            XMaterial.DARK_OAK_SIGN.parseMaterial(),
+            XMaterial.JUNGLE_SIGN.parseMaterial(),
+            XMaterial.OAK_SIGN.parseMaterial(),
+            XMaterial.CHEST_MINECART.parseMaterial(),
+            XMaterial.OAK_DOOR.parseMaterial(),
+            XMaterial.OAK_TRAPDOOR.parseMaterial(),
+            XMaterial.TRAPPED_CHEST.parseMaterial(),
+            XMaterial.OAK_BUTTON.parseMaterial(),
+            XMaterial.OAK_DOOR.parseMaterial());
 
     public WorldProtect(DeluxeHub plugin) {
         super(plugin, ModuleType.WORLD_PROTECT);
@@ -269,49 +326,4 @@ public class WorldProtect extends Module {
         Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> entity.teleport(location), 3L);
         event.setCancelled(true);
     }
-
-    private List<Material> interactables = Arrays.asList(
-            XMaterial.ACACIA_DOOR.parseMaterial(),
-            XMaterial.ACACIA_FENCE_GATE.parseMaterial(),
-            XMaterial.ANVIL.parseMaterial(),
-            XMaterial.BEACON.parseMaterial(),
-            XMaterial.RED_BED.parseMaterial(),
-            XMaterial.BIRCH_DOOR.parseMaterial(),
-            XMaterial.BIRCH_FENCE_GATE.parseMaterial(),
-            XMaterial.OAK_BOAT.parseMaterial(),
-            XMaterial.BREWING_STAND.parseMaterial(),
-            XMaterial.COMMAND_BLOCK.parseMaterial(),
-            XMaterial.CHEST.parseMaterial(),
-            XMaterial.DARK_OAK_DOOR.parseMaterial(),
-            XMaterial.DARK_OAK_FENCE_GATE.parseMaterial(),
-            XMaterial.DAYLIGHT_DETECTOR.parseMaterial(),
-            XMaterial.DAYLIGHT_DETECTOR.parseMaterial(),
-            XMaterial.DISPENSER.parseMaterial(),
-            XMaterial.DROPPER.parseMaterial(),
-            XMaterial.ENCHANTING_TABLE.parseMaterial(),
-            XMaterial.ENDER_CHEST.parseMaterial(),
-            XMaterial.OAK_FENCE_GATE.parseMaterial(),
-            XMaterial.FURNACE.parseMaterial(),
-            XMaterial.HOPPER.parseMaterial(),
-            XMaterial.HOPPER_MINECART.parseMaterial(),
-            XMaterial.ITEM_FRAME.parseMaterial(),
-            XMaterial.JUNGLE_DOOR.parseMaterial(),
-            XMaterial.JUNGLE_FENCE_GATE.parseMaterial(),
-            XMaterial.LEVER.parseMaterial(),
-            XMaterial.MINECART.parseMaterial(),
-            XMaterial.NOTE_BLOCK.parseMaterial(),
-            XMaterial.MINECART.parseMaterial(),
-            XMaterial.COMPARATOR.parseMaterial(),
-            XMaterial.ACACIA_SIGN.parseMaterial(),
-            XMaterial.BIRCH_SIGN.parseMaterial(),
-            XMaterial.DARK_OAK_SIGN.parseMaterial(),
-            XMaterial.JUNGLE_SIGN.parseMaterial(),
-            XMaterial.OAK_SIGN.parseMaterial(),
-            XMaterial.CHEST_MINECART.parseMaterial(),
-            XMaterial.OAK_DOOR.parseMaterial(),
-            XMaterial.OAK_TRAPDOOR.parseMaterial(),
-            XMaterial.TRAPPED_CHEST.parseMaterial(),
-            XMaterial.OAK_BUTTON.parseMaterial(),
-            XMaterial.OAK_DOOR.parseMaterial());
-
 }

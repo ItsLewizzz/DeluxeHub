@@ -25,13 +25,19 @@ import java.util.List;
 public class PlayerListener extends Module {
 
     private boolean joinQuitMessagesEnabled;
-    private String joinMessage, quitMessage;
+    private String joinMessage;
+    private String quitMessage;
 
     private List<String> joinActions;
 
-    private boolean spawnJoin, spawnHeal, extinguish, clearInventory;
+    private boolean spawnHeal;
+    private boolean extinguish;
+    private boolean clearInventory;
 
-    private boolean fireworkEnabled, fireworkFirstJoin, fireworkFlicker, fireworkTrail;
+    private boolean fireworkEnabled;
+    private boolean fireworkFirstJoin;
+    private boolean fireworkFlicker;
+    private boolean fireworkTrail;
     private int fireworkPower;
     private String fireworkType;
     private List<Color> fireworkColors;
@@ -51,7 +57,6 @@ public class PlayerListener extends Module {
 
         joinActions = config.getStringList("join_events");
 
-        spawnJoin = config.getBoolean("join_settings.spawn_join", false);
         spawnHeal = config.getBoolean("join_settings.heal", false);
         extinguish = config.getBoolean("join_settings.extinguish", false);
         clearInventory = config.getBoolean("join_settings.clear_inventory", false);
@@ -122,7 +127,7 @@ public class PlayerListener extends Module {
     public void onPlayerQuit(PlayerQuitEvent event) {
 
         Player player = event.getPlayer();
-        if (inDisabledWorld(player.getLocation())) ;
+        if (inDisabledWorld(player.getLocation())) return;
 
         if (joinQuitMessagesEnabled) {
             if (quitMessage.equals("")) event.setQuitMessage(null);

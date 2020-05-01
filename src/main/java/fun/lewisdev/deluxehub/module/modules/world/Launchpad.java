@@ -17,9 +17,11 @@ import java.util.List;
 
 public class Launchpad extends Module {
 
-    private double launch, launchY;
+    private double launch;
+    private double launchY;
     private List<String> actions;
-    private Material topBlock, bottomBlock;
+    private Material topBlock;
+    private Material bottomBlock;
 
     public Launchpad(DeluxeHub plugin) {
         super(plugin, ModuleType.LAUNCHPAD);

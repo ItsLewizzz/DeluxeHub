@@ -20,7 +20,9 @@ public class TitleAction implements Action {
         String mainTitle = TextUtil.color(args[0]);
         String subTitle = TextUtil.color(args[1]);
 
-        int fadeIn, stay, fadeOut;
+        int fadeIn;
+        int stay;
+        int fadeOut;
         try {
             fadeIn = Integer.parseInt(args[2]);
             stay = Integer.parseInt(args[3]);

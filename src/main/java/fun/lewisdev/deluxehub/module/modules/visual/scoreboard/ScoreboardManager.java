@@ -20,7 +20,8 @@ public class ScoreboardManager extends Module {
     private int scoreTask;
     private Map<UUID, ScoreHelper> players;
 
-    private long joinDelay, worldDelay;
+    private long joinDelay;
+    private long worldDelay;
     private String title;
     private List<String> lines;
 

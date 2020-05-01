@@ -24,7 +24,8 @@ import java.util.UUID;
 public class DoubleJump extends Module {
 
     private long cooldownDelay;
-    private double launch, launchY;
+    private double launch;
+    private double launchY;
     private List<String> actions;
 
     public DoubleJump(DeluxeHub plugin) {
