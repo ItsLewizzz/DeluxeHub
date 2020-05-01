@@ -17,15 +17,15 @@ import java.util.List;
 public class ScoreHelper {
 
     private Scoreboard scoreboard;
-    private Objective sidebar;
+    private Objective objective;
     private Player player;
 
-    @SuppressWarnings("deprecation")
-    ScoreHelper(Player player) {
+    public ScoreHelper(Player player) {
         this.player = player;
         scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-        sidebar = scoreboard.registerNewObjective("sidebar", "dummy");
-        sidebar.setDisplaySlot(DisplaySlot.SIDEBAR);
+        objective = scoreboard.registerNewObjective("sidebar", "dummy");
+        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+
         // Create Teams
         for (int i = 1; i <= 15; i++) {
             Team team = scoreboard.registerNewTeam("SLOT_" + i);
@@ -35,20 +35,18 @@ public class ScoreHelper {
     }
 
     public void setTitle(String title) {
-        title = PlaceholderUtil.setPlaceholders(title, this.player);
-        title = ChatColor.translateAlternateColorCodes('&', title);
-        sidebar.setDisplayName(title.length() > 32 ? title.substring(0, 32) : title);
+        title = setPlaceholders(title);
+        objective.setDisplayName(title.length() > 32 ? title.substring(0, 32) : title);
     }
 
     public void setSlot(int slot, String text) {
         Team team = scoreboard.getTeam("SLOT_" + slot);
         String entry = genEntry(slot);
         if (!scoreboard.getEntries().contains(entry)) {
-            sidebar.getScore(entry).setScore(slot);
+            objective.getScore(entry).setScore(slot);
         }
 
-        text = PlaceholderUtil.setPlaceholders(text, this.player);
-        text = ChatColor.translateAlternateColorCodes('&', text);
+        text = setPlaceholders(text);
         String pre = getFirstSplit(text);
         String suf = getFirstSplit(ChatColor.getLastColors(pre) + getSecondSplit(text));
         team.setPrefix(pre);
@@ -60,6 +58,10 @@ public class ScoreHelper {
         if (scoreboard.getEntries().contains(entry)) {
             scoreboard.resetScores(entry);
         }
+    }
+
+    public String setPlaceholders(String text) {
+        return ChatColor.translateAlternateColorCodes('&', PlaceholderUtil.setPlaceholders(text, this.player));
     }
 
     public void setSlotsFromList(List<String> list) {

@@ -71,6 +71,9 @@ public class DeluxeHub extends JavaPlugin {
         configManager = new ConfigManager();
         configManager.loadFiles(this);
 
+        // If there were any configuration errors we should not continue
+        if (!getServer().getPluginManager().isPluginEnabled(this)) return;
+
         // Command manager
         commandManager = new CommandManager(this);
         commandManager.reload();

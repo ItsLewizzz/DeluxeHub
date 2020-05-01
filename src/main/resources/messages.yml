@@ -4,75 +4,75 @@
 
 Messages:
   GENERAL:
-    PREFIX: '&dDeluxeHub &8❙'
-    NO_PERMISSION: '%prefix% &cYou are forbidden to use this.'
-    CUSTOM_COMMAND_NO_PERMISSION: '&cYou are not allowed to execute this command.'
-    INVALID_PLAYER: '%prefix% &c%player% is not online!'
-    CONFIG_RELOAD: '%prefix% &aAll configuration files has been reloaded in &7%time%ms'
-    COOLDOWN_ACTIVE: '%prefix% &cYou must wait &e%time%s &cbefore doing this again!'
+    PREFIX: "&dDeluxeHub &8❙"
+    NO_PERMISSION: "%prefix% &cYou are forbidden to use this."
+    CUSTOM_COMMAND_NO_PERMISSION: "&cYou are not allowed to execute this command."
+    INVALID_PLAYER: "%prefix% &c%player% is not online!"
+    CONFIG_RELOAD: "%prefix% &aAll configuration files has been reloaded in &7%time%ms"
+    COOLDOWN_ACTIVE: "%prefix% &cYou must wait &e%time%s &cbefore doing this again!"
 
   GAMEMODE:
-    GAMEMODE_CHANGE: '%prefix% &7You have changed gamemode to &a%gamemode%'
-    GAMEMODE_CHANGE_OTHER: '%prefix% &7You have changed gamemode to &a%gamemode% &7for &e%player%'
-    GAMEMODE_INVALID: '%prefix% &e%gamemode% &cis not a valid gamemode'
+    GAMEMODE_CHANGE: "%prefix% &7You have changed gamemode to &a%gamemode%"
+    GAMEMODE_CHANGE_OTHER: "%prefix% &7You have changed gamemode to &a%gamemode% &7for &e%player%"
+    GAMEMODE_INVALID: "%prefix% &e%gamemode% &cis not a valid gamemode"
 
   VANISH:
-    ENABLE: '%prefix% &aYou have now vanished'
-    DISABLE: '%prefix% &cYou have now unvanished'
+    ENABLE: "%prefix% &aYou have now vanished"
+    DISABLE: "%prefix% &cYou have now unvanished"
 
   FLIGHT:
-    ENABLE: '%prefix% &aYou have enabled flight'
-    DISABLE: '%prefix% &cYou have disabled flight'
-    ENABLE_OTHER: '%prefix% &cYou have enabled flight for &7%player%'
-    DISABLE_OTHER: '%prefix% &cYou have disabled flight for &7%player%'
+    ENABLE: "%prefix% &aYou have enabled flight"
+    DISABLE: "%prefix% &cYou have disabled flight"
+    ENABLE_OTHER: "%prefix% &cYou have enabled flight for &7%player%"
+    DISABLE_OTHER: "%prefix% &cYou have disabled flight for &7%player%"
 
   PLAYER_HIDER:
-    HIDDEN: '%prefix% &cPlayer visibility disabled'
-    SHOWN: '%prefix% &aPlayer visibility enabled'
+    HIDDEN: "%prefix% &cPlayer visibility disabled"
+    SHOWN: "%prefix% &aPlayer visibility enabled"
 
   LOBBY:
-    SET_LOBBY: '%prefix% &aYou have successfully set the lobby spawn point'
+    SET_LOBBY: "%prefix% &aYou have successfully set the lobby spawn point"
 
   CHAT:
-    CLEARCHAT: '&b&l* &fChat has been cleared by &e%player% &b&l*'
-    CLEARCHAT_PLAYER: '&cYour chat has been cleared by an administrator.'
+    CLEARCHAT: "&b&l* &fChat has been cleared by &e%player% &b&l*"
+    CLEARCHAT_PLAYER: "&cYour chat has been cleared by an administrator."
 
-    LOCKED: '%prefix% &cChat is currently locked'
-    LOCKED_BROADCAST: '%prefix% &e%player% &chas locked global chat'
-    UNLOCKED_BROADCAST: '%prefix% &e%player% &ahas unlocked global chat'
+    LOCKED: "%prefix% &cChat is currently locked"
+    LOCKED_BROADCAST: "%prefix% &e%player% &chas locked global chat"
+    UNLOCKED_BROADCAST: "%prefix% &e%player% &ahas unlocked global chat"
 
-    ANTI_SWEAR_WORD_BLOCKED: '%prefix% &cMessage removed by anti-swear systems'
-    ANTI_SWEAR_ADMIN_NOTIFY: '%prefix% &c%player% &7attempted to say: &b%word%'
+    ANTI_SWEAR_WORD_BLOCKED: "%prefix% &cMessage removed by anti-swear systems"
+    ANTI_SWEAR_ADMIN_NOTIFY: "%prefix% &c%player% &7attempted to say: &b%word%"
 
-    COMMAND_BLOCKED: '%prefix% &cThis command has been restricted'
+    COMMAND_BLOCKED: "%prefix% &cThis command has been restricted"
 
   SCOREBOARD:
-    TOGGLE: '%prefix% &aYou have %value% the scoreboard'
+    TOGGLE: "%prefix% &aYou have %value% the scoreboard"
 
   DOUBLE_JUMP:
-    COOLDOWN_ACTIVE: '%prefix% &cYou must wait &e%time%s &cto Double Jump again!'
+    COOLDOWN_ACTIVE: "%prefix% &cYou must wait &e%time%s &cto Double Jump again!"
 
   WORLD_EVENT_MODIFICATIONS:
-    ITEM_DROP: '%prefix% &cYou are not allowed to drop items.'
-    ITEM_PICKUP: '%prefix% &cYou are not allowed to pickup items.'
-    BLOCK_PLACE: '%prefix% &cYou are not allowed to place blocks.'
-    BLOCK_BREAK: '%prefix% &cYou are not allowed to break blocks.'
-    BLOCK_INTERACT: '%prefix% &cYou are not allowed to use this.'
-    PLAYER_PVP: '%prefix% &cYou are not allowed to pvp here.'
+    ITEM_DROP: "%prefix% &cYou are not allowed to drop items."
+    ITEM_PICKUP: "%prefix% &cYou are not allowed to pickup items."
+    BLOCK_PLACE: "%prefix% &cYou are not allowed to place blocks."
+    BLOCK_BREAK: "%prefix% &cYou are not allowed to break blocks."
+    BLOCK_INTERACT: "%prefix% &cYou are not allowed to use this."
+    PLAYER_PVP: "%prefix% &cYou are not allowed to pvp here."
 
   HOLOGRAMS:
-    EMPTY: '%prefix% &cCould not find any holograms.'
-    ALREADY_EXISTS: '%prefix% &cThere is a hologram with this name already &7(%name%)&c.'
-    INVALID_HOLOGRAM: '%prefix% &cThere is no hologram with this name &7(%name%)&c.'
-    INVALID_LINE: '%prefix% &cCould not find hologram line.'
+    EMPTY: "%prefix% &cCould not find any holograms."
+    ALREADY_EXISTS: "%prefix% &cThere is a hologram with this name already &7(%name%)&c."
+    INVALID_HOLOGRAM: "%prefix% &cThere is no hologram with this name &7(%name%)&c."
+    INVALID_LINE: "%prefix% &cCould not find hologram line."
 
-    SPAWNED: '%prefix% &7Created new hologram with name &b%name%&7.'
-    DESPAWNED: '%prefix% &7Removed hologram with name &b%name%&7.'
-    MOVED: '%prefix% &7Moved hologram &b%name%&7.'
+    SPAWNED: "%prefix% &7Created new hologram with name &b%name%&7."
+    DESPAWNED: "%prefix% &7Removed hologram with name &b%name%&7."
+    MOVED: "%prefix% &7Moved hologram &b%name%&7."
 
-    LINE_SET: '%prefix% &7Set line &b%line%&7.'
-    ADDED_LINE: '%prefix% &7Added new line.'
-    REMOVED_LINE: '%prefix% &7Removed line &b%line%&7.'
+    LINE_SET: "%prefix% &7Set line &b%line%&7."
+    ADDED_LINE: "%prefix% &7Added new line."
+    REMOVED_LINE: "%prefix% &7Removed line &b%line%&7."
 
   ANTI_WORLD_DOWNLOADER:
-    ADMIN_NOTIFY: '%prefix% &f%player% &chas joined with the World Downloader Mod, their ability to use it has been restricted by our systems.'
+    ADMIN_NOTIFY: "%prefix% &f%player% &chas joined with the World Downloader Mod, their ability to use it has been restricted by our systems."

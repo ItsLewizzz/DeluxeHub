@@ -78,7 +78,7 @@ public enum Messages {
 
         String message = config.getString("Messages." + this.path);
 
-        if (message == null || message.isEmpty()) return null;
+        if (message == null || message.isEmpty()) return "DeluxeHub: message not found (" + this.path + ")";
 
         String prefix = config.getString("Messages." + PREFIX.getPath());
 

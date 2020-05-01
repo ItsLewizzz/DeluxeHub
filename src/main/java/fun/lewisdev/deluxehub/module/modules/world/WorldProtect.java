@@ -233,12 +233,13 @@ public class WorldProtect extends Module {
 
         Player player = event.getPlayer();
         if (player.hasPermission(Permissions.EVENT_BLOCK_INTERACT.getPermission())) return;
-        Material clicked = event.getClickedBlock().getType();
+        Block block = event.getClickedBlock();
+        if (block == null) return;
 
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 
             for (Material material : interactables) {
-                if (clicked == material || clicked.toString().contains("POTTED")) {
+                if (block.getType() == material || block.getType().toString().contains("POTTED")) {
 
                     event.setCancelled(true);
                     if (tryCooldown(player.getUniqueId(), CooldownType.BLOCK_INTERACT, 3)) {
@@ -249,8 +250,7 @@ public class WorldProtect extends Module {
             }
 
         } else if (event.getAction() == Action.PHYSICAL) {
-            Block soil = event.getClickedBlock();
-            if (soil.getType() == XMaterial.FARMLAND.parseMaterial()) {
+            if (block.getType() == XMaterial.FARMLAND.parseMaterial()) {
                 event.setCancelled(true);
             }
         }
