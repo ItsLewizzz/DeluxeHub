@@ -15,17 +15,13 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.*;
 import org.bukkit.event.entity.*;
-import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.event.hanging.HangingBreakByEntityEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -54,6 +50,8 @@ public class WorldProtect extends Module {
             XMaterial.ACACIA_DOOR.parseMaterial(),
             XMaterial.ACACIA_FENCE_GATE.parseMaterial(),
             XMaterial.ANVIL.parseMaterial(),
+            XMaterial.FLOWER_POT.parseMaterial(),
+            XMaterial.PAINTING.parseMaterial(),
             XMaterial.BEACON.parseMaterial(),
             XMaterial.RED_BED.parseMaterial(),
             XMaterial.BIRCH_DOOR.parseMaterial(),
@@ -179,25 +177,77 @@ public class WorldProtect extends Module {
         event.setCancelled(true);
     }
 
+    // Prevent destroying of item frame/paintings
+    @EventHandler(priority = EventPriority.HIGH)
+    public void onEntityDestroy(HangingBreakByEntityEvent event) {
+        if (!blockBreak || inDisabledWorld(event.getEntity().getLocation())) return;
+        Entity entity = event.getEntity();
+        Entity player = event.getRemover();
+
+        if (entity instanceof Painting || entity instanceof ItemFrame && player instanceof Player) {
+            if (player.hasPermission(Permissions.EVENT_BLOCK_BREAK.getPermission())) return;
+            event.setCancelled(true);
+            if (tryCooldown(player.getUniqueId(), CooldownType.BLOCK_BREAK, 3)) {
+                player.sendMessage(Messages.EVENT_BLOCK_BREAK.toString());
+            }
+        }
+    }
+
+    // Prevent items being rotated in item frame
+    @EventHandler(priority = EventPriority.HIGH)
+    public void onEntityInteract(PlayerInteractEntityEvent event) {
+        if (!blockInteract || inDisabledWorld(event.getRightClicked().getLocation())) return;
+        Entity entity = event.getRightClicked();
+        Entity player = event.getPlayer();
+
+        if (player.hasPermission(Permissions.EVENT_BLOCK_INTERACT.getPermission())) return;
+
+        if (entity instanceof ItemFrame) {
+            event.setCancelled(true);
+            if (tryCooldown(player.getUniqueId(), CooldownType.BLOCK_INTERACT, 3)) {
+                player.sendMessage(Messages.EVENT_BLOCK_INTERACT.toString());
+            }
+        }
+    }
+
+    // Prevent items being taken from item frames
+    @EventHandler
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+        if (!blockInteract || inDisabledWorld(event.getEntity().getLocation())) return;
+        Entity entity = event.getEntity();
+        Entity damager = event.getDamager();
+
+        if (entity instanceof ItemFrame && damager instanceof Player) {
+            Player player = (Player) damager;
+            if (player.hasPermission(Permissions.EVENT_BLOCK_INTERACT.getPermission())) return;
+            event.setCancelled(true);
+            if (tryCooldown(player.getUniqueId(), CooldownType.BLOCK_INTERACT, 3)) {
+                player.sendMessage(Messages.EVENT_BLOCK_INTERACT.toString());
+            }
+        }
+    }
+
     @EventHandler(priority = EventPriority.HIGH)
     public void onBlockInteract(PlayerInteractEvent event) {
-        if (!blockInteract) return;
-        if (inDisabledWorld(event.getPlayer().getLocation())) return;
+        if (!blockInteract || inDisabledWorld(event.getPlayer().getLocation())) return;
 
         Player player = event.getPlayer();
         if (player.hasPermission(Permissions.EVENT_BLOCK_INTERACT.getPermission())) return;
+        Material clicked = event.getClickedBlock().getType();
 
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+
             for (Material material : interactables) {
-                if (event.getClickedBlock().getType() == material) {
+                if (clicked == material || clicked.toString().contains("POTTED")) {
+
                     event.setCancelled(true);
                     if (tryCooldown(player.getUniqueId(), CooldownType.BLOCK_INTERACT, 3)) {
                         player.sendMessage(Messages.EVENT_BLOCK_INTERACT.toString());
                     }
                     return;
                 }
-
             }
+
         } else if (event.getAction() == Action.PHYSICAL) {
             Block soil = event.getClickedBlock();
             if (soil.getType() == XMaterial.FARMLAND.parseMaterial()) {
