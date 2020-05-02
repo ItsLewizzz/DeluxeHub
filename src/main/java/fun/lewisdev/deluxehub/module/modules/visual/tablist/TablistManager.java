@@ -59,7 +59,6 @@ public class TablistManager extends Module {
     }
 
     public void updateTablist(UUID uuid) {
-
         if (!players.contains(uuid)) return;
 
         Player player = Bukkit.getPlayer(uuid);

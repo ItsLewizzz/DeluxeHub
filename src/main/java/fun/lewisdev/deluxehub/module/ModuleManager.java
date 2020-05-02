@@ -66,9 +66,11 @@ public class ModuleManager {
                 module.onEnable();
             } catch (Exception e) {
                 e.printStackTrace();
-                plugin.getLogger().severe("There was an error loading the " + module.getModuleType().toString() + " module.");
-                modules.remove(module.getModuleType());
-                HandlerList.unregisterAll(module);
+                plugin.getLogger().severe("============= DELUXEHUB MODULE LOAD ERROR =============");
+                plugin.getLogger().severe("There was an error loading the " + module.getModuleType() + " module");
+                plugin.getLogger().severe("The plugin will now disable..");
+                plugin.getLogger().severe("============= DELUXEHUB MODULE LOAD ERROR =============");
+                plugin.getServer().getPluginManager().disablePlugin(plugin);
             }
         });
 

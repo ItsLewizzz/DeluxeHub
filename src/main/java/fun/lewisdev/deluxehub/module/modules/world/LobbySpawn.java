@@ -24,7 +24,7 @@ public class LobbySpawn extends Module {
     @Override
     public void onEnable() {
         FileConfiguration config = getConfig(ConfigType.DATA);
-        if (config.isSet("spawn")) location = (Location) config.get("spawn");
+        if (config.contains("spawn")) location = (Location) config.get("spawn");
         spawnJoin = getConfig(ConfigType.SETTINGS).getBoolean("join_settings.spawn_join", false);
     }
 

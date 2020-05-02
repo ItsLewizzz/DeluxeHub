@@ -61,6 +61,7 @@ public class WorldProtect extends Module {
             XMaterial.COMMAND_BLOCK.parseMaterial(),
             XMaterial.CHEST.parseMaterial(),
             XMaterial.DARK_OAK_DOOR.parseMaterial(),
+            XMaterial.SPRUCE_DOOR.parseMaterial(),
             XMaterial.DARK_OAK_FENCE_GATE.parseMaterial(),
             XMaterial.DAYLIGHT_DETECTOR.parseMaterial(),
             XMaterial.DAYLIGHT_DETECTOR.parseMaterial(),

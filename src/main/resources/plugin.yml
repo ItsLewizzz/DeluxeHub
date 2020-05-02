@@ -6,7 +6,7 @@ website: ${project.url}
 api-version: 1.13
 main: fun.lewisdev.deluxehub.DeluxeHub
 loadbefore: [Essentials]
-softdepend: [PlaceholderAPI, HeadDatabase]
+softdepend: [PlaceholderAPI, HeadDatabase, Multiverse-Core]
 permissions:
   deluxehub.*:
     description: Gives access to all DeluxeHub permissions
