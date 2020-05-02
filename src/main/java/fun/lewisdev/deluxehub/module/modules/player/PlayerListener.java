@@ -99,7 +99,7 @@ public class PlayerListener extends Module {
         // Heal the player
         if (spawnHeal) {
             player.setFoodLevel(20);
-            player.setHealth(20);
+            player.setHealth(player.getMaxHealth());
         }
 
         // Extinguish

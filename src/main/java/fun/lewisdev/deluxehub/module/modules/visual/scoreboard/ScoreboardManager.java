@@ -60,10 +60,7 @@ public class ScoreboardManager extends Module {
 
     public ScoreHelper updateScoreboard(UUID uuid) {
         Player player = Bukkit.getPlayer(uuid);
-        if (player == null) {
-            getPlayers().remove(uuid);
-            return null;
-        }
+        if (player == null) return null;
 
         int lines = this.lines.size();
 

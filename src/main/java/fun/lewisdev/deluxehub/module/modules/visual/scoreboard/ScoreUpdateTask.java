@@ -1,5 +1,9 @@
 package fun.lewisdev.deluxehub.module.modules.visual.scoreboard;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 public class ScoreUpdateTask implements Runnable {
 
     private ScoreboardManager scoreboardManager;
@@ -10,7 +14,11 @@ public class ScoreUpdateTask implements Runnable {
 
     @Override
     public void run() {
-        scoreboardManager.getPlayers().forEach(uuid -> scoreboardManager.updateScoreboard(uuid));
+        List<UUID> toRemove = new ArrayList<>();
+        scoreboardManager.getPlayers().forEach(uuid -> {
+            if (scoreboardManager.updateScoreboard(uuid) == null) toRemove.add(uuid);
+        });
+        scoreboardManager.getPlayers().removeAll(toRemove);
     }
 
 }

@@ -6,6 +6,7 @@ import fun.lewisdev.deluxehub.module.Module;
 import fun.lewisdev.deluxehub.module.ModuleType;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -99,8 +100,9 @@ public class HologramManager extends Module implements Listener {
     }
 
     public void deleteNearbyHolograms(Location location) {
-        location.getWorld().getNearbyEntities(location, 0, 20, 0).stream().filter(entity -> entity instanceof ArmorStand).forEach(Entity::remove);
+        World world = location.getWorld();
+        if (world == null) return;
+        world.getNearbyEntities(location, 0, 20, 0).stream().filter(entity -> entity instanceof ArmorStand).forEach(Entity::remove);
     }
-
 
 }

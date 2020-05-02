@@ -25,10 +25,6 @@ public class ItemStackBuilder {
 
     private static final DeluxeHub PLUGIN = JavaPlugin.getPlugin(DeluxeHub.class);
 
-    public ItemStackBuilder(Material mat) {
-        this.ITEM_STACK = new ItemStack(mat);
-    }
-
     public ItemStackBuilder(ItemStack item) {
         this.ITEM_STACK = item;
     }
@@ -38,7 +34,6 @@ public class ItemStackBuilder {
         ItemStack item = XMaterial.matchXMaterial(section.getString("material")).get().parseItem();
 
         if (item.getType() == XMaterial.PLAYER_HEAD.parseMaterial()) {
-
             if (section.contains("base64")) {
                 item = ((HeadHook) PLUGIN.getHookManager().getPluginHook("BASE64")).getHead(section.getString("base64"));
             } else if (section.contains("hdb") && PLUGIN.getHookManager().isHookEnabled("HEAD_DATABASE")) {
