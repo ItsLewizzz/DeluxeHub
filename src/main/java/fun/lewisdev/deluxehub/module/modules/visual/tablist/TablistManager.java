@@ -58,16 +58,14 @@ public class TablistManager extends Module {
         updateTablist(uuid);
     }
 
-    public void updateTablist(UUID uuid) {
-        if (!players.contains(uuid)) return;
+    public boolean updateTablist(UUID uuid) {
+        if (!players.contains(uuid)) return false;
 
         Player player = Bukkit.getPlayer(uuid);
-        if (player == null) {
-            players.remove(uuid);
-            return;
-        }
+        if (player == null) return false;
 
         TablistHelper.sendTabList(player, PlaceholderUtil.setPlaceholders(header, player), PlaceholderUtil.setPlaceholders(footer, player));
+        return true;
     }
 
     public void removeTablist(Player player) {

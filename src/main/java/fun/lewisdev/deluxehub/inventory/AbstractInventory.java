@@ -28,7 +28,7 @@ public abstract class AbstractInventory implements Listener {
 
     public void setInventoryRefresh(long value) {
         if (value <= 0) return;
-        plugin.getServer().getScheduler().runTaskTimer(plugin, new InventoryTask(this), 0L, value);
+        plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, new InventoryTask(this), 0L, value);
         refreshEnabled = true;
     }
 
@@ -40,8 +40,7 @@ public abstract class AbstractInventory implements Listener {
         return plugin;
     }
 
-    public void refreshInventory(Player player, Inventory inventory) {
-
+    public Inventory refreshInventory(Player player, Inventory inventory) {
         for (int i = 0; i < inventory.getSize(); i++) {
             ItemStack item = getInventory().getItem(i);
             if (item == null || item.getType() == Material.AIR || !item.hasItemMeta()) continue;
@@ -51,15 +50,14 @@ public abstract class AbstractInventory implements Listener {
             if (item.getItemMeta().hasLore()) newItem.withLore(item.getItemMeta().getLore(), player);
             inventory.setItem(i, newItem.build());
         }
+        return inventory;
     }
 
     public void openInventory(Player player) {
         if (getInventory() == null) return;
 
-        player.openInventory(getInventory());
-        refreshInventory(player, player.getOpenInventory().getTopInventory());
+        player.openInventory(refreshInventory(player, getInventory()));
         if (refreshEnabled && !openInventories.contains(player.getUniqueId())) {
-            //System.out.println("added " + player.getName());
             openInventories.add(player.getUniqueId());
         }
     }

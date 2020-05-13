@@ -29,8 +29,7 @@ public class ItemStackBuilder {
         this.ITEM_STACK = item;
     }
 
-    public static ItemStackBuilder getItemStack(ConfigurationSection section) {
-
+    public static ItemStackBuilder getItemStack(ConfigurationSection section, Player player) {
         ItemStack item = XMaterial.matchXMaterial(section.getString("material")).get().parseItem();
 
         if (item.getType() == XMaterial.PLAYER_HEAD.parseMaterial()) {
@@ -52,11 +51,13 @@ public class ItemStackBuilder {
         }
 
         if (section.contains("display_name")) {
-            builder.withName(section.getString("display_name"));
+            if (player != null) builder.withName(section.getString("display_name"), player);
+            else builder.withName(section.getString("display_name"));
         }
 
         if (section.contains("lore")) {
-            builder.withLore(section.getStringList("lore"));
+            if (player != null) builder.withLore(section.getStringList("lore"), player);
+            else builder.withLore(section.getStringList("lore"));
         }
 
         if (section.contains("glow") && section.getBoolean("glow")) {
@@ -76,6 +77,10 @@ public class ItemStackBuilder {
         }
 
         return builder;
+    }
+
+    public static ItemStackBuilder getItemStack(ConfigurationSection section) {
+        return getItemStack(section, null);
     }
 
     public ItemStackBuilder withAmount(int amount) {

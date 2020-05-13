@@ -254,7 +254,7 @@ public class WorldProtect extends Module {
             event.setCancelled(true);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
         if (!fallDamage) return;
         if (!(event.getEntity() instanceof Player)) return;

@@ -86,11 +86,10 @@ public abstract class HotbarItem implements Listener {
         if (!allowMovement) return;
 
         Player player = (Player) event.getWhoClicked();
-        ItemStack clicked = event.getCurrentItem();
+        if (getHotbarManager().inDisabledWorld(player.getLocation())) return;
 
+        ItemStack clicked = event.getCurrentItem();
         if (clicked == null || clicked.getType() == Material.AIR) return;
-        else if (getHotbarManager().inDisabledWorld(player.getLocation())) return;
-        else if (event.getCursor() == null || event.getCursor().getType() == Material.AIR) return;
 
         if (event.getSlot() == slot && new NBTItem(clicked).getString("hotbarItem").equals(key))
             event.setCancelled(true);
@@ -105,8 +104,8 @@ public abstract class HotbarItem implements Listener {
         ItemStack item = player.getItemInHand();
 
         if (getHotbarManager().inDisabledWorld(player.getLocation())) return;
-        if (item == null || item.getType() == Material.AIR) return;
-        if (!new NBTItem(item).getString("hotbarItem").equals(key)) return;
+        else if (item.getType() == Material.AIR) return;
+        else if (!new NBTItem(item).getString("hotbarItem").equals(key)) return;
 
         onInteract(player);
     }
