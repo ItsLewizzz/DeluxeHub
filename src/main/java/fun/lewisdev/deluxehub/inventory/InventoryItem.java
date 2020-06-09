@@ -11,7 +11,7 @@ public class InventoryItem {
     public final List<ClickAction> clickActions;
 
     public InventoryItem(final ItemStack itemStack) {
-        this.clickActions = new ArrayList<ClickAction>();
+        this.clickActions = new ArrayList<>();
         this.itemStack = itemStack;
     }
 

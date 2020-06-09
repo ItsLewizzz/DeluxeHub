@@ -45,6 +45,8 @@ public class WorldProtect extends Module {
     private boolean blockPlace;
     private boolean blockInteract;
     private boolean playerPvP;
+    private boolean playerDrowning;
+    private boolean fireDamage;
 
     private List<Material> interactables = Arrays.asList(
             XMaterial.ACACIA_DOOR.parseMaterial(),
@@ -115,6 +117,8 @@ public class WorldProtect extends Module {
         blockBurn = config.getBoolean("world_settings.disable_block_burn");
         fireSpread = config.getBoolean("world_settings.disable_block_fire_spread");
         leafDecay = config.getBoolean("world_settings.disable_block_leaf_decay");
+        playerDrowning = config.getBoolean("world_settings.disable_drowning");
+        fireDamage = config.getBoolean("world_settings.disable_fire_damage");
     }
 
     @Override
@@ -256,14 +260,23 @@ public class WorldProtect extends Module {
 
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
-        if (!fallDamage) return;
         if (!(event.getEntity() instanceof Player)) return;
-        if (event.getCause() == EntityDamageEvent.DamageCause.VOID) return;
-
         Player player = (Player) event.getEntity();
         if (inDisabledWorld(player.getLocation())) return;
 
-        if (event.getCause() == EntityDamageEvent.DamageCause.FALL) event.setCancelled(true);
+        if (fallDamage && event.getCause() == EntityDamageEvent.DamageCause.FALL) event.setCancelled(true);
+        else if (playerDrowning && event.getCause() == EntityDamageEvent.DamageCause.DROWNING) event.setCancelled(true);
+        else if (fireDamage && (event.getCause() == EntityDamageEvent.DamageCause.FIRE || event.getCause() == EntityDamageEvent.DamageCause.FIRE_TICK || event.getCause() == EntityDamageEvent.DamageCause.LAVA))
+            event.setCancelled(true);
+        else if (voidDeath && event.getCause() == EntityDamageEvent.DamageCause.VOID) {
+            player.setFallDistance(0.0F);
+
+            Location location = ((LobbySpawn) getPlugin().getModuleManager().getModule(ModuleType.LOBBY)).getLocation();
+            if (location == null) return;
+
+            Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> player.teleport(location), 3L);
+            event.setCancelled(true);
+        }
     }
 
     @EventHandler
@@ -357,21 +370,5 @@ public class WorldProtect extends Module {
         if (tryCooldown(player.getUniqueId(), CooldownType.PLAYER_PVP, 3)) {
             event.getDamager().sendMessage(Messages.EVENT_PLAYER_PVP.toString());
         }
-    }
-
-    @EventHandler
-    public void onVoidDamage(EntityDamageEvent event) {
-        if (!voidDeath || event.getCause() != EntityDamageEvent.DamageCause.VOID) return;
-
-        Entity entity = event.getEntity();
-        if (!(entity instanceof Player) || inDisabledWorld(entity.getLocation())) return;
-
-        entity.setFallDistance(0.0F);
-
-        Location location = ((LobbySpawn) getPlugin().getModuleManager().getModule(ModuleType.LOBBY)).getLocation();
-        if (location == null) return;
-
-        Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> entity.teleport(location), 3L);
-        event.setCancelled(true);
     }
 }

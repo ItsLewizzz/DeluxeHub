@@ -21,6 +21,7 @@ public class AutoBroadcast extends Module implements Runnable {
     private int broadcastTask = 0;
     private int count = 0;
     private int size = 0;
+    private int requiredPlayers = 0;
 
     private Sound sound = null;
     private double volume;
@@ -47,6 +48,8 @@ public class AutoBroadcast extends Module implements Runnable {
             pitch = config.getDouble("announcements.sound.pitch");
         }
 
+        requiredPlayers = config.getInt("announcements.required_players", 0);
+
         size = broadcasts.size();
         if (size > 0)
             broadcastTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(getPlugin(), this, 60L, config.getInt("announcements.delay") * 20);
@@ -61,9 +64,9 @@ public class AutoBroadcast extends Module implements Runnable {
     public void run() {
         if (count == size) count = 0;
 
-        if (count < size) {
+        if (count < size && Bukkit.getOnlinePlayers().size() >= requiredPlayers) {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                if(inDisabledWorld(player.getLocation())) continue;
+                if (inDisabledWorld(player.getLocation())) continue;
 
                 broadcasts.get(count).forEach(message -> {
                     if (message.contains("<center>") && message.contains("</center>"))

@@ -55,12 +55,12 @@ public class ModuleManager {
         registerModule(new CustomCommands(plugin));
         registerModule(new PlayerListener(plugin));
         registerModule(new HotbarManager(plugin));
-        registerModule(new HologramManager(plugin));
         registerModule(new WorldProtect(plugin));
         registerModule(new LobbySpawn(plugin));
         registerModule(new PlayerVanish(plugin));
+        registerModule(new HologramManager(plugin));
 
-        modules.values().forEach(module -> {
+        for (Module module : modules.values()) {
             try {
                 module.setDisabledWorlds(disabledWorlds);
                 module.onEnable();
@@ -71,14 +71,15 @@ public class ModuleManager {
                 plugin.getLogger().severe("The plugin will now disable..");
                 plugin.getLogger().severe("============= DELUXEHUB MODULE LOAD ERROR =============");
                 plugin.getServer().getPluginManager().disablePlugin(plugin);
+                break;
             }
-        });
+        }
 
         plugin.getLogger().info("Loaded " + modules.size() + " plugin modules.");
     }
 
     public void unloadModules() {
-        modules.values().forEach(module -> {
+        for (Module module : modules.values()) {
             try {
                 HandlerList.unregisterAll(module);
                 module.onDisable();
@@ -86,7 +87,7 @@ public class ModuleManager {
                 e.printStackTrace();
                 plugin.getLogger().severe("There was an error unloading the " + module.getModuleType().toString() + " module.");
             }
-        });
+        }
         modules.clear();
     }
 

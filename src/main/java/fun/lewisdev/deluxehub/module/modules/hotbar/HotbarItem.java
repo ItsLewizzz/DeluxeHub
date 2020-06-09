@@ -2,7 +2,9 @@ package fun.lewisdev.deluxehub.module.modules.hotbar;
 
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.utility.ItemStackBuilder;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,6 +20,7 @@ public abstract class HotbarItem implements Listener {
 
     private HotbarManager hotbarManager;
     private ItemStack item;
+    private ConfigurationSection configurationSection;
     private String key;
     private String permission = null;
     private int slot;
@@ -67,9 +70,23 @@ public abstract class HotbarItem implements Listener {
         return permission;
     }
 
+    public void setConfigurationSection(ConfigurationSection configurationSection) {
+        this.configurationSection = configurationSection;
+    }
+
+    public ConfigurationSection getConfigurationSection() {
+        return configurationSection;
+    }
+
     public void giveItem(Player player) {
         if (permission != null && !player.hasPermission(permission)) return;
-        player.getInventory().setItem(slot, item);
+
+        ItemStack newItem = item.clone();
+        if (getConfigurationSection() != null && getConfigurationSection().contains("username")) {
+            newItem = new ItemStackBuilder(newItem).setSkullOwner(player.getName()).build();
+        }
+
+        player.getInventory().setItem(slot, newItem);
     }
 
     public void removeItem(Player player) {

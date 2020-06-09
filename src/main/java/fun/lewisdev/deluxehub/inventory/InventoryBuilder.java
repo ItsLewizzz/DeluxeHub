@@ -27,6 +27,10 @@ public class InventoryBuilder implements InventoryHolder {
         return icons.get(slot);
     }
 
+    public Map<Integer, InventoryItem> getIcons() {
+        return icons;
+    }
+
     public Inventory getInventory() {
         if (size > 54) size = 54;
         else if (size < 9) size = 9;

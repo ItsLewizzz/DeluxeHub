@@ -109,14 +109,12 @@ public class ScoreboardManager extends Module {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onWorldChange(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
-        if (event.isCancelled() || event.getFrom().getWorld().getName().equals(event.getTo().getWorld().getName()))
-            return;
+        if (event.getFrom().getWorld().getName().equals(event.getTo().getWorld().getName())) return;
 
-        if (!inDisabledWorld(event.getTo().getWorld()) && !players.containsKey(player.getUniqueId())) {
-            Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> createScoreboard(player), worldDelay);
-        } else {
+        if (inDisabledWorld(event.getTo().getWorld()) && players.containsKey(player.getUniqueId())) {
             removeScoreboard(player);
-
+        } else if (!players.containsKey(player.getUniqueId())) {
+            Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> createScoreboard(player), worldDelay);
         }
     }
 

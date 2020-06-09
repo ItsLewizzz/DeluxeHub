@@ -136,6 +136,9 @@ announcements:
   # Delay to send announcements (in seconds)
   delay: 60
 
+  # How many players should be required to send announcements?
+  required_players: 1
+
   sound:
     enabled: true
     value: BLOCK_NOTE_BLOCK_PLING
@@ -242,6 +245,8 @@ world_settings:
   disable_fall_damage: true
   disable_player_pvp: true
   disable_void_death: true
+  disable_fire_damage: true
+  disable_drowning: true
 
   # Misc
   disable_weather_change: true

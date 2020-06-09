@@ -37,6 +37,7 @@ public class HotbarManager extends Module {
                     customItem.setPermission(config.getString("custom_join_items.items." + entry + ".permission"));
                 }
 
+                customItem.setConfigurationSection(config.getConfigurationSection("custom_join_items.items." + entry));
                 customItem.setAllowMovement(config.getBoolean("custom_join_items.disable_inventory_movement"));
                 registerHotbarItem(customItem);
             }
