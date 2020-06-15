@@ -30,7 +30,7 @@ public class ItemStackBuilder {
     }
 
     public static ItemStackBuilder getItemStack(ConfigurationSection section, Player player) {
-        ItemStack item = XMaterial.matchXMaterial(section.getString("material")).get().parseItem();
+        ItemStack item = XMaterial.matchXMaterial(section.getString("material").toUpperCase()).get().parseItem();
 
         if (item.getType() == XMaterial.PLAYER_HEAD.parseMaterial()) {
             if (section.contains("base64")) {

@@ -285,7 +285,7 @@ join_events:
   - "[MESSAGE] &r"
   - "[MESSAGE] &r  &2&lWEBSITE &fwww.examplemc.net"
   - "[MESSAGE] &r  &3&lSTORE &fstore.examplemc.net"
-  - "[MESSAGE] &r  &9&lDISCORD &fhttps://discord.lewisdev.fun"
+  - "[MESSAGE] &r  &9&lDISCORD &fdiscord.examplemc.net"
   - "[MESSAGE] &r"
   - "[MESSAGE] &r            &7&oPowered By DeluxeHub"
   - "[MESSAGE] &8&m+---------------***---------------+"
@@ -340,7 +340,7 @@ custom_join_items:
         - "[MESSAGE] &r"
         - "[MESSAGE] &bWebsite: &fwww.examplemc.net"
         - "[MESSAGE] &cStore: &fbuy.examplemc.net"
-        - "[MESSAGE] &dDiscord: &fhttps://discord.lewisdev.fun"
+        - "[MESSAGE] &dDiscord: &fdiscord.examplemc.net"
         - "[MESSAGE] &r"
     server_selector:
       material: NETHER_STAR
