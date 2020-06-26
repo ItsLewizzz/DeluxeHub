@@ -46,6 +46,7 @@ public class HologramManager extends Module implements Listener {
                     List<String> lines = config.getStringList("holograms." + key + ".lines");
 
                     Location loc = (Location) config.get("holograms." + key + ".location");
+                    if (loc == null) continue;
                     deleteNearbyHolograms(loc);
 
                     Hologram holo = createHologram(key, loc);

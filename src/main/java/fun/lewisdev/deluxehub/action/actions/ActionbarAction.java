@@ -2,6 +2,7 @@ package fun.lewisdev.deluxehub.action.actions;
 
 import fun.lewisdev.deluxehub.DeluxeHub;
 import fun.lewisdev.deluxehub.action.Action;
+import fun.lewisdev.deluxehub.utility.TextUtil;
 import fun.lewisdev.deluxehub.utility.reflection.ActionBar;
 import org.bukkit.entity.Player;
 
@@ -14,6 +15,6 @@ public class ActionbarAction implements Action {
 
     @Override
     public void execute(DeluxeHub plugin, Player player, String data) {
-        ActionBar.sendActionBar(player, data);
+        ActionBar.sendActionBar(player, TextUtil.color(data));
     }
 }

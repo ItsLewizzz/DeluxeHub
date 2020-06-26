@@ -75,13 +75,13 @@ public enum Messages {
 
     @Override
     public String toString() {
-
         String message = config.getString("Messages." + this.path);
 
-        if (message == null || message.isEmpty()) return "DeluxeHub: message not found (" + this.path + ")";
+        if (message == null || message.isEmpty()) {
+            return "DeluxeHub: message not found (" + this.path + ")";
+        }
 
         String prefix = config.getString("Messages." + PREFIX.getPath());
-
         return TextUtil.color(message.replace("%prefix%", prefix != null && !prefix.isEmpty() ? prefix : ""));
     }
 

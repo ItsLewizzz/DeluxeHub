@@ -64,7 +64,7 @@ items:
       # For multi-world servers using Multiverse-Core, use the action:
       # - '[CONSOLE] mvtp %player% world'
   survival:
-    material: GRASS
+    material: GRASS_BLOCK
     slot: 15
     amount: 1
     glow: false

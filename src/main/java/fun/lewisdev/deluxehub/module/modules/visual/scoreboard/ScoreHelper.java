@@ -1,6 +1,7 @@
 package fun.lewisdev.deluxehub.module.modules.visual.scoreboard;
 
 import fun.lewisdev.deluxehub.utility.PlaceholderUtil;
+import fun.lewisdev.deluxehub.utility.TextUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -61,7 +62,7 @@ public class ScoreHelper {
     }
 
     public String setPlaceholders(String text) {
-        return ChatColor.translateAlternateColorCodes('&', PlaceholderUtil.setPlaceholders(text, this.player));
+        return TextUtil.color(PlaceholderUtil.setPlaceholders(text, this.player));
     }
 
     public void setSlotsFromList(List<String> list) {

@@ -12,6 +12,7 @@ import fun.lewisdev.deluxehub.inventory.InventoryManager;
 import fun.lewisdev.deluxehub.module.ModuleManager;
 import fun.lewisdev.deluxehub.module.ModuleType;
 import fun.lewisdev.deluxehub.module.modules.hologram.HologramManager;
+import fun.lewisdev.deluxehub.utility.TextUtil;
 import fun.lewisdev.deluxehub.utility.UpdateChecker;
 import org.bstats.bukkit.MetricsLite;
 import org.bukkit.Bukkit;
@@ -60,6 +61,7 @@ public class DeluxeHub extends JavaPlugin {
         }
 
         SERVER_VERSION = Integer.parseInt(Bukkit.getBukkitVersion().split("-")[0].replace(".", "#").split("#")[1]);
+        if (SERVER_VERSION > 15) TextUtil.HEX_USE = true;
 
         // Enable bStats metrics
         new MetricsLite(this, BSTATS_ID);

@@ -34,6 +34,7 @@ public class ConfigManager {
 
     public void reloadFiles() {
         configurations.values().forEach(ConfigHandler::reload);
+        Messages.setConfiguration(getFile(ConfigType.MESSAGES).getConfig());
     }
 
     public void saveFiles() {
