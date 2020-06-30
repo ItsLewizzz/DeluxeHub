@@ -17,6 +17,7 @@ public enum ModuleType {
     VANISH,
     HOLOGRAMS,
     HOTBAR_ITEMS,
-    PLAYER_LISTENER
+    PLAYER_LISTENER,
+    PLAYER_OFFHAND_LISTENER
 
 }

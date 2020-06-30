@@ -44,8 +44,7 @@ public class ScoreboardManager extends Module {
             scoreTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(getPlugin(), new ScoreUpdateTask(this), 0L, config.getLong("scoreboard.refresh.rate"));
         }
 
-        getPlugin().getServer().getScheduler().scheduleSyncDelayedTask(getPlugin(), () ->
-                Bukkit.getOnlinePlayers().stream().filter(player -> !inDisabledWorld(player.getLocation())).forEach(this::createScoreboard), 20L);
+        getPlugin().getServer().getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> Bukkit.getOnlinePlayers().stream().filter(player -> !inDisabledWorld(player.getLocation())).forEach(this::createScoreboard), 20L);
     }
 
     @Override

@@ -7,6 +7,7 @@ import fun.lewisdev.deluxehub.module.modules.hologram.HologramManager;
 import fun.lewisdev.deluxehub.module.modules.hotbar.HotbarManager;
 import fun.lewisdev.deluxehub.module.modules.player.DoubleJump;
 import fun.lewisdev.deluxehub.module.modules.player.PlayerListener;
+import fun.lewisdev.deluxehub.module.modules.player.PlayerOffHandSwap;
 import fun.lewisdev.deluxehub.module.modules.player.PlayerVanish;
 import fun.lewisdev.deluxehub.module.modules.visual.scoreboard.ScoreboardManager;
 import fun.lewisdev.deluxehub.module.modules.visual.tablist.TablistManager;
@@ -59,6 +60,11 @@ public class ModuleManager {
         registerModule(new LobbySpawn(plugin));
         registerModule(new PlayerVanish(plugin));
         registerModule(new HologramManager(plugin));
+
+        // Requires 1.9+
+        if (plugin.getServerVersionNumber() > 8) {
+            registerModule(new PlayerOffHandSwap(plugin), "world_settings.disable_off_hand_swap");
+        }
 
         for (Module module : modules.values()) {
             try {

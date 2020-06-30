@@ -248,6 +248,7 @@ world_settings:
   disable_void_death: true
   disable_fire_damage: true
   disable_drowning: true
+  disable_off_hand_swap: true # Requires 1.9+
 
   # Misc
   disable_weather_change: true
