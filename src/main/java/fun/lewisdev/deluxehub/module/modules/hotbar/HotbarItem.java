@@ -3,6 +3,7 @@ package fun.lewisdev.deluxehub.module.modules.hotbar;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import fun.lewisdev.deluxehub.DeluxeHub;
 import fun.lewisdev.deluxehub.utility.ItemStackBuilder;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -139,14 +140,16 @@ public abstract class HotbarItem implements Listener {
         if (!getHotbarManager().inDisabledWorld(player.getLocation())) removeItem(player);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void hotbarWorldChange(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
-        if (getHotbarManager().inDisabledWorld(player.getLocation())) {
-            removeItem(player);
-        } else {
-            giveItem(player);
-        }
+        Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> {
+            if (getHotbarManager().inDisabledWorld(player.getLocation())) {
+                removeItem(player);
+            } else {
+                giveItem(player);
+            }
+        }, 5L);
     }
 
     @EventHandler

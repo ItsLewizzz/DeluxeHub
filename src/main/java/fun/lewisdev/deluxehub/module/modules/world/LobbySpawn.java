@@ -4,6 +4,7 @@ import fun.lewisdev.deluxehub.DeluxeHub;
 import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.module.Module;
 import fun.lewisdev.deluxehub.module.ModuleType;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -23,8 +24,10 @@ public class LobbySpawn extends Module {
 
     @Override
     public void onEnable() {
-        FileConfiguration config = getConfig(ConfigType.DATA);
-        if (config.contains("spawn")) location = (Location) config.get("spawn");
+        Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> {
+            FileConfiguration config = getConfig(ConfigType.DATA);
+            if (config.contains("spawn")) location = (Location) config.get("spawn");
+        });
         spawnJoin = getConfig(ConfigType.SETTINGS).getBoolean("join_settings.spawn_join", false);
     }
 

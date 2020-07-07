@@ -26,7 +26,6 @@ public class DeluxeHub extends JavaPlugin {
 
     private static final int BSTATS_ID = 3151;
     public static int SERVER_VERSION;
-    private boolean loaded = false;
 
     private ConfigManager configManager;
     private ActionManager actionManager;
@@ -103,16 +102,14 @@ public class DeluxeHub extends JavaPlugin {
 
         getLogger().log(Level.INFO, "");
         getLogger().log(Level.INFO, "Successfully loaded in " + (System.currentTimeMillis() - start) + "ms");
-        loaded = true;
     }
 
     public void onDisable() {
         Bukkit.getScheduler().cancelTasks(this);
-        if (loaded) {
-            moduleManager.unloadModules();
-            inventoryManager.onDisable();
-            configManager.saveFiles();
-        }
+        moduleManager.unloadModules();
+        inventoryManager.onDisable();
+        configManager.saveFiles();
+
     }
 
     public void reload() {
