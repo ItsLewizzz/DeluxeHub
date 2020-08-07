@@ -128,7 +128,7 @@ public abstract class HotbarItem implements Listener {
         onInteract(player);
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGH)
     public void hotbarPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         if (!getHotbarManager().inDisabledWorld(player.getLocation())) giveItem(player);
