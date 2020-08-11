@@ -2,11 +2,11 @@
 
 DeluxeHub is the all-in-one hub server solution. The plugin features a large amount of features designed for hub servers compacted into one plugin.
 
-### Quick Links
-- [Plugin Wikipedia](https://wiki.lewisdev.fun/)
-- [Spigot Page](https://www.spigotmc.org/resources/49425/)
-- [Discord Server](https://discord.lewisdev.fun/)
+## Quick Links
+  - [Plugin Wikipedia](https://wiki.lewisdev.fun/)
+  - [Spigot Page](https://www.spigotmc.org/resources/49425/)
+  - [Discord Server](https://discord.lewisdev.fun/)
 
 ## License
 
-This project is licensed under the GNU General Public License v3.0 License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the GNU General Public License v3.0 License - see the [LICENSE](LICENSE) file for details.
