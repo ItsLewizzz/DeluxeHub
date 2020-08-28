@@ -1,6 +1,6 @@
 # DeluxeHub [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0daefdcd09d14086b2f96934d283371e)](https://www.codacy.com/manual/ItsLewizzz/DeluxeHub?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ItsLewizzz/DeluxeHub&amp;utm_campaign=Badge_Grade)
 
-DeluxeHub is the all-in-one hub server solution. The plugin features a large amount of features designed for hub servers compacted into one plugin.
+DeluxeHub is the all-in-one hub server solution compacting a large amount of hub essentials into one plugin.
 
 ## Quick Links
   - [Plugin Wikipedia](https://wiki.lewisdev.fun/)
