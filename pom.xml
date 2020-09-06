@@ -95,7 +95,7 @@
         </repository>
         <repository>
             <id>bgm</id>
-            <url>https://bgmp.cl/</url>
+            <url>https://maven.bgmp.cl/repo/</url>
         </repository>
         <repository>
             <id>CodeMC</id>
@@ -155,7 +155,7 @@
         <dependency>
             <groupId>com.sk89q</groupId>
             <artifactId>command-framework-bukkit</artifactId>
-            <version>1.9-SNAPSHOT</version>
+            <version>1.0.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>de.tr7zw</groupId>
