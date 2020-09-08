@@ -1,6 +1,10 @@
 package fun.lewisdev.deluxehub;
 
-import com.sk89q.minecraft.util.commands.*;
+import com.sk89q.minecraft.util.commands.exceptions.CommandException;
+import com.sk89q.minecraft.util.commands.exceptions.CommandPermissionsException;
+import com.sk89q.minecraft.util.commands.exceptions.CommandUsageException;
+import com.sk89q.minecraft.util.commands.exceptions.MissingNestedCommandException;
+import com.sk89q.minecraft.util.commands.exceptions.WrappedCommandException;
 import fun.lewisdev.deluxehub.action.ActionManager;
 import fun.lewisdev.deluxehub.command.CommandManager;
 import fun.lewisdev.deluxehub.config.ConfigManager;
@@ -16,6 +20,7 @@ import fun.lewisdev.deluxehub.utility.TextUtil;
 import fun.lewisdev.deluxehub.utility.UpdateChecker;
 import org.bstats.bukkit.MetricsLite;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
