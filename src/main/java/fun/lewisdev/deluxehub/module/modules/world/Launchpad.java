@@ -36,8 +36,6 @@ public class Launchpad extends Module {
         topBlock = XMaterial.matchXMaterial(config.getString("launchpad.top_block")).get().parseMaterial();
         bottomBlock = XMaterial.matchXMaterial(config.getString("launchpad.bottom_block")).get().parseMaterial();
 
-        if (launch > 4.0) launch = 4.0;
-        if (launchY > 4.0) launchY = 4.0;
     }
 
     @Override
