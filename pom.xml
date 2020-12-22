@@ -51,7 +51,7 @@
                             <artifactSet>
                                 <includes>
                                     <include>org.bstats:bstats-bukkit-lite</include>
-                                    <include>com.sk89q:command-framework-bukkit</include>
+                                    <include>cl.bgmp:command-framework-bukkit</include>
                                     <include>javax.inject:javax.inject</include>
                                     <include>de.tr7zw:item-nbt-api</include>
                                 </includes>
@@ -63,7 +63,7 @@
                                     <shadedPattern>fun.lewisdev.deluxehub.libs.metrics</shadedPattern>
                                 </relocation>
                                 <relocation>
-                                    <pattern>com.sk89q</pattern>
+                                    <pattern>cl.bgmp</pattern>
                                     <shadedPattern>fun.lewisdev.deluxehub.libs.commandframework</shadedPattern>
                                 </relocation>
                                 <relocation>
@@ -153,9 +153,9 @@
             <version>1.2</version>
         </dependency>
         <dependency>
-            <groupId>com.sk89q</groupId>
+            <groupId>cl.bgmp</groupId>
             <artifactId>command-framework-bukkit</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+            <version>1.0.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>de.tr7zw</groupId>
