@@ -95,7 +95,7 @@
         </repository>
         <repository>
             <id>bgm</id>
-            <url>https://maven.bgmp.cl/repo/</url>
+            <url>https://maven.bgmp.cl/</url>
         </repository>
         <repository>
             <id>CodeMC</id>
