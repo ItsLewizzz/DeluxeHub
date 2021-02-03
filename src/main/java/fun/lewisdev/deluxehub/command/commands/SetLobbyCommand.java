@@ -1,8 +1,8 @@
 package fun.lewisdev.deluxehub.command.commands;
 
-import com.sk89q.minecraft.util.commands.CommandContext;
-import com.sk89q.minecraft.util.commands.annotations.Command;
-import com.sk89q.minecraft.util.commands.exceptions.CommandException;
+import cl.bgmp.minecraft.util.commands.CommandContext;
+import cl.bgmp.minecraft.util.commands.annotations.Command;
+import cl.bgmp.minecraft.util.commands.exceptions.CommandException;
 import fun.lewisdev.deluxehub.DeluxeHub;
 import fun.lewisdev.deluxehub.Permissions;
 import fun.lewisdev.deluxehub.config.Messages;

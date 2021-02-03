@@ -1,10 +1,10 @@
 package fun.lewisdev.deluxehub;
 
-import com.sk89q.minecraft.util.commands.exceptions.CommandException;
-import com.sk89q.minecraft.util.commands.exceptions.CommandPermissionsException;
-import com.sk89q.minecraft.util.commands.exceptions.CommandUsageException;
-import com.sk89q.minecraft.util.commands.exceptions.MissingNestedCommandException;
-import com.sk89q.minecraft.util.commands.exceptions.WrappedCommandException;
+import cl.bgmp.minecraft.util.commands.exceptions.CommandException;
+import cl.bgmp.minecraft.util.commands.exceptions.CommandPermissionsException;
+import cl.bgmp.minecraft.util.commands.exceptions.CommandUsageException;
+import cl.bgmp.minecraft.util.commands.exceptions.MissingNestedCommandException;
+import cl.bgmp.minecraft.util.commands.exceptions.WrappedCommandException;
 import fun.lewisdev.deluxehub.action.ActionManager;
 import fun.lewisdev.deluxehub.command.CommandManager;
 import fun.lewisdev.deluxehub.config.ConfigManager;

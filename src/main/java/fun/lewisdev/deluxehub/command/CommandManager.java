@@ -1,10 +1,10 @@
 package fun.lewisdev.deluxehub.command;
 
-import com.sk89q.bukkit.util.BukkitCommandsManager;
-import com.sk89q.bukkit.util.CommandsManagerRegistration;
-import com.sk89q.minecraft.util.commands.CommandsManager;
-import com.sk89q.minecraft.util.commands.exceptions.CommandException;
-import com.sk89q.minecraft.util.commands.injection.SimpleInjector;
+import cl.bgmp.bukkit.util.BukkitCommandsManager;
+import cl.bgmp.bukkit.util.CommandsManagerRegistration;
+import cl.bgmp.minecraft.util.commands.CommandsManager;
+import cl.bgmp.minecraft.util.commands.exceptions.CommandException;
+import cl.bgmp.minecraft.util.commands.injection.SimpleInjector;
 import fun.lewisdev.deluxehub.DeluxeHub;
 import fun.lewisdev.deluxehub.command.commands.*;
 import fun.lewisdev.deluxehub.command.commands.gamemode.*;
