@@ -38,13 +38,14 @@ public class InventoryManager {
         if (!directory.exists()) {
             directory.mkdir();
             File file = new File(plugin.getDataFolder().getAbsolutePath() + File.separator + "menus", "serverselector.yml");
-            try {
+            try (InputStream inputStream = this.plugin.getResource("serverselector.yml")){
                 file.createNewFile();
-                InputStream inputStream = this.plugin.getResource("serverselector.yml");
                 byte[] buffer = new byte[inputStream.available()];
                 inputStream.read(buffer);
+
                 OutputStream outputStream = new FileOutputStream(file);
                 outputStream.write(buffer);
+                outputStream.close();
             } catch (IOException e) {
                 e.printStackTrace();
                 return;
