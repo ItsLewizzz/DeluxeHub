@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class HologramManager extends Module implements Listener {
+public class HologramManager extends Module {
 
     private Set<Hologram> holograms;
 
