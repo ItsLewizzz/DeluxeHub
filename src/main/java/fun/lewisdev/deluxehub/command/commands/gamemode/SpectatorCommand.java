@@ -1,30 +1,27 @@
 package fun.lewisdev.deluxehub.command.commands.gamemode;
 
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 import cl.bgmp.minecraft.util.commands.CommandContext;
 import cl.bgmp.minecraft.util.commands.annotations.Command;
 import cl.bgmp.minecraft.util.commands.exceptions.CommandException;
 import fun.lewisdev.deluxehub.DeluxeHub;
 import fun.lewisdev.deluxehub.Permissions;
 import fun.lewisdev.deluxehub.config.Messages;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class SpectatorCommand {
 
     public SpectatorCommand(DeluxeHub plugin) {
     }
 
-    @Command(
-            aliases = {"gmsp"},
-            desc = "Change to spectator mode",
-            usage = "[player]",
-            max = 1
-    )
+    @Command(aliases = { "gmsp" }, desc = "Change to spectator mode", usage = "[player]", max = 1)
     public void spectator(final CommandContext args, final CommandSender sender) throws CommandException {
         if (args.argsLength() == 0) {
-            if (!(sender instanceof Player)) throw new CommandException("Console cannot change gamemode");
+            if (!(sender instanceof Player))
+                throw new CommandException("Console cannot change gamemode");
 
             Player player = (Player) sender;
             if (!player.hasPermission(Permissions.COMMAND_GAMEMODE.getPermission())) {
@@ -50,7 +47,8 @@ public class SpectatorCommand {
                 player.sendMessage(Messages.GAMEMODE_CHANGE.toString().replace("%gamemode%", "SPECTATOR"));
             } else {
                 player.sendMessage(Messages.GAMEMODE_CHANGE.toString().replace("%gamemode%", "SPECTATOR"));
-                sender.sendMessage(Messages.GAMEMODE_CHANGE_OTHER.toString().replace("%player%", player.getName()).replace("%gamemode%", "SPECTATOR"));
+                sender.sendMessage(Messages.GAMEMODE_CHANGE_OTHER.toString().replace("%player%", player.getName())
+                        .replace("%gamemode%", "SPECTATOR"));
             }
             player.setGameMode(GameMode.SPECTATOR);
         }

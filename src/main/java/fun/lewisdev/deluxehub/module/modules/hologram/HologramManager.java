@@ -1,9 +1,10 @@
 package fun.lewisdev.deluxehub.module.modules.hologram;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
-import fun.lewisdev.deluxehub.config.ConfigType;
-import fun.lewisdev.deluxehub.module.Module;
-import fun.lewisdev.deluxehub.module.ModuleType;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -11,10 +12,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.config.ConfigType;
+import fun.lewisdev.deluxehub.module.Module;
+import fun.lewisdev.deluxehub.module.ModuleType;
 
 public class HologramManager extends Module {
 
@@ -45,7 +46,8 @@ public class HologramManager extends Module {
                     List<String> lines = config.getStringList("holograms." + key + ".lines");
 
                     Location loc = (Location) config.get("holograms." + key + ".location");
-                    if (loc == null) continue;
+                    if (loc == null)
+                        continue;
                     deleteNearbyHolograms(loc);
 
                     Hologram holo = createHologram(key, loc);
@@ -60,7 +62,8 @@ public class HologramManager extends Module {
         holograms.forEach(hologram -> {
             config.set("holograms." + hologram.getName() + ".location", hologram.getLocation());
             List<String> lines = new ArrayList<String>();
-            for (ArmorStand stand : hologram.getStands()) lines.add(stand.getCustomName());
+            for (ArmorStand stand : hologram.getStands())
+                lines.add(stand.getCustomName());
             config.set("holograms." + hologram.getName() + ".lines", lines);
         });
         getPlugin().getConfigManager().getFile(ConfigType.DATA).save();
@@ -76,7 +79,8 @@ public class HologramManager extends Module {
     }
 
     public Hologram getHologram(String name) {
-        return getHolograms().stream().filter(hologram -> hologram.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
+        return getHolograms().stream().filter(hologram -> hologram.getName().equalsIgnoreCase(name)).findFirst()
+                .orElse(null);
     }
 
     public Hologram createHologram(String name, Location location) {
@@ -101,8 +105,10 @@ public class HologramManager extends Module {
 
     public void deleteNearbyHolograms(Location location) {
         World world = location.getWorld();
-        if (world == null) return;
-        world.getNearbyEntities(location, 0, 20, 0).stream().filter(entity -> entity instanceof ArmorStand).forEach(Entity::remove);
+        if (world == null)
+            return;
+        world.getNearbyEntities(location, 0, 20, 0).stream().filter(entity -> entity instanceof ArmorStand)
+                .forEach(Entity::remove);
     }
 
 }

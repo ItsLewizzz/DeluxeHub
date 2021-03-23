@@ -1,9 +1,11 @@
 package fun.lewisdev.deluxehub.module.modules.visual.scoreboard;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
-import fun.lewisdev.deluxehub.config.ConfigType;
-import fun.lewisdev.deluxehub.module.Module;
-import fun.lewisdev.deluxehub.module.ModuleType;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -13,7 +15,10 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
-import java.util.*;
+import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.config.ConfigType;
+import fun.lewisdev.deluxehub.module.Module;
+import fun.lewisdev.deluxehub.module.ModuleType;
 
 public class ScoreboardManager extends Module {
 
@@ -41,10 +46,13 @@ public class ScoreboardManager extends Module {
         worldDelay = config.getLong("scoreboard.display_delay.world_change", 0L);
 
         if (config.getBoolean("scoreboard.refresh.enabled")) {
-            scoreTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(getPlugin(), new ScoreUpdateTask(this), 0L, config.getLong("scoreboard.refresh.rate"));
+            scoreTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(getPlugin(), new ScoreUpdateTask(this), 0L,
+                    config.getLong("scoreboard.refresh.rate"));
         }
 
-        getPlugin().getServer().getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> Bukkit.getOnlinePlayers().stream().filter(player -> !inDisabledWorld(player.getLocation())).forEach(this::createScoreboard), 20L);
+        getPlugin().getServer().getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> Bukkit.getOnlinePlayers()
+                .stream().filter(player -> !inDisabledWorld(player.getLocation())).forEach(this::createScoreboard),
+                20L);
     }
 
     @Override
@@ -59,12 +67,14 @@ public class ScoreboardManager extends Module {
 
     public ScoreHelper updateScoreboard(UUID uuid) {
         Player player = Bukkit.getPlayer(uuid);
-        if (player == null) return null;
+        if (player == null)
+            return null;
 
         int lines = this.lines.size();
 
         ScoreHelper helper = players.get(player.getUniqueId());
-        if (helper == null) helper = new ScoreHelper(player);
+        if (helper == null)
+            helper = new ScoreHelper(player);
         helper.setTitle(title);
 
         for (String text : this.lines) {
@@ -108,7 +118,8 @@ public class ScoreboardManager extends Module {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onWorldChange(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
-        if (event.getFrom().getWorld().getName().equals(event.getTo().getWorld().getName())) return;
+        if (event.getFrom().getWorld().getName().equals(event.getTo().getWorld().getName()))
+            return;
 
         if (inDisabledWorld(event.getTo().getWorld()) && players.containsKey(player.getUniqueId())) {
             removeScoreboard(player);

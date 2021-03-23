@@ -1,26 +1,22 @@
 package fun.lewisdev.deluxehub.command.commands;
 
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 import cl.bgmp.minecraft.util.commands.CommandContext;
 import cl.bgmp.minecraft.util.commands.annotations.Command;
 import cl.bgmp.minecraft.util.commands.exceptions.CommandException;
 import fun.lewisdev.deluxehub.DeluxeHub;
 import fun.lewisdev.deluxehub.Permissions;
 import fun.lewisdev.deluxehub.config.Messages;
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class ClearchatCommand {
 
     public ClearchatCommand(DeluxeHub plugin) {
     }
 
-    @Command(
-            aliases = {"clearchat"},
-            desc = "Clear global or a player's chat",
-            usage = "[player]",
-            max = 1
-    )
+    @Command(aliases = { "clearchat" }, desc = "Clear global or a player's chat", usage = "[player]", max = 1)
     public void clearchat(final CommandContext args, final CommandSender sender) throws CommandException {
 
         if (!(sender.hasPermission(Permissions.COMMAND_CLEARCHAT.getPermission()))) {
@@ -50,4 +46,3 @@ public class ClearchatCommand {
         }
     }
 }
-

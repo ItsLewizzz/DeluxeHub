@@ -1,14 +1,15 @@
 package fun.lewisdev.deluxehub.hook;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
+import org.bukkit.Bukkit;
+
 import fun.lewisdev.deluxehub.DeluxeHub;
 import fun.lewisdev.deluxehub.hook.hooks.head.BaseHead;
 import fun.lewisdev.deluxehub.hook.hooks.head.DatabaseHead;
 import fun.lewisdev.deluxehub.utility.PlaceholderUtil;
-import org.bukkit.Bukkit;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 public class HooksManager {
 

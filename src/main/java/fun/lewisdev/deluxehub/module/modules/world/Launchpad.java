@@ -1,11 +1,7 @@
 package fun.lewisdev.deluxehub.module.modules.world;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
-import fun.lewisdev.deluxehub.config.ConfigType;
-import fun.lewisdev.deluxehub.cooldown.CooldownType;
-import fun.lewisdev.deluxehub.module.Module;
-import fun.lewisdev.deluxehub.module.ModuleType;
-import fun.lewisdev.deluxehub.utility.universal.XMaterial;
+import java.util.List;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -13,7 +9,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import java.util.List;
+import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.config.ConfigType;
+import fun.lewisdev.deluxehub.cooldown.CooldownType;
+import fun.lewisdev.deluxehub.module.Module;
+import fun.lewisdev.deluxehub.module.ModuleType;
+import fun.lewisdev.deluxehub.utility.universal.XMaterial;
 
 public class Launchpad extends Module {
 
@@ -36,8 +37,10 @@ public class Launchpad extends Module {
         topBlock = XMaterial.matchXMaterial(config.getString("launchpad.top_block")).get().parseMaterial();
         bottomBlock = XMaterial.matchXMaterial(config.getString("launchpad.bottom_block")).get().parseMaterial();
 
-        if (launch > 4.0) launch = 4.0;
-        if (launchY > 4.0) launchY = 4.0;
+        if (launch > 4.0)
+            launch = 4.0;
+        if (launchY > 4.0)
+            launchY = 4.0;
     }
 
     @Override
@@ -48,10 +51,12 @@ public class Launchpad extends Module {
     public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         Location location = player.getLocation();
-        if (inDisabledWorld(location)) return;
+        if (inDisabledWorld(location))
+            return;
 
         // Check for launchpad block
-        if (location.getBlock().getType() == topBlock && location.subtract(0, 1, 0).getBlock().getType() == bottomBlock) {
+        if (location.getBlock().getType() == topBlock
+                && location.subtract(0, 1, 0).getBlock().getType() == bottomBlock) {
 
             // Check for cooldown
             if (tryCooldown(player.getUniqueId(), CooldownType.LAUNCHPAD, 1)) {

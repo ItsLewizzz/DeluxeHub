@@ -1,16 +1,17 @@
 package fun.lewisdev.deluxehub.module.modules.chat;
 
+import java.util.List;
+
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+
 import fun.lewisdev.deluxehub.DeluxeHub;
 import fun.lewisdev.deluxehub.Permissions;
 import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.config.Messages;
 import fun.lewisdev.deluxehub.module.Module;
 import fun.lewisdev.deluxehub.module.ModuleType;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-
-import java.util.List;
 
 public class ChatCommandBlock extends Module {
 
@@ -33,7 +34,8 @@ public class ChatCommandBlock extends Module {
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
         Player player = event.getPlayer();
 
-        if (inDisabledWorld(player.getLocation()) || player.hasPermission(Permissions.BLOCKED_COMMANDS_BYPASS.getPermission()))
+        if (inDisabledWorld(player.getLocation())
+                || player.hasPermission(Permissions.BLOCKED_COMMANDS_BYPASS.getPermission()))
             return;
 
         if (blockedCommands.contains(event.getMessage().toLowerCase())) {

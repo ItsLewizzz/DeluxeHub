@@ -1,12 +1,13 @@
 package fun.lewisdev.deluxehub.config;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import fun.lewisdev.deluxehub.DeluxeHub;
 
 public class ConfigManager {
 

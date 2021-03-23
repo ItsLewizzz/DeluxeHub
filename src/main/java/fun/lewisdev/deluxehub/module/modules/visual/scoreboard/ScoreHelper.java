@@ -1,7 +1,7 @@
 package fun.lewisdev.deluxehub.module.modules.visual.scoreboard;
 
-import fun.lewisdev.deluxehub.utility.PlaceholderUtil;
-import fun.lewisdev.deluxehub.utility.TextUtil;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -10,7 +10,8 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
-import java.util.List;
+import fun.lewisdev.deluxehub.utility.PlaceholderUtil;
+import fun.lewisdev.deluxehub.utility.TextUtil;
 
 /**
  * @author crisdev333

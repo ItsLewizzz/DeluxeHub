@@ -1,12 +1,9 @@
 package fun.lewisdev.deluxehub.module.modules.hotbar.items;
 
-import de.tr7zw.changeme.nbtapi.NBTItem;
-import fun.lewisdev.deluxehub.config.ConfigType;
-import fun.lewisdev.deluxehub.config.Messages;
-import fun.lewisdev.deluxehub.cooldown.CooldownType;
-import fun.lewisdev.deluxehub.module.modules.hotbar.HotbarItem;
-import fun.lewisdev.deluxehub.module.modules.hotbar.HotbarManager;
-import fun.lewisdev.deluxehub.utility.ItemStackBuilder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -18,9 +15,13 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import de.tr7zw.changeme.nbtapi.NBTItem;
+import fun.lewisdev.deluxehub.config.ConfigType;
+import fun.lewisdev.deluxehub.config.Messages;
+import fun.lewisdev.deluxehub.cooldown.CooldownType;
+import fun.lewisdev.deluxehub.module.modules.hotbar.HotbarItem;
+import fun.lewisdev.deluxehub.module.modules.hotbar.HotbarManager;
+import fun.lewisdev.deluxehub.utility.ItemStackBuilder;
 
 public class PlayerHider extends HotbarItem {
 
@@ -32,7 +33,8 @@ public class PlayerHider extends HotbarItem {
         super(hotbarManager, item, slot, key);
         hidden = new ArrayList<>();
         FileConfiguration config = getHotbarManager().getConfig(ConfigType.SETTINGS);
-        NBTItem nbtItem = new NBTItem(ItemStackBuilder.getItemStack(config.getConfigurationSection("player_hider.hidden")).build());
+        NBTItem nbtItem = new NBTItem(
+                ItemStackBuilder.getItemStack(config.getConfigurationSection("player_hider.hidden")).build());
         nbtItem.setString("hotbarItem", key);
         hiddenItem = nbtItem.getItem();
         cooldown = config.getInt("player_hider.cooldown");
@@ -43,7 +45,8 @@ public class PlayerHider extends HotbarItem {
     protected void onInteract(Player player) {
 
         if (!getHotbarManager().tryCooldown(player.getUniqueId(), CooldownType.PLAYER_HIDER, cooldown)) {
-            player.sendMessage(Messages.COOLDOWN_ACTIVE.toString().replace("%time%", getHotbarManager().getCooldown(player.getUniqueId(), CooldownType.PLAYER_HIDER)));
+            player.sendMessage(Messages.COOLDOWN_ACTIVE.toString().replace("%time%",
+                    getHotbarManager().getCooldown(player.getUniqueId(), CooldownType.PLAYER_HIDER)));
             return;
         }
 
@@ -93,7 +96,8 @@ public class PlayerHider extends HotbarItem {
     public void onWorldChange(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
         if (getHotbarManager().inDisabledWorld(player.getLocation()) && hidden.contains(player.getUniqueId())) {
-            for (Player p : Bukkit.getOnlinePlayers()) player.showPlayer(p);
+            for (Player p : Bukkit.getOnlinePlayers())
+                player.showPlayer(p);
             hidden.remove(player.getUniqueId());
         }
     }

@@ -21,17 +21,18 @@
  */
 package fun.lewisdev.deluxehub.utility.reflection;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
-
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 import java.util.Objects;
 import java.util.concurrent.Callable;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import fun.lewisdev.deluxehub.DeluxeHub;
 
 /*
  * References
@@ -43,16 +44,15 @@ import java.util.concurrent.Callable;
  */
 
 /**
- * A reflection API for action bars in Minecraft.
- * Fully optimized - Supports 1.8.8+ and above.
- * Requires ReflectionUtils.
- * Messages are not colorized by default.
+ * A reflection API for action bars in Minecraft. Fully optimized - Supports
+ * 1.8.8+ and above. Requires ReflectionUtils. Messages are not colorized by
+ * default.
  * <p>
- * Action bars are text messages that appear above
- * the player's <a href="https://minecraft.gamepedia.com/Heads-up_display">hotbar</a>
- * Note that this is different than the text appeared when switching between items.
- * Those messages show the item's name and are different from action bars.
- * The only natural way of displaying action bars is when mounting.
+ * Action bars are text messages that appear above the player's
+ * <a href="https://minecraft.gamepedia.com/Heads-up_display">hotbar</a> Note
+ * that this is different than the text appeared when switching between items.
+ * Those messages show the item's name and are different from action bars. The
+ * only natural way of displaying action bars is when mounting.
  *
  * @author Crypto Morin
  * @version 1.0.0
@@ -76,7 +76,8 @@ public class ActionBar {
 
         try {
             // Game Info Message Type
-            Class<?> chatMessageTypeClass = Class.forName("net.minecraft.server." + ReflectionUtils.VERSION + ".ChatMessageType");
+            Class<?> chatMessageTypeClass = Class
+                    .forName("net.minecraft.server." + ReflectionUtils.VERSION + ".ChatMessageType");
             for (Object obj : chatMessageTypeClass.getEnumConstants()) {
                 if (obj.toString().equals("GAME_INFO")) {
                     chatMsgType = obj;
@@ -89,7 +90,8 @@ public class ActionBar {
             chatComp = lookup.findConstructor(chatComponentTextClass, MethodType.methodType(void.class, String.class));
 
             // Packet Constructor
-            packet = lookup.findConstructor(packetPlayOutChatClass, MethodType.methodType(void.class, iChatBaseComponentClass, chatMessageTypeClass));
+            packet = lookup.findConstructor(packetPlayOutChatClass,
+                    MethodType.methodType(void.class, iChatBaseComponentClass, chatMessageTypeClass));
         } catch (NoSuchMethodException | IllegalAccessException | ClassNotFoundException ignored) {
             try {
                 // Game Info Message Type
@@ -97,10 +99,12 @@ public class ActionBar {
 
                 // JSON Message Builder
                 Class<?> chatComponentTextClass = ReflectionUtils.getNMSClass("ChatComponentText");
-                chatComp = lookup.findConstructor(chatComponentTextClass, MethodType.methodType(void.class, String.class));
+                chatComp = lookup.findConstructor(chatComponentTextClass,
+                        MethodType.methodType(void.class, String.class));
 
                 // Packet Constructor
-                packet = lookup.findConstructor(packetPlayOutChatClass, MethodType.methodType(void.class, iChatBaseComponentClass, byte.class));
+                packet = lookup.findConstructor(packetPlayOutChatClass,
+                        MethodType.methodType(void.class, iChatBaseComponentClass, byte.class));
             } catch (NoSuchMethodException | IllegalAccessException ex) {
                 ex.printStackTrace();
             }
@@ -140,15 +144,16 @@ public class ActionBar {
      * @since 1.0.0
      */
     public static void sendAllActionBar(String message) {
-        for (Player player : Bukkit.getOnlinePlayers()) sendActionBar(player, message);
+        for (Player player : Bukkit.getOnlinePlayers())
+            sendActionBar(player, message);
     }
 
     /**
-     * Sends an action bar to a player for a specific amount of ticks.
-     * Plugin instance should be changed in this method for the schedulers.
+     * Sends an action bar to a player for a specific amount of ticks. Plugin
+     * instance should be changed in this method for the schedulers.
      * <p>
-     * If the caller returns true, the action bar will continue.
-     * If the caller returns false, action bar will not be sent anymore.
+     * If the caller returns true, the action bar will continue. If the caller
+     * returns false, action bar will not be sent anymore.
      *
      * @param player   the player to send the action bar to.
      * @param message  the message to send. The message will not be updated.
@@ -170,15 +175,16 @@ public class ActionBar {
                 }
                 sendActionBar(player, message);
             }
-            // Re-sends the messages every 2 seconds so it doesn't go away from the player's screen.
+            // Re-sends the messages every 2 seconds so it doesn't go away from the player's
+            // screen.
         }.runTaskTimerAsynchronously(PLUGIN, 0L, 40L);
     }
 
     /**
      * Sends an action bar to a player for a specific amount of ticks.
      * <p>
-     * If the caller returns true, the action bar will continue.
-     * If the caller returns false, action bar will not be sent anymore.
+     * If the caller returns true, the action bar will continue. If the caller
+     * returns false, action bar will not be sent anymore.
      *
      * @param player   the player to send the action bar to.
      * @param message  the message to send. The message will be updated.
@@ -200,7 +206,8 @@ public class ActionBar {
                     ex.printStackTrace();
                 }
             }
-            // Re-sends the messages every 2 seconds so it doesn't go away from the player's screen.
+            // Re-sends the messages every 2 seconds so it doesn't go away from the player's
+            // screen.
         }.runTaskTimerAsynchronously(PLUGIN, 0L, 40L);
     }
 
@@ -214,7 +221,8 @@ public class ActionBar {
      * @since 1.0.0
      */
     public static void sendActionBar(Player player, String message, long duration) {
-        if (duration < 1) return;
+        if (duration < 1)
+            return;
 
         new BukkitRunnable() {
             long repeater = duration;
@@ -223,9 +231,11 @@ public class ActionBar {
             public void run() {
                 sendActionBar(player, message);
                 repeater -= 40L;
-                if (repeater - 40L < -20L) cancel();
+                if (repeater - 40L < -20L)
+                    cancel();
             }
-            // Re-sends the messages every 2 seconds so it doesn't go away from the player's screen.
+            // Re-sends the messages every 2 seconds so it doesn't go away from the player's
+            // screen.
         }.runTaskTimerAsynchronously(PLUGIN, 0L, 40L);
     }
 }

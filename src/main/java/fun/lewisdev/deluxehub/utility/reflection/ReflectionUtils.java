@@ -1,4 +1,4 @@
-package fun.lewisdev.deluxehub.utility.reflection;/*
+/*
  * The MIT License (MIT)
  *
  * Copyright (c) 2019 Crypto Morin
@@ -19,14 +19,15 @@ package fun.lewisdev.deluxehub.utility.reflection;/*
  * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
+package fun.lewisdev.deluxehub.utility.reflection;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 import java.util.concurrent.CompletableFuture;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 public class ReflectionUtils {
     public static final String VERSION = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
@@ -49,7 +50,8 @@ public class ReflectionUtils {
         try {
             connection = lookup.findGetter(entityPlayer, "playerConnection", playerConnection);
             getHandle = lookup.findVirtual(craftPlayer, "getHandle", MethodType.methodType(entityPlayer));
-            sendPacket = lookup.findVirtual(playerConnection, "sendPacket", MethodType.methodType(void.class, getNMSClass("Packet")));
+            sendPacket = lookup.findVirtual(playerConnection, "sendPacket",
+                    MethodType.methodType(void.class, getNMSClass("Packet")));
         } catch (NoSuchMethodException | NoSuchFieldException | IllegalAccessException ex) {
             ex.printStackTrace();
         }
@@ -77,7 +79,8 @@ public class ReflectionUtils {
                 Object handle = GET_HANDLE.invoke(player);
                 Object connection = PLAYER_CONNECTION.invoke(handle);
 
-                if (!player.isOnline()) return;
+                if (!player.isOnline())
+                    return;
                 SEND_PACKET.invoke(connection, packet);
             } catch (Throwable throwable) {
                 throwable.printStackTrace();

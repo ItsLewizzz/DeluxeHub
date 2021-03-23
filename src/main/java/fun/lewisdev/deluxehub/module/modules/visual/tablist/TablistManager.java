@@ -1,10 +1,10 @@
 package fun.lewisdev.deluxehub.module.modules.visual.tablist;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
-import fun.lewisdev.deluxehub.config.ConfigType;
-import fun.lewisdev.deluxehub.module.Module;
-import fun.lewisdev.deluxehub.module.ModuleType;
-import fun.lewisdev.deluxehub.utility.PlaceholderUtil;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -13,10 +13,11 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.config.ConfigType;
+import fun.lewisdev.deluxehub.module.Module;
+import fun.lewisdev.deluxehub.module.ModuleType;
+import fun.lewisdev.deluxehub.utility.PlaceholderUtil;
 
 public class TablistManager extends Module {
 
@@ -39,11 +40,15 @@ public class TablistManager extends Module {
         footer = config.getStringList("tablist.footer").stream().collect(Collectors.joining("\n"));
 
         if (config.getBoolean("tablist.refresh.enabled")) {
-            tablistTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(getPlugin(), new TablistUpdateTask(this), 0L, config.getLong("tablist.refresh.rate"));
+            tablistTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(getPlugin(), new TablistUpdateTask(this), 0L,
+                    config.getLong("tablist.refresh.rate"));
         }
 
-        getPlugin().getServer().getScheduler().scheduleSyncDelayedTask(getPlugin(), () ->
-                Bukkit.getOnlinePlayers().stream().filter(player -> !inDisabledWorld(player.getLocation())).forEach(this::createTablist), 20L);
+        getPlugin().getServer().getScheduler()
+                .scheduleSyncDelayedTask(getPlugin(),
+                        () -> Bukkit.getOnlinePlayers().stream()
+                                .filter(player -> !inDisabledWorld(player.getLocation())).forEach(this::createTablist),
+                        20L);
     }
 
     @Override
@@ -59,12 +64,15 @@ public class TablistManager extends Module {
     }
 
     public boolean updateTablist(UUID uuid) {
-        if (!players.contains(uuid)) return false;
+        if (!players.contains(uuid))
+            return false;
 
         Player player = Bukkit.getPlayer(uuid);
-        if (player == null) return false;
+        if (player == null)
+            return false;
 
-        TablistHelper.sendTabList(player, PlaceholderUtil.setPlaceholders(header, player), PlaceholderUtil.setPlaceholders(footer, player));
+        TablistHelper.sendTabList(player, PlaceholderUtil.setPlaceholders(header, player),
+                PlaceholderUtil.setPlaceholders(footer, player));
         return true;
     }
 
@@ -82,7 +90,8 @@ public class TablistManager extends Module {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        if (!inDisabledWorld(player.getLocation())) createTablist(player);
+        if (!inDisabledWorld(player.getLocation()))
+            createTablist(player);
     }
 
     @EventHandler
@@ -93,10 +102,13 @@ public class TablistManager extends Module {
     @EventHandler
     public void onWorldChange(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
-        if (event.getFrom().getWorld().getName().equals(event.getTo().getWorld().getName())) return;
+        if (event.getFrom().getWorld().getName().equals(event.getTo().getWorld().getName()))
+            return;
 
-        if (inDisabledWorld(event.getTo().getWorld()) && players.contains(player.getUniqueId())) removeTablist(player);
-        else createTablist(player);
+        if (inDisabledWorld(event.getTo().getWorld()) && players.contains(player.getUniqueId()))
+            removeTablist(player);
+        else
+            createTablist(player);
     }
 
 }

@@ -1,9 +1,9 @@
 package fun.lewisdev.deluxehub.cooldown;
 
+import java.util.UUID;
+
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
-
-import java.util.UUID;
 
 public class CooldownManager {
 
@@ -36,15 +36,18 @@ public class CooldownManager {
     }
 
     /**
-     * Determine if a given cooldown has expired. If it has, refresh the cooldown. If not, do nothing.
+     * Determine if a given cooldown has expired. If it has, refresh the cooldown.
+     * If not, do nothing.
      *
      * @param uuid  - uuid of the player.
      * @param key   - cooldown to update.
      * @param delay - number of milliseconds until the cooldown will expire again.
-     * @return TRUE if the cooldown was expired/unset and has now been reset, FALSE otherwise.
+     * @return TRUE if the cooldown was expired/unset and has now been reset, FALSE
+     *         otherwise.
      */
     public boolean tryCooldown(UUID uuid, CooldownType key, long delay) {
-        if (getCooldown(uuid, key) / 1000 > 0) return false;
+        if (getCooldown(uuid, key) / 1000 > 0)
+            return false;
         setCooldown(uuid, key, delay + 1);
         return true;
     }

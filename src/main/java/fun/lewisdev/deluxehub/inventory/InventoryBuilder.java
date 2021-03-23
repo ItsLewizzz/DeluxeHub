@@ -1,11 +1,11 @@
 package fun.lewisdev.deluxehub.inventory;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class InventoryBuilder implements InventoryHolder {
 
@@ -32,8 +32,10 @@ public class InventoryBuilder implements InventoryHolder {
     }
 
     public Inventory getInventory() {
-        if (size > 54) size = 54;
-        else if (size < 9) size = 9;
+        if (size > 54)
+            size = 54;
+        else if (size < 9)
+            size = 9;
 
         Inventory inventory = Bukkit.createInventory(this, size, title);
         for (Map.Entry<Integer, InventoryItem> entry : icons.entrySet()) {

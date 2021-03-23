@@ -1,5 +1,14 @@
 package fun.lewisdev.deluxehub.command.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.bukkit.Location;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginDescriptionFile;
+
 import cl.bgmp.minecraft.util.commands.CommandContext;
 import cl.bgmp.minecraft.util.commands.annotations.Command;
 import cl.bgmp.minecraft.util.commands.exceptions.CommandException;
@@ -17,14 +26,6 @@ import fun.lewisdev.deluxehub.module.modules.hotbar.HotbarManager;
 import fun.lewisdev.deluxehub.module.modules.visual.scoreboard.ScoreboardManager;
 import fun.lewisdev.deluxehub.module.modules.world.LobbySpawn;
 import fun.lewisdev.deluxehub.utility.TextUtil;
-import org.bukkit.Location;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.PluginDescriptionFile;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class DeluxeHubCommand {
 
@@ -34,22 +35,19 @@ public class DeluxeHubCommand {
         this.plugin = plugin;
     }
 
-    @Command(
-            aliases = {"deluxehub", "dhub"},
-            desc = "View plugin information"
-    )
+    @Command(aliases = { "deluxehub", "dhub" }, desc = "View plugin information")
     public void main(final CommandContext args, final CommandSender sender) throws CommandException {
 
         PluginDescriptionFile pdfFile = plugin.getDescription();
 
-		/*
-		Command: help
-		Description: displays help message
-		*/
+        /*
+         * Command: help Description: displays help message
+         */
         if (args.argsLength() == 0 || args.getString(0).equalsIgnoreCase("help")) {
 
             if (!sender.hasPermission(Permissions.COMMAND_DELUXEHUB_HELP.getPermission())) {
-                sender.sendMessage(TextUtil.color("&8&l> &7Server is running &dDeluxeHub &ev" + pdfFile.getVersion() + " &7By &6ItsLewizzz"));
+                sender.sendMessage(TextUtil.color(
+                        "&8&l> &7Server is running &dDeluxeHub &ev" + pdfFile.getVersion() + " &7By &6ItsLewizzz"));
                 return;
             }
 
@@ -57,7 +55,8 @@ public class DeluxeHubCommand {
             sender.sendMessage(TextUtil.color("&d&lDeluxeHub " + "&fv" + plugin.getDescription().getVersion()));
             sender.sendMessage(TextUtil.color("&7Author: &fItsLewizzz"));
             sender.sendMessage("");
-            sender.sendMessage(TextUtil.color(" &d/deluxehub info &8- &7&oDisplays information about the current config"));
+            sender.sendMessage(
+                    TextUtil.color(" &d/deluxehub info &8- &7&oDisplays information about the current config"));
             sender.sendMessage(TextUtil.color(" &d/deluxehub scoreboard &8- &7&oToggle the scoreboard"));
             sender.sendMessage(TextUtil.color(" &d/deluxehub open <menu> &8- &7&oOpen a custom menu"));
             sender.sendMessage(TextUtil.color(" &d/deluxehub hologram &8- &7&oView the hologram help"));
@@ -77,10 +76,9 @@ public class DeluxeHubCommand {
             return;
         }
 
-		/*
-		Command: reload
-		Description: reloads the entire plugin
-		*/
+        /*
+         * Command: reload Description: reloads the entire plugin
+         */
         else if (args.getString(0).equalsIgnoreCase("reload")) {
 
             if (!sender.hasPermission(Permissions.COMMAND_DELUXEHUB_RELOAD.getPermission())) {
@@ -90,20 +88,21 @@ public class DeluxeHubCommand {
 
             long start = System.currentTimeMillis();
             plugin.reload();
-            sender.sendMessage(Messages.CONFIG_RELOAD.toString().replace("%time%", String.valueOf(System.currentTimeMillis() - start)));
+            sender.sendMessage(Messages.CONFIG_RELOAD.toString().replace("%time%",
+                    String.valueOf(System.currentTimeMillis() - start)));
             int inventories = plugin.getInventoryManager().getInventories().size();
             if (inventories > 0) {
                 sender.sendMessage(TextUtil.color("&8- &7Loaded &a" + inventories + "&7 custom menus."));
             }
         }
 
-		/*
-		Command: scoreboard
-		Description: toggles the scoreboard on/off
-		*/
+        /*
+         * Command: scoreboard Description: toggles the scoreboard on/off
+         */
         else if (args.getString(0).equalsIgnoreCase("scoreboard")) {
 
-            if (!(sender instanceof Player)) throw new CommandException("Console cannot toggle the scoreboard");
+            if (!(sender instanceof Player))
+                throw new CommandException("Console cannot toggle the scoreboard");
 
             if (!sender.hasPermission(Permissions.COMMAND_SCOREBOARD_TOGGLE.getPermission())) {
                 sender.sendMessage(Messages.NO_PERMISSION.toString());
@@ -116,7 +115,8 @@ public class DeluxeHubCommand {
             }
 
             Player player = (Player) sender;
-            ScoreboardManager scoreboardManager = ((ScoreboardManager) plugin.getModuleManager().getModule(ModuleType.SCOREBOARD));
+            ScoreboardManager scoreboardManager = ((ScoreboardManager) plugin.getModuleManager()
+                    .getModule(ModuleType.SCOREBOARD));
 
             if (scoreboardManager.hasScore(player.getUniqueId())) {
                 scoreboardManager.removeScoreboard(player);
@@ -127,10 +127,10 @@ public class DeluxeHubCommand {
             }
         }
 
-		/*
-		Command: info
-		Description: displays useful information about the configuration
-		*/
+        /*
+         * Command: info Description: displays useful information about the
+         * configuration
+         */
         else if (args.getString(0).equalsIgnoreCase("info")) {
 
             if (!sender.hasPermission(Permissions.COMMAND_DELUXEHUB_HELP.getPermission())) {
@@ -143,36 +143,46 @@ public class DeluxeHubCommand {
             sender.sendMessage("");
 
             Location location = ((LobbySpawn) plugin.getModuleManager().getModule(ModuleType.LOBBY)).getLocation();
-            sender.sendMessage(TextUtil.color("&7Spawn set &8- " + (location != null ? "&ayes" : "&cno &7&o(/setlobby)")));
+            sender.sendMessage(
+                    TextUtil.color("&7Spawn set &8- " + (location != null ? "&ayes" : "&cno &7&o(/setlobby)")));
 
             sender.sendMessage("");
 
             ModuleManager moduleManager = plugin.getModuleManager();
-            sender.sendMessage(TextUtil.color("&7Disabled Worlds (" + moduleManager.getDisabledWorlds().size() + ") &8- &a" + (String.join(", ", moduleManager.getDisabledWorlds()))));
+            sender.sendMessage(TextUtil.color("&7Disabled Worlds (" + moduleManager.getDisabledWorlds().size()
+                    + ") &8- &a" + (String.join(", ", moduleManager.getDisabledWorlds()))));
 
             InventoryManager inventoryManager = plugin.getInventoryManager();
-            sender.sendMessage(TextUtil.color("&7Custom menus (" + inventoryManager.getInventories().size() + ")" + " &8- &a" + (String.join(", ", inventoryManager.getInventories().keySet()))));
+            sender.sendMessage(TextUtil.color("&7Custom menus (" + inventoryManager.getInventories().size() + ")"
+                    + " &8- &a" + (String.join(", ", inventoryManager.getInventories().keySet()))));
 
-            HotbarManager hotbarManager = ((HotbarManager) plugin.getModuleManager().getModule(ModuleType.HOTBAR_ITEMS));
-            sender.sendMessage(TextUtil.color("&7Hotbar items (" + hotbarManager.getHotbarItems().size() + ")" + " &8- &a" + (hotbarManager.getHotbarItems().stream().map(HotbarItem::getKey).collect(Collectors.joining(", ")))));
+            HotbarManager hotbarManager = ((HotbarManager) plugin.getModuleManager()
+                    .getModule(ModuleType.HOTBAR_ITEMS));
+            sender.sendMessage(TextUtil
+                    .color("&7Hotbar items (" + hotbarManager.getHotbarItems().size() + ")" + " &8- &a" + (hotbarManager
+                            .getHotbarItems().stream().map(HotbarItem::getKey).collect(Collectors.joining(", ")))));
 
             CommandManager commandManager = plugin.getCommandManager();
-            sender.sendMessage(TextUtil.color("&7Custom commands (" + commandManager.getCustomCommands().size() + ")" + " &8- &a" + (commandManager.getCustomCommands().stream().map(command -> command.getAliases().get(0)).collect(Collectors.joining(", ")))));
+            sender.sendMessage(TextUtil.color("&7Custom commands (" + commandManager.getCustomCommands().size() + ")"
+                    + " &8- &a" + (commandManager.getCustomCommands().stream()
+                            .map(command -> command.getAliases().get(0)).collect(Collectors.joining(", ")))));
 
             sender.sendMessage("");
 
-            sender.sendMessage(TextUtil.color("&7PlaceholderAPI Hook: " + (plugin.getHookManager().isHookEnabled("PLACEHOLDER_API") ? "&ayes" : "&cno")));
-            sender.sendMessage(TextUtil.color("&7HeadDatabase Hook: " + (plugin.getHookManager().isHookEnabled("HEAD_DATABASE") ? "&ayes" : "&cno")));
+            sender.sendMessage(TextUtil.color("&7PlaceholderAPI Hook: "
+                    + (plugin.getHookManager().isHookEnabled("PLACEHOLDER_API") ? "&ayes" : "&cno")));
+            sender.sendMessage(TextUtil.color("&7HeadDatabase Hook: "
+                    + (plugin.getHookManager().isHookEnabled("HEAD_DATABASE") ? "&ayes" : "&cno")));
 
             sender.sendMessage("");
         }
 
-		/*
-		Command: open
-		Description: opens a custom menu
-		*/
+        /*
+         * Command: open Description: opens a custom menu
+         */
         else if (args.getString(0).equalsIgnoreCase("open")) {
-            if (!(sender instanceof Player)) throw new CommandException("Console cannot open menus");
+            if (!(sender instanceof Player))
+                throw new CommandException("Console cannot open menus");
 
             if (!sender.hasPermission(Permissions.COMMAND_OPEN_MENUS.getPermission())) {
                 sender.sendMessage(Messages.NO_PERMISSION.toString());
@@ -248,7 +258,6 @@ public class DeluxeHubCommand {
                     sender.sendMessage("");
                 }
 
-
                 if (args.getString(1).equalsIgnoreCase("create")) {
                     if (args.argsLength() == 2) {
                         sender.sendMessage(TextUtil.color("&cUsage: /deluxehub hologram create <id>"));
@@ -256,7 +265,8 @@ public class DeluxeHubCommand {
                     }
 
                     if (plugin.getHologramManager().hasHologram(args.getString(2))) {
-                        sender.sendMessage(Messages.HOLOGRAMS_ALREADY_EXISTS.toString().replace("%name%", args.getString(2)));
+                        sender.sendMessage(
+                                Messages.HOLOGRAMS_ALREADY_EXISTS.toString().replace("%name%", args.getString(2)));
                         return;
                     }
 
@@ -269,7 +279,6 @@ public class DeluxeHubCommand {
                     return;
                 }
 
-
                 if (args.getString(1).equalsIgnoreCase("remove") || args.getString(1).equalsIgnoreCase("delete")) {
                     if (args.argsLength() == 2) {
                         sender.sendMessage(TextUtil.color("&cUsage: /deluxehub hologram remove <id>"));
@@ -277,7 +286,8 @@ public class DeluxeHubCommand {
                     }
 
                     if (!plugin.getHologramManager().hasHologram(args.getString(2))) {
-                        sender.sendMessage(Messages.HOLOGRAMS_INVALID_HOLOGRAM.toString().replace("%name%", args.getString(2)));
+                        sender.sendMessage(
+                                Messages.HOLOGRAMS_INVALID_HOLOGRAM.toString().replace("%name%", args.getString(2)));
                         return;
                     }
 
@@ -293,7 +303,8 @@ public class DeluxeHubCommand {
                     }
 
                     if (!plugin.getHologramManager().hasHologram(args.getString(2))) {
-                        sender.sendMessage(Messages.HOLOGRAMS_INVALID_HOLOGRAM.toString().replace("%name%", args.getString(2)));
+                        sender.sendMessage(
+                                Messages.HOLOGRAMS_INVALID_HOLOGRAM.toString().replace("%name%", args.getString(2)));
                         return;
                     }
 
@@ -302,7 +313,8 @@ public class DeluxeHubCommand {
                     String text = TextUtil.joinString(5, args.getOriginalArgs());
 
                     if (!holo.hasLine(line)) {
-                        sender.sendMessage(Messages.HOLOGRAMS_INVALID_LINE.toString().replace("%line%", String.valueOf(line)));
+                        sender.sendMessage(
+                                Messages.HOLOGRAMS_INVALID_LINE.toString().replace("%line%", String.valueOf(line)));
                         return;
                     }
                     holo.setLine(line, text);
@@ -317,7 +329,8 @@ public class DeluxeHubCommand {
                     }
 
                     if (!plugin.getHologramManager().hasHologram(args.getString(2))) {
-                        sender.sendMessage(Messages.HOLOGRAMS_INVALID_HOLOGRAM.toString().replace("%name%", args.getString(2)));
+                        sender.sendMessage(
+                                Messages.HOLOGRAMS_INVALID_HOLOGRAM.toString().replace("%name%", args.getString(2)));
                         return;
                     }
 
@@ -335,7 +348,8 @@ public class DeluxeHubCommand {
                     }
 
                     if (!plugin.getHologramManager().hasHologram(args.getString(2))) {
-                        sender.sendMessage(Messages.HOLOGRAMS_INVALID_HOLOGRAM.toString().replace("%name%", args.getString(2)));
+                        sender.sendMessage(
+                                Messages.HOLOGRAMS_INVALID_HOLOGRAM.toString().replace("%name%", args.getString(2)));
                         return;
                     }
 
@@ -343,13 +357,15 @@ public class DeluxeHubCommand {
                     int line = Integer.parseInt(args.getString(3));
 
                     if (!holo.hasLine(line)) {
-                        sender.sendMessage(Messages.HOLOGRAMS_INVALID_LINE.toString().replace("%line%", String.valueOf(line)));
+                        sender.sendMessage(
+                                Messages.HOLOGRAMS_INVALID_LINE.toString().replace("%line%", String.valueOf(line)));
                         return;
                     }
 
                     if (holo.removeLine(line) == null) {
                         plugin.getHologramManager().deleteHologram(args.getString(2));
-                        sender.sendMessage(Messages.HOLOGRAMS_REMOVED_LINE.toString().replace("%name%", args.getString(2)));
+                        sender.sendMessage(
+                                Messages.HOLOGRAMS_REMOVED_LINE.toString().replace("%name%", args.getString(2)));
                     }
 
                     return;
@@ -362,7 +378,8 @@ public class DeluxeHubCommand {
                     }
 
                     if (!plugin.getHologramManager().hasHologram(args.getString(2))) {
-                        sender.sendMessage(Messages.HOLOGRAMS_INVALID_HOLOGRAM.toString().replace("%name%", args.getString(2)));
+                        sender.sendMessage(
+                                Messages.HOLOGRAMS_INVALID_HOLOGRAM.toString().replace("%name%", args.getString(2)));
                         return;
                     }
 

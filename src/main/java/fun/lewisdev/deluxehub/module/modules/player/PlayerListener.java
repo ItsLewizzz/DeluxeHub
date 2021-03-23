@@ -1,11 +1,8 @@
 package fun.lewisdev.deluxehub.module.modules.player;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
-import fun.lewisdev.deluxehub.config.ConfigType;
-import fun.lewisdev.deluxehub.module.Module;
-import fun.lewisdev.deluxehub.module.ModuleType;
-import fun.lewisdev.deluxehub.utility.PlaceholderUtil;
-import fun.lewisdev.deluxehub.utility.TextUtil;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -19,8 +16,12 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.meta.FireworkMeta;
 
-import java.util.ArrayList;
-import java.util.List;
+import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.config.ConfigType;
+import fun.lewisdev.deluxehub.module.Module;
+import fun.lewisdev.deluxehub.module.ModuleType;
+import fun.lewisdev.deluxehub.utility.PlaceholderUtil;
+import fun.lewisdev.deluxehub.utility.TextUtil;
 
 public class PlayerListener extends Module {
 
@@ -72,7 +73,8 @@ public class PlayerListener extends Module {
             fireworkColors = new ArrayList<>();
             config.getStringList("join_settings.firework.colors").forEach(c -> {
                 Color color = TextUtil.getColor(c);
-                if (color != null) fireworkColors.add(color);
+                if (color != null)
+                    fireworkColors.add(color);
             });
         }
     }
@@ -86,11 +88,13 @@ public class PlayerListener extends Module {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        if (inDisabledWorld(player.getLocation())) return;
+        if (inDisabledWorld(player.getLocation()))
+            return;
 
         // Join message handling
         if (joinQuitMessagesEnabled) {
-            if (joinMessage.equals("")) event.setJoinMessage(null);
+            if (joinMessage.equals(""))
+                event.setJoinMessage(null);
             else {
                 String message = PlaceholderUtil.setPlaceholders(joinMessage, player);
                 event.setJoinMessage(TextUtil.color(message));
@@ -104,10 +108,12 @@ public class PlayerListener extends Module {
         }
 
         // Extinguish
-        if (extinguish) player.setFireTicks(0);
+        if (extinguish)
+            player.setFireTicks(0);
 
         // Clear the player inventory
-        if (clearInventory) player.getInventory().clear();
+        if (clearInventory)
+            player.getInventory().clear();
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> {
             // Join events
@@ -116,7 +122,8 @@ public class PlayerListener extends Module {
             // Firework
             if (fireworkEnabled) {
                 if (fireworkFirstJoin) {
-                    if (!player.hasPlayedBefore()) spawnFirework(player);
+                    if (!player.hasPlayedBefore())
+                        spawnFirework(player);
                 } else {
                     spawnFirework(player);
                 }
@@ -128,10 +135,12 @@ public class PlayerListener extends Module {
     public void onPlayerQuit(PlayerQuitEvent event) {
 
         Player player = event.getPlayer();
-        if (inDisabledWorld(player.getLocation())) return;
+        if (inDisabledWorld(player.getLocation()))
+            return;
 
         if (joinQuitMessagesEnabled) {
-            if (quitMessage.equals("")) event.setQuitMessage(null);
+            if (quitMessage.equals(""))
+                event.setQuitMessage(null);
             else {
                 String message = PlaceholderUtil.setPlaceholders(quitMessage, player);
                 event.setQuitMessage(TextUtil.color(message));
@@ -152,14 +161,12 @@ public class PlayerListener extends Module {
     public void spawnFirework(Player player) {
         Firework f = player.getWorld().spawn(player.getLocation(), Firework.class);
         FireworkMeta fm = f.getFireworkMeta();
-        fm.addEffect(FireworkEffect.builder()
-                .flicker(fireworkFlicker)
-                .trail(fireworkTrail)
-                .with(FireworkEffect.Type.valueOf(fireworkType))
-                .withColor(fireworkColors).build());
+        fm.addEffect(FireworkEffect.builder().flicker(fireworkFlicker).trail(fireworkTrail)
+                .with(FireworkEffect.Type.valueOf(fireworkType)).withColor(fireworkColors).build());
         fm.setPower(fireworkPower);
         f.setFireworkMeta(fm);
 
-        //Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> f.remove(), 100L);
+        // Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> f.remove(),
+        // 100L);
     }
 }

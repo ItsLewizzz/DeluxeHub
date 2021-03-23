@@ -1,15 +1,20 @@
 package fun.lewisdev.deluxehub.inventory;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
-import fun.lewisdev.deluxehub.inventory.inventories.CustomGUI;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.inventory.inventories.CustomGUI;
 
 public class InventoryManager {
 
@@ -37,8 +42,9 @@ public class InventoryManager {
 
         if (!directory.exists()) {
             directory.mkdir();
-            File file = new File(plugin.getDataFolder().getAbsolutePath() + File.separator + "menus", "serverselector.yml");
-            try (InputStream inputStream = this.plugin.getResource("serverselector.yml")){
+            File file = new File(plugin.getDataFolder().getAbsolutePath() + File.separator + "menus",
+                    "serverselector.yml");
+            try (InputStream inputStream = this.plugin.getResource("serverselector.yml")) {
                 file.createNewFile();
                 byte[] buffer = new byte[inputStream.available()];
                 inputStream.read(buffer);
@@ -53,13 +59,16 @@ public class InventoryManager {
         }
 
         // Load all menu files
-        File[] yamlFiles = new File(plugin.getDataFolder().getAbsolutePath() + File.separator + "menus").listFiles((dir, name) -> name.toLowerCase().endsWith(".yml"));
-        if (yamlFiles == null) return;
+        File[] yamlFiles = new File(plugin.getDataFolder().getAbsolutePath() + File.separator + "menus")
+                .listFiles((dir, name) -> name.toLowerCase().endsWith(".yml"));
+        if (yamlFiles == null)
+            return;
 
         for (File file : yamlFiles) {
             String name = file.getName().replace(".yml", "");
             if (inventories.containsKey(name)) {
-                plugin.getLogger().warning("Inventory with name '" + file.getName() + "' already exists, skipping duplicate..");
+                plugin.getLogger()
+                        .warning("Inventory with name '" + file.getName() + "' already exists, skipping duplicate..");
                 continue;
             }
 
@@ -93,7 +102,8 @@ public class InventoryManager {
         inventories.values().forEach(abstractInventory -> {
             for (UUID uuid : abstractInventory.getOpenInventories()) {
                 Player player = Bukkit.getPlayer(uuid);
-                if (player != null) player.closeInventory();
+                if (player != null)
+                    player.closeInventory();
             }
             abstractInventory.getOpenInventories().clear();
         });
