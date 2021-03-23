@@ -344,6 +344,7 @@ public class WorldProtect extends Module {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onWeatherChange(WeatherChangeEvent event) {
+        if (inDisabledWorld(event.getWorld())) return;
         if (!weatherChange) return;
         event.setCancelled(event.toWeatherState());
     }
