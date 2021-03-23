@@ -10,7 +10,6 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
-import org.bukkit.event.Listener;
 
 import java.util.ArrayList;
 import java.util.HashSet;

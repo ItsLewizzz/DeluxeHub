@@ -38,6 +38,7 @@ public class PlayerHider extends HotbarItem {
         cooldown = config.getInt("player_hider.cooldown");
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     protected void onInteract(Player player) {
 
@@ -65,6 +66,7 @@ public class PlayerHider extends HotbarItem {
         }
     }
 
+    @SuppressWarnings("deprecation")
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
@@ -77,6 +79,7 @@ public class PlayerHider extends HotbarItem {
         hidden.remove(player.getUniqueId());
     }
 
+    @SuppressWarnings("deprecation")
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
@@ -85,6 +88,7 @@ public class PlayerHider extends HotbarItem {
         });
     }
 
+    @SuppressWarnings("deprecation")
     @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
@@ -94,6 +98,7 @@ public class PlayerHider extends HotbarItem {
         }
     }
 
+    @SuppressWarnings("deprecation")
     @EventHandler(priority = EventPriority.MONITOR)
     public void onRespawnEvent(PlayerRespawnEvent event) {
         Player player = event.getPlayer();

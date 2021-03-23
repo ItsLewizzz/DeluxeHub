@@ -34,6 +34,7 @@ public class PlayerVanish extends Module {
         vanished.clear();
     }
 
+    @SuppressWarnings("deprecation")
     public void toggleVanish(Player player) {
         if (isVanished(player)) {
             vanished.remove(player.getUniqueId());
@@ -55,6 +56,7 @@ public class PlayerVanish extends Module {
         return vanished.contains(player.getUniqueId());
     }
 
+    @SuppressWarnings("deprecation")
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         vanished.forEach(hidden -> event.getPlayer().hidePlayer(Bukkit.getPlayer(hidden)));

@@ -108,7 +108,8 @@ public class ItemStackBuilder {
         ITEM_STACK.setItemMeta(meta);
         return this;
     }
-
+    
+    @SuppressWarnings("deprecation")
     public ItemStackBuilder setSkullOwner(String owner) {
         try {
             SkullMeta im = (SkullMeta) ITEM_STACK.getItemMeta();

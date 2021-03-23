@@ -221,6 +221,7 @@ public enum XPotion {
      * @see #parsePotionEffectFromString(String)
      * @since 1.0.0
      */
+    @SuppressWarnings("deprecation")
     public static void addPotionEffectsFromString(Player player, List<String> effects) {
         if (effects == null || effects.isEmpty()) return;
         Objects.requireNonNull(player, "Cannot add potion effects to null player");

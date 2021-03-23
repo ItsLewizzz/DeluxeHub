@@ -21,6 +21,7 @@ public class ScoreHelper {
     private Objective objective;
     private Player player;
 
+    @SuppressWarnings("deprecation")
     public ScoreHelper(Player player) {
         this.player = player;
         scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();

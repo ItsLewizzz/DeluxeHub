@@ -113,6 +113,7 @@ public abstract class HotbarItem implements Listener {
             event.setCancelled(true);
     }
 
+    @SuppressWarnings("deprecation")
     @EventHandler
     public void hotbarItemInteract(PlayerInteractEvent event) {
         if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) return;

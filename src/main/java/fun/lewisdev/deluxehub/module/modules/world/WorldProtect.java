@@ -313,6 +313,7 @@ public class WorldProtect extends Module {
         }
     }
 
+    @SuppressWarnings("deprecation")
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerPickupEvent(PlayerPickupItemEvent event) {
         if (!itemPickup) return;

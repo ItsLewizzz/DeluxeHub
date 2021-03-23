@@ -19,6 +19,7 @@ public class CommandManager {
     private DeluxeHub plugin;
     private FileConfiguration config;
 
+    @SuppressWarnings("rawtypes")
     private CommandsManager commands;
     private CommandsManagerRegistration commandRegistry;
 
@@ -48,6 +49,7 @@ public class CommandManager {
         reloadCustomCommands();
     }
 
+    @SuppressWarnings("all")
     public void execute(String cmd, String[] args, CommandSender sender) throws CommandException {
         commands.execute(cmd, args, sender, sender);
     }
