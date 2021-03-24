@@ -1,35 +1,33 @@
 package fun.lewisdev.deluxehub.utility;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+//import java.util.regex.Matcher;
+//import java.util.regex.Pattern;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Color;
 
-import net.md_5.bungee.api.ChatColor;
+//import net.md_5.bungee.api.ChatColor;
 
 public class TextUtil {
 
     private static final int CENTER_PX = 154;
-    private static final Pattern HEX_PATTERN = Pattern.compile("#<([A-Fa-f0-9]){6}>");
-    public static boolean HEX_USE = false;
+    //private static final Pattern HEX_PATTERN = Pattern.compile("#<([A-Fa-f0-9]){6}>");
+    //public static boolean HEX_USE = false;
 
     public static String color(String message) {
-        if (HEX_USE) {
-            Matcher matcher = HEX_PATTERN.matcher(message);
-
-            while (matcher.find()) {
-                String hexString = matcher.group();
-
-                hexString = "#" + hexString.substring(2, hexString.length() - 1);
-
-                final ChatColor hex = ChatColor.of(hexString);
-                final String before = message.substring(0, matcher.start());
-                final String after = message.substring(matcher.end());
-
-                message = before + hex + after;
-                matcher = HEX_PATTERN.matcher(message);
-            }
-        }
+        /**
+         * if (HEX_USE) { Matcher matcher = HEX_PATTERN.matcher(message);
+         * 
+         * while (matcher.find()) { String hexString = matcher.group();
+         * 
+         * hexString = "#" + hexString.substring(2, hexString.length() - 1);
+         * 
+         * final ChatColor hex = ChatColor.of(hexString); final String before =
+         * message.substring(0, matcher.start()); final String after =
+         * message.substring(matcher.end());
+         * 
+         * message = before + hex + after; matcher = HEX_PATTERN.matcher(message); } }
+         */
 
         return ChatColor.translateAlternateColorCodes('&', message);
     }
