@@ -109,7 +109,7 @@
             <id>mojang</id>
             <url>https://libraries.minecraft.net/</url>
         </repository>
-		<repository>
+        <repository>
             <id>HeadDatabase-API</id>
             <url>https://mvn.intellectualsites.com/content/repositories/thirdparty/</url>
         </repository>
@@ -168,8 +168,8 @@
         </dependency>
         <dependency>
             <groupId>me.arcaniax</groupId>
-	        <artifactId>HeadDatabase-API</artifactId>
-	        <version>1.1.0</version>
+	    <artifactId>HeadDatabase-API</artifactId>
+	    <version>1.1.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
