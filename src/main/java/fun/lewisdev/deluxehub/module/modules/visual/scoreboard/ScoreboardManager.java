@@ -50,7 +50,7 @@ public class ScoreboardManager extends Module {
                     config.getLong("scoreboard.refresh.rate"));
         }
 
-        getPlugin().getServer().getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> Bukkit.getOnlinePlayers()
+       Bukkit.getScheduler().runTaskLaterAsynchronously(getPlugin(), () -> Bukkit.getOnlinePlayers()
                 .stream().filter(player -> !inDisabledWorld(player.getLocation())).forEach(this::createScoreboard),
                 20L);
     }
@@ -70,17 +70,12 @@ public class ScoreboardManager extends Module {
         if (player == null)
             return null;
 
-        int lines = this.lines.size();
-
         ScoreHelper helper = players.get(player.getUniqueId());
         if (helper == null)
             helper = new ScoreHelper(player);
         helper.setTitle(title);
 
-        for (String text : this.lines) {
-            helper.setSlot(lines, text);
-            lines--;
-        }
+        helper.setSlotsFromList(lines);
 
         return helper;
 
@@ -105,7 +100,7 @@ public class ScoreboardManager extends Module {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         if (!inDisabledWorld(player.getLocation()) && !hasScore(player.getUniqueId())) {
-            Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> createScoreboard(player), joinDelay);
+            Bukkit.getScheduler().runTaskLaterAsynchronously(getPlugin(), () -> createScoreboard(player), joinDelay);
         }
     }
 
@@ -124,7 +119,7 @@ public class ScoreboardManager extends Module {
         if (inDisabledWorld(event.getTo().getWorld()) && players.containsKey(player.getUniqueId())) {
             removeScoreboard(player);
         } else if (!players.containsKey(player.getUniqueId())) {
-            Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> createScoreboard(player), worldDelay);
+            Bukkit.getScheduler().runTaskLaterAsynchronously(getPlugin(), () -> createScoreboard(player), worldDelay);
         }
     }
 

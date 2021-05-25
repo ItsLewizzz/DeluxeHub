@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>fun.lewisdev</groupId>
-    <artifactId>DeluxeHub</artifactId>
-    <version>3.3.9</version>
+    <artifactId>deluxehub</artifactId>
+    <version>3.4.0</version>
     <packaging>jar</packaging>
 
     <name>DeluxeHub</name>
@@ -27,6 +25,7 @@
 
     <build>
         <defaultGoal>clean package</defaultGoal>
+        <finalName>${project.name}-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -54,6 +53,7 @@
                                     <include>cl.bgmp:command-framework-bukkit</include>
                                     <include>javax.inject:javax.inject</include>
                                     <include>de.tr7zw:item-nbt-api</include>
+                                    <include>fr.mrmicky:fastboard</include>
                                 </includes>
                             </artifactSet>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
@@ -69,6 +69,10 @@
                                 <relocation>
                                     <pattern>de.tr7zw.changeme.nbtapi</pattern>
                                     <shadedPattern>fun.lewisdev.deluxehub.libs.nbtapi</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>fr.mrmicky.fastboard</pattern>
+                                    <shadedPattern>fun.lewisdev.deluxehub.libs.fastboard</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
@@ -92,6 +96,10 @@
         <repository>
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>sonatype-oss</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
         <repository>
             <id>bgm</id>
@@ -168,9 +176,14 @@
         </dependency>
         <dependency>
             <groupId>me.arcaniax</groupId>
-	    <artifactId>HeadDatabase-API</artifactId>
-	    <version>1.1.0</version>
+            <artifactId>HeadDatabase-API</artifactId>
+            <version>1.1.0</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>fr.mrmicky</groupId>
+            <artifactId>fastboard</artifactId>
+            <version>1.2.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>
