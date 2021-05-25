@@ -1,15 +1,16 @@
 package fun.lewisdev.deluxehub.module.modules.chat;
 
+import java.util.List;
+
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+
 import fun.lewisdev.deluxehub.DeluxeHub;
 import fun.lewisdev.deluxehub.command.CustomCommand;
 import fun.lewisdev.deluxehub.config.Messages;
 import fun.lewisdev.deluxehub.module.Module;
 import fun.lewisdev.deluxehub.module.ModuleType;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-
-import java.util.List;
 
 public class CustomCommands extends Module {
 
@@ -32,17 +33,19 @@ public class CustomCommands extends Module {
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
 
         Player player = event.getPlayer();
-        if (inDisabledWorld(player.getLocation())) return;
+        if (inDisabledWorld(player.getLocation()))
+            return;
 
         String command = event.getMessage().toLowerCase().replace("/", "");
 
         for (CustomCommand customCommand : commands) {
             if (customCommand.getAliases().stream().anyMatch(alias -> alias.equals(command))) {
-                if (customCommand.getPermission() != null) if (!player.hasPermission(customCommand.getPermission())) {
-                    player.sendMessage(Messages.CUSTOM_COMMAND_NO_PERMISSION.toString());
-                    event.setCancelled(true);
-                    return;
-                }
+                if (customCommand.getPermission() != null)
+                    if (!player.hasPermission(customCommand.getPermission())) {
+                        player.sendMessage(Messages.CUSTOM_COMMAND_NO_PERMISSION.toString());
+                        event.setCancelled(true);
+                        return;
+                    }
                 event.setCancelled(true);
                 getPlugin().getActionManager().executeActions(player, customCommand.getActions());
             }

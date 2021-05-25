@@ -2,9 +2,11 @@ package fun.lewisdev.deluxehub.action.actions;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
+
+import org.bukkit.entity.Player;
+
 import fun.lewisdev.deluxehub.DeluxeHub;
 import fun.lewisdev.deluxehub.action.Action;
-import org.bukkit.entity.Player;
 
 public class BungeeAction implements Action {
 

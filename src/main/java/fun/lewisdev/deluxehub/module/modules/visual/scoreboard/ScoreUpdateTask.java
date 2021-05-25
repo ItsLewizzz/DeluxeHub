@@ -16,7 +16,8 @@ public class ScoreUpdateTask implements Runnable {
     public void run() {
         List<UUID> toRemove = new ArrayList<>();
         scoreboardManager.getPlayers().forEach(uuid -> {
-            if (scoreboardManager.updateScoreboard(uuid) == null) toRemove.add(uuid);
+            if (scoreboardManager.updateScoreboard(uuid) == null)
+                toRemove.add(uuid);
         });
         scoreboardManager.getPlayers().removeAll(toRemove);
     }

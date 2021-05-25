@@ -1,9 +1,5 @@
 package fun.lewisdev.deluxehub.module.modules.world;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
-import fun.lewisdev.deluxehub.config.ConfigType;
-import fun.lewisdev.deluxehub.module.Module;
-import fun.lewisdev.deluxehub.module.ModuleType;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -12,6 +8,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+
+import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.config.ConfigType;
+import fun.lewisdev.deluxehub.module.Module;
+import fun.lewisdev.deluxehub.module.ModuleType;
 
 public class LobbySpawn extends Module {
 
@@ -26,7 +27,8 @@ public class LobbySpawn extends Module {
     public void onEnable() {
         Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> {
             FileConfiguration config = getConfig(ConfigType.DATA);
-            if (config.contains("spawn")) location = (Location) config.get("spawn");
+            if (config.contains("spawn"))
+                location = (Location) config.get("spawn");
         });
         spawnJoin = getConfig(ConfigType.SETTINGS).getBoolean("join_settings.spawn_join", false);
     }
@@ -47,12 +49,14 @@ public class LobbySpawn extends Module {
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        if (spawnJoin && location != null) player.teleport(location);
+        if (spawnJoin && location != null)
+            player.teleport(location);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
-        if (location != null && !inDisabledWorld(player.getLocation())) event.setRespawnLocation(location);
+        if (location != null && !inDisabledWorld(player.getLocation()))
+            event.setRespawnLocation(location);
     }
 }

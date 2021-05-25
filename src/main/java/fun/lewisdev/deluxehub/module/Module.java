@@ -1,18 +1,19 @@
 package fun.lewisdev.deluxehub.module;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
-import fun.lewisdev.deluxehub.config.ConfigType;
-import fun.lewisdev.deluxehub.cooldown.CooldownManager;
-import fun.lewisdev.deluxehub.cooldown.CooldownType;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.config.ConfigType;
+import fun.lewisdev.deluxehub.cooldown.CooldownManager;
+import fun.lewisdev.deluxehub.cooldown.CooldownType;
 
 public abstract class Module implements Listener {
 

@@ -1,8 +1,8 @@
 package fun.lewisdev.deluxehub.utility;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
-import fun.lewisdev.deluxehub.hook.hooks.head.HeadHook;
-import fun.lewisdev.deluxehub.utility.universal.XMaterial;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -16,8 +16,9 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.List;
+import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.hook.hooks.head.HeadHook;
+import fun.lewisdev.deluxehub.utility.universal.XMaterial;
 
 public class ItemStackBuilder {
 
@@ -34,9 +35,11 @@ public class ItemStackBuilder {
 
         if (item.getType() == XMaterial.PLAYER_HEAD.parseMaterial()) {
             if (section.contains("base64")) {
-                item = ((HeadHook) PLUGIN.getHookManager().getPluginHook("BASE64")).getHead(section.getString("base64"));
+                item = ((HeadHook) PLUGIN.getHookManager().getPluginHook("BASE64"))
+                        .getHead(section.getString("base64"));
             } else if (section.contains("hdb") && PLUGIN.getHookManager().isHookEnabled("HEAD_DATABASE")) {
-                item = ((HeadHook) PLUGIN.getHookManager().getPluginHook("HEAD_DATABASE")).getHead(section.getString("hdb"));
+                item = ((HeadHook) PLUGIN.getHookManager().getPluginHook("HEAD_DATABASE"))
+                        .getHead(section.getString("hdb"));
             }
         }
 
@@ -51,13 +54,17 @@ public class ItemStackBuilder {
         }
 
         if (section.contains("display_name")) {
-            if (player != null) builder.withName(section.getString("display_name"), player);
-            else builder.withName(section.getString("display_name"));
+            if (player != null)
+                builder.withName(section.getString("display_name"), player);
+            else
+                builder.withName(section.getString("display_name"));
         }
 
         if (section.contains("lore")) {
-            if (player != null) builder.withLore(section.getStringList("lore"), player);
-            else builder.withLore(section.getStringList("lore"));
+            if (player != null)
+                builder.withLore(section.getStringList("lore"), player);
+            else
+                builder.withLore(section.getStringList("lore"));
         }
 
         if (section.contains("glow") && section.getBoolean("glow")) {
@@ -109,6 +116,7 @@ public class ItemStackBuilder {
         return this;
     }
 
+    @SuppressWarnings("deprecation")
     public ItemStackBuilder setSkullOwner(String owner) {
         try {
             SkullMeta im = (SkullMeta) ITEM_STACK.getItemMeta();
@@ -193,7 +201,8 @@ public class ItemStackBuilder {
 
     public ItemStackBuilder withColor(Color color) {
         Material type = ITEM_STACK.getType();
-        if (type == Material.LEATHER_BOOTS || type == Material.LEATHER_CHESTPLATE || type == Material.LEATHER_HELMET || type == Material.LEATHER_LEGGINGS) {
+        if (type == Material.LEATHER_BOOTS || type == Material.LEATHER_CHESTPLATE || type == Material.LEATHER_HELMET
+                || type == Material.LEATHER_LEGGINGS) {
             LeatherArmorMeta meta = (LeatherArmorMeta) ITEM_STACK.getItemMeta();
             meta.setColor(color);
             ITEM_STACK.setItemMeta(meta);
@@ -207,4 +216,3 @@ public class ItemStackBuilder {
         return ITEM_STACK;
     }
 }
-

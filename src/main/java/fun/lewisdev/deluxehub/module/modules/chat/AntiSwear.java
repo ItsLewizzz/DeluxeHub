@@ -1,17 +1,18 @@
 package fun.lewisdev.deluxehub.module.modules.chat;
 
+import java.util.List;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+
 import fun.lewisdev.deluxehub.DeluxeHub;
 import fun.lewisdev.deluxehub.Permissions;
 import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.config.Messages;
 import fun.lewisdev.deluxehub.module.Module;
 import fun.lewisdev.deluxehub.module.ModuleType;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-
-import java.util.List;
 
 public class AntiSwear extends Module {
 
@@ -34,7 +35,8 @@ public class AntiSwear extends Module {
     public void onPlayerChat(AsyncPlayerChatEvent event) {
 
         Player player = event.getPlayer();
-        if (player.hasPermission(Permissions.ANTI_SWEAR_BYPASS.getPermission())) return;
+        if (player.hasPermission(Permissions.ANTI_SWEAR_BYPASS.getPermission()))
+            return;
 
         String message = event.getMessage();
 
@@ -44,9 +46,11 @@ public class AntiSwear extends Module {
                 event.setCancelled(true);
                 player.sendMessage(Messages.ANTI_SWEAR_WORD_BLOCKED.toString());
 
-                Bukkit.getOnlinePlayers().stream().filter(p -> p.hasPermission(Permissions.ANTI_SWEAR_NOTIFY.getPermission())).forEach(p -> {
-                    p.sendMessage(Messages.ANTI_SWEAR_ADMIN_NOTIFY.toString().replace("%player%", player.getName()).replace("%word%", message));
-                });
+                Bukkit.getOnlinePlayers().stream()
+                        .filter(p -> p.hasPermission(Permissions.ANTI_SWEAR_NOTIFY.getPermission())).forEach(p -> {
+                            p.sendMessage(Messages.ANTI_SWEAR_ADMIN_NOTIFY.toString()
+                                    .replace("%player%", player.getName()).replace("%word%", message));
+                        });
 
                 return;
             }

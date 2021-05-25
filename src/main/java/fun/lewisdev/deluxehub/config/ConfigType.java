@@ -2,9 +2,6 @@ package fun.lewisdev.deluxehub.config;
 
 public enum ConfigType {
 
-    SETTINGS,
-    MESSAGES,
-    COMMANDS,
-    DATA
+    SETTINGS, MESSAGES, COMMANDS, DATA
 
 }

@@ -1,12 +1,8 @@
 package fun.lewisdev.deluxehub.module.modules.player;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
-import fun.lewisdev.deluxehub.Permissions;
-import fun.lewisdev.deluxehub.config.ConfigType;
-import fun.lewisdev.deluxehub.config.Messages;
-import fun.lewisdev.deluxehub.cooldown.CooldownType;
-import fun.lewisdev.deluxehub.module.Module;
-import fun.lewisdev.deluxehub.module.ModuleType;
+import java.util.List;
+import java.util.UUID;
+
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -18,8 +14,13 @@ import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
-import java.util.List;
-import java.util.UUID;
+import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.Permissions;
+import fun.lewisdev.deluxehub.config.ConfigType;
+import fun.lewisdev.deluxehub.config.Messages;
+import fun.lewisdev.deluxehub.cooldown.CooldownType;
+import fun.lewisdev.deluxehub.module.Module;
+import fun.lewisdev.deluxehub.module.ModuleType;
 
 public class DoubleJump extends Module {
 
@@ -40,8 +41,10 @@ public class DoubleJump extends Module {
         launchY = config.getDouble("double_jump.launch_power_y", 1.2);
         actions = config.getStringList("double_jump.actions");
 
-        if (launch > 4.0) launch = 4.0;
-        if (launchY > 4.0) launchY = 4.0;
+        if (launch > 4.0)
+            launch = 4.0;
+        if (launchY > 4.0)
+            launchY = 4.0;
     }
 
     @Override
@@ -54,11 +57,15 @@ public class DoubleJump extends Module {
         Player player = event.getPlayer();
 
         // Perform checks
-        if (player.hasPermission(new Permission(Permissions.DOUBLE_JUMP_BYPASS.getPermission(), PermissionDefault.FALSE)))
+        if (player
+                .hasPermission(new Permission(Permissions.DOUBLE_JUMP_BYPASS.getPermission(), PermissionDefault.FALSE)))
             return;
-        else if (inDisabledWorld(player.getLocation())) return;
-        else if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) return;
-        else if (!event.isFlying()) return;
+        else if (inDisabledWorld(player.getLocation()))
+            return;
+        else if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)
+            return;
+        else if (!event.isFlying())
+            return;
         else if (player.getWorld().getBlockAt(player.getLocation().subtract(0, 2, 0)).getType() == Material.AIR) {
             event.setCancelled(true);
             return;
@@ -70,7 +77,8 @@ public class DoubleJump extends Module {
         // Check for cooldown
         UUID uuid = player.getUniqueId();
         if (!tryCooldown(uuid, CooldownType.DOUBLE_JUMP, cooldownDelay)) {
-            player.sendMessage(Messages.DOUBLE_JUMP_COOLDOWN.toString().replace("%time%", getCooldown(uuid, CooldownType.DOUBLE_JUMP)));
+            player.sendMessage(Messages.DOUBLE_JUMP_COOLDOWN.toString().replace("%time%",
+                    getCooldown(uuid, CooldownType.DOUBLE_JUMP)));
             return;
         }
 
@@ -82,7 +90,8 @@ public class DoubleJump extends Module {
     @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
-        if (player.getGameMode() != GameMode.CREATIVE && player.getGameMode() != GameMode.SPECTATOR && !inDisabledWorld(player.getLocation())) {
+        if (player.getGameMode() != GameMode.CREATIVE && player.getGameMode() != GameMode.SPECTATOR
+                && !inDisabledWorld(player.getLocation())) {
             player.getPlayer().setAllowFlight(true);
         }
     }

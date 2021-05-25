@@ -21,12 +21,14 @@ public class InventoryListener implements Listener {
                 Player player = (Player) event.getWhoClicked();
                 ItemStack itemStack = event.getCurrentItem();
 
-                if (itemStack == null || itemStack.getType() == Material.AIR) return;
+                if (itemStack == null || itemStack.getType() == Material.AIR)
+                    return;
 
                 InventoryBuilder customHolder = (InventoryBuilder) event.getView().getTopInventory().getHolder();
                 InventoryItem item = customHolder.getIcon(event.getRawSlot());
 
-                if (item == null) return;
+                if (item == null)
+                    return;
 
                 for (final ClickAction clickAction : item.getClickActions()) {
                     clickAction.execute(player);

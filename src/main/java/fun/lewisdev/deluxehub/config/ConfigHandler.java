@@ -1,12 +1,12 @@
 package fun.lewisdev.deluxehub.config;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
-import java.io.IOException;
 
 public class ConfigHandler {
 
@@ -43,7 +43,8 @@ public class ConfigHandler {
     }
 
     public void save() {
-        if (configuration == null || file == null) return;
+        if (configuration == null || file == null)
+            return;
         try {
             getConfig().save(file);
         } catch (IOException e) {

@@ -1,9 +1,10 @@
 package fun.lewisdev.deluxehub.action.actions;
 
+import org.bukkit.entity.Player;
+
 import fun.lewisdev.deluxehub.DeluxeHub;
 import fun.lewisdev.deluxehub.action.Action;
 import fun.lewisdev.deluxehub.inventory.AbstractInventory;
-import org.bukkit.entity.Player;
 
 public class MenuAction implements Action {
 

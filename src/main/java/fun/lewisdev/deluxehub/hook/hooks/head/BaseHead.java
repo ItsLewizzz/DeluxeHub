@@ -1,17 +1,19 @@
 package fun.lewisdev.deluxehub.hook.hooks.head;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
-import fun.lewisdev.deluxehub.DeluxeHub;
-import fun.lewisdev.deluxehub.hook.PluginHook;
-import fun.lewisdev.deluxehub.utility.universal.XMaterial;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.SkullMeta;
-
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
+
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
+
+import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.hook.PluginHook;
+import fun.lewisdev.deluxehub.utility.universal.XMaterial;
 
 public class BaseHead implements PluginHook, HeadHook {
 
@@ -24,7 +26,8 @@ public class BaseHead implements PluginHook, HeadHook {
 
     @Override
     public ItemStack getHead(String data) {
-        if (cache.containsKey(data)) return cache.get(data);
+        if (cache.containsKey(data))
+            return cache.get(data);
 
         ItemStack head = XMaterial.PLAYER_HEAD.parseItem();
         SkullMeta meta = (SkullMeta) head.getItemMeta();

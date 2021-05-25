@@ -1,5 +1,14 @@
 package fun.lewisdev.deluxehub;
 
+import java.util.logging.Level;
+
+import org.bstats.bukkit.MetricsLite;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.event.HandlerList;
+import org.bukkit.plugin.java.JavaPlugin;
+
 import cl.bgmp.minecraft.util.commands.exceptions.CommandException;
 import cl.bgmp.minecraft.util.commands.exceptions.CommandPermissionsException;
 import cl.bgmp.minecraft.util.commands.exceptions.CommandUsageException;
@@ -18,14 +27,6 @@ import fun.lewisdev.deluxehub.module.ModuleType;
 import fun.lewisdev.deluxehub.module.modules.hologram.HologramManager;
 import fun.lewisdev.deluxehub.utility.TextUtil;
 import fun.lewisdev.deluxehub.utility.UpdateChecker;
-import org.bstats.bukkit.MetricsLite;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.event.HandlerList;
-import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.logging.Level;
 
 public class DeluxeHub extends JavaPlugin {
 
@@ -65,7 +66,8 @@ public class DeluxeHub extends JavaPlugin {
         }
 
         SERVER_VERSION = Integer.parseInt(Bukkit.getBukkitVersion().split("-")[0].replace(".", "#").split("#")[1]);
-        if (SERVER_VERSION > 15) TextUtil.HEX_USE = true;
+        if (SERVER_VERSION > 15)
+            TextUtil.HEX_USE = true;
 
         // Enable bStats metrics
         new MetricsLite(this, BSTATS_ID);
@@ -78,7 +80,8 @@ public class DeluxeHub extends JavaPlugin {
         configManager.loadFiles(this);
 
         // If there were any configuration errors we should not continue
-        if (!getServer().getPluginManager().isPluginEnabled(this)) return;
+        if (!getServer().getPluginManager().isPluginEnabled(this))
+            return;
 
         // Command manager
         commandManager = new CommandManager(this);
@@ -89,7 +92,8 @@ public class DeluxeHub extends JavaPlugin {
 
         // Inventory (GUI) manager
         inventoryManager = new InventoryManager();
-        if (!hooksManager.isHookEnabled("HEAD_DATABASE")) inventoryManager.onEnable(this);
+        if (!hooksManager.isHookEnabled("HEAD_DATABASE"))
+            inventoryManager.onEnable(this);
 
         // Core plugin modules
         moduleManager = new ModuleManager();
@@ -140,7 +144,7 @@ public class DeluxeHub extends JavaPlugin {
         } catch (MissingNestedCommandException e) {
             sender.sendMessage(ChatColor.RED + e.getUsage());
         } catch (CommandUsageException e) {
-            //sender.sendMessage(ChatColor.RED + e.getMessage());
+            // sender.sendMessage(ChatColor.RED + e.getMessage());
             sender.sendMessage(ChatColor.RED + "Usage: " + e.getUsage());
         } catch (WrappedCommandException e) {
             if (e.getCause() instanceof NumberFormatException) {

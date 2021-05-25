@@ -1,30 +1,27 @@
 package fun.lewisdev.deluxehub.command.commands;
 
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 import cl.bgmp.minecraft.util.commands.CommandContext;
 import cl.bgmp.minecraft.util.commands.annotations.Command;
 import cl.bgmp.minecraft.util.commands.exceptions.CommandException;
 import fun.lewisdev.deluxehub.DeluxeHub;
 import fun.lewisdev.deluxehub.Permissions;
 import fun.lewisdev.deluxehub.config.Messages;
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class FlyCommand {
 
     public FlyCommand(DeluxeHub plugin) {
     }
 
-    @Command(
-            aliases = {"fly"},
-            desc = "Toggle flight mode",
-            usage = "[player]",
-            max = 1
-    )
+    @Command(aliases = { "fly" }, desc = "Toggle flight mode", usage = "[player]", max = 1)
     public void flight(final CommandContext args, final CommandSender sender) throws CommandException {
 
         if (args.argsLength() == 0) {
-            if (!(sender instanceof Player)) throw new CommandException("Console cannot clear inventory");
+            if (!(sender instanceof Player))
+                throw new CommandException("Console cannot clear inventory");
 
             if (!(sender.hasPermission(Permissions.COMMAND_FLIGHT.getPermission()))) {
                 sender.sendMessage(Messages.NO_PERMISSION.toString());

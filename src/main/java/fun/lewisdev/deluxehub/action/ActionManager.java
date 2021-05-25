@@ -1,15 +1,27 @@
 package fun.lewisdev.deluxehub.action;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
-import fun.lewisdev.deluxehub.action.actions.*;
-import fun.lewisdev.deluxehub.utility.PlaceholderUtil;
-import org.apache.commons.lang.StringUtils;
-import org.bukkit.entity.Player;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
+import org.bukkit.entity.Player;
+
+import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.action.actions.ActionbarAction;
+import fun.lewisdev.deluxehub.action.actions.BroadcastMessageAction;
+import fun.lewisdev.deluxehub.action.actions.BungeeAction;
+import fun.lewisdev.deluxehub.action.actions.CloseInventoryAction;
+import fun.lewisdev.deluxehub.action.actions.CommandAction;
+import fun.lewisdev.deluxehub.action.actions.ConsoleCommandAction;
+import fun.lewisdev.deluxehub.action.actions.GamemodeAction;
+import fun.lewisdev.deluxehub.action.actions.MenuAction;
+import fun.lewisdev.deluxehub.action.actions.MessageAction;
+import fun.lewisdev.deluxehub.action.actions.PotionEffectAction;
+import fun.lewisdev.deluxehub.action.actions.SoundAction;
+import fun.lewisdev.deluxehub.action.actions.TitleAction;
+import fun.lewisdev.deluxehub.utility.PlaceholderUtil;
 
 public class ActionManager {
 
@@ -23,20 +35,10 @@ public class ActionManager {
     }
 
     private void load() {
-        registerAction(
-                new MessageAction(),
-                new BroadcastMessageAction(),
-                new CommandAction(),
-                new ConsoleCommandAction(),
-                new SoundAction(),
-                new PotionEffectAction(),
-                new GamemodeAction(),
-                new BungeeAction(),
-                new CloseInventoryAction(),
-                new ActionbarAction(),
-                new TitleAction(),
-                new MenuAction()
-        );
+        registerAction(new MessageAction(), new BroadcastMessageAction(), new CommandAction(),
+                new ConsoleCommandAction(), new SoundAction(), new PotionEffectAction(), new GamemodeAction(),
+                new BungeeAction(), new CloseInventoryAction(), new ActionbarAction(), new TitleAction(),
+                new MenuAction());
     }
 
     public void registerAction(Action... actions) {

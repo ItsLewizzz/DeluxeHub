@@ -1,8 +1,22 @@
 package fun.lewisdev.deluxehub.module;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.event.HandlerList;
+
 import fun.lewisdev.deluxehub.DeluxeHub;
 import fun.lewisdev.deluxehub.config.ConfigType;
-import fun.lewisdev.deluxehub.module.modules.chat.*;
+import fun.lewisdev.deluxehub.module.modules.chat.AntiSwear;
+import fun.lewisdev.deluxehub.module.modules.chat.AutoBroadcast;
+import fun.lewisdev.deluxehub.module.modules.chat.ChatCommandBlock;
+import fun.lewisdev.deluxehub.module.modules.chat.ChatLock;
+import fun.lewisdev.deluxehub.module.modules.chat.CustomCommands;
 import fun.lewisdev.deluxehub.module.modules.hologram.HologramManager;
 import fun.lewisdev.deluxehub.module.modules.hotbar.HotbarManager;
 import fun.lewisdev.deluxehub.module.modules.player.DoubleJump;
@@ -15,15 +29,6 @@ import fun.lewisdev.deluxehub.module.modules.world.AntiWorldDownloader;
 import fun.lewisdev.deluxehub.module.modules.world.Launchpad;
 import fun.lewisdev.deluxehub.module.modules.world.LobbySpawn;
 import fun.lewisdev.deluxehub.module.modules.world.WorldProtect;
-import org.bukkit.Bukkit;
-import org.bukkit.World;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.event.HandlerList;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class ModuleManager {
 
@@ -34,14 +39,16 @@ public class ModuleManager {
     public void loadModules(DeluxeHub plugin) {
         this.plugin = plugin;
 
-        if (!modules.isEmpty()) unloadModules();
+        if (!modules.isEmpty())
+            unloadModules();
 
         FileConfiguration config = plugin.getConfigManager().getFile(ConfigType.SETTINGS).getConfig();
         disabledWorlds = config.getStringList("disabled-worlds.worlds");
 
         if (config.getBoolean("disabled-worlds.invert")) {
             disabledWorlds = Bukkit.getWorlds().stream().map(World::getName).collect(Collectors.toList());
-                for (String world : config.getStringList("disabled-worlds.worlds")) disabledWorlds.remove(world);
+            for (String world : config.getStringList("disabled-worlds.worlds"))
+                disabledWorlds.remove(world);
         }
 
         registerModule(new AntiWorldDownloader(plugin), "anti_wdl.enabled");
@@ -91,7 +98,8 @@ public class ModuleManager {
                 module.onDisable();
             } catch (Exception e) {
                 e.printStackTrace();
-                plugin.getLogger().severe("There was an error unloading the " + module.getModuleType().toString() + " module.");
+                plugin.getLogger()
+                        .severe("There was an error unloading the " + module.getModuleType().toString() + " module.");
             }
         }
         modules.clear();
@@ -107,7 +115,8 @@ public class ModuleManager {
 
     public void registerModule(Module module, String isEnabledPath) {
         DeluxeHub plugin = module.getPlugin();
-        if (isEnabledPath != null && !plugin.getConfigManager().getFile(ConfigType.SETTINGS).getConfig().getBoolean(isEnabledPath, false))
+        if (isEnabledPath != null
+                && !plugin.getConfigManager().getFile(ConfigType.SETTINGS).getConfig().getBoolean(isEnabledPath, false))
             return;
 
         plugin.getServer().getPluginManager().registerEvents(module, plugin);

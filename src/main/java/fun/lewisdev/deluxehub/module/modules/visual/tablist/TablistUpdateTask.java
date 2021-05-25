@@ -16,7 +16,8 @@ public class TablistUpdateTask implements Runnable {
     public void run() {
         List<UUID> toRemove = new ArrayList<>();
         tablistManager.getPlayers().forEach(uuid -> {
-            if (!tablistManager.updateTablist(uuid)) toRemove.add(uuid);
+            if (!tablistManager.updateTablist(uuid))
+                toRemove.add(uuid);
         });
         tablistManager.getPlayers().removeAll(toRemove);
     }

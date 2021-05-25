@@ -7,7 +7,10 @@ target/
 dependency-reduced-pom.xml
 pom.xml.versionsBackup
 
-### Intellij ###
+### Visual Studio Code ###
+.vscode/*
+
+### IntelliJ IDEA ###
 .idea/
 *.iws
 out/

@@ -1,10 +1,11 @@
 package fun.lewisdev.deluxehub.action.actions;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
 import fun.lewisdev.deluxehub.DeluxeHub;
 import fun.lewisdev.deluxehub.action.Action;
 import fun.lewisdev.deluxehub.utility.universal.XSound;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
 public class SoundAction implements Action {
 

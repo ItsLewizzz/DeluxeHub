@@ -1,7 +1,8 @@
 package fun.lewisdev.deluxehub.action;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
 import org.bukkit.entity.Player;
+
+import fun.lewisdev.deluxehub.DeluxeHub;
 
 public interface Action {
 

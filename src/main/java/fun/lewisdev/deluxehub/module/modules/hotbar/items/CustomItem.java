@@ -1,12 +1,13 @@
 package fun.lewisdev.deluxehub.module.modules.hotbar.items;
 
-import fun.lewisdev.deluxehub.config.ConfigType;
-import fun.lewisdev.deluxehub.module.modules.hotbar.HotbarItem;
-import fun.lewisdev.deluxehub.module.modules.hotbar.HotbarManager;
+import java.util.List;
+
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.List;
+import fun.lewisdev.deluxehub.config.ConfigType;
+import fun.lewisdev.deluxehub.module.modules.hotbar.HotbarItem;
+import fun.lewisdev.deluxehub.module.modules.hotbar.HotbarManager;
 
 public class CustomItem extends HotbarItem {
 
@@ -14,7 +15,8 @@ public class CustomItem extends HotbarItem {
 
     public CustomItem(HotbarManager hotbarManager, ItemStack item, int slot, String key) {
         super(hotbarManager, item, slot, key);
-        actions = getPlugin().getConfigManager().getFile(ConfigType.SETTINGS).getConfig().getStringList("custom_join_items.items." + key + ".actions");
+        actions = getPlugin().getConfigManager().getFile(ConfigType.SETTINGS).getConfig()
+                .getStringList("custom_join_items.items." + key + ".actions");
     }
 
     @Override

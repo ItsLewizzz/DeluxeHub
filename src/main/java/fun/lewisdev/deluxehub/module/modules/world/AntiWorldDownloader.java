@@ -2,15 +2,17 @@ package fun.lewisdev.deluxehub.module.modules.world;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.messaging.PluginMessageListener;
+
 import fun.lewisdev.deluxehub.DeluxeHub;
 import fun.lewisdev.deluxehub.Permissions;
 import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.config.Messages;
 import fun.lewisdev.deluxehub.module.Module;
 import fun.lewisdev.deluxehub.module.ModuleType;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.messaging.PluginMessageListener;
 
 public class AntiWorldDownloader extends Module implements PluginMessageListener {
 
@@ -44,17 +46,21 @@ public class AntiWorldDownloader extends Module implements PluginMessageListener
     }
 
     public void onPluginMessageReceived(String channel, Player player, byte[] data) {
-        if (player.hasPermission(Permissions.ANTI_WDL_BYPASS.getPermission())) return;
+        if (player.hasPermission(Permissions.ANTI_WDL_BYPASS.getPermission()))
+            return;
 
         if (legacy && channel.equals("WDL|INIT") || !legacy && channel.equals("wdl:init")) {
 
             ByteArrayDataOutput out = ByteStreams.newDataOutput();
             out.writeInt(0);
             out.writeBoolean(false);
-            if (legacy) player.sendPluginMessage(getPlugin(), "WDL|CONTROL", out.toByteArray());
-            else player.sendPluginMessage(getPlugin(), "wdl:control", out.toByteArray());
+            if (legacy)
+                player.sendPluginMessage(getPlugin(), "WDL|CONTROL", out.toByteArray());
+            else
+                player.sendPluginMessage(getPlugin(), "wdl:control", out.toByteArray());
 
-            if (!getPlugin().getConfigManager().getFile(ConfigType.SETTINGS).getConfig().getBoolean("anti_wdl.admin_notify"))
+            if (!getPlugin().getConfigManager().getFile(ConfigType.SETTINGS).getConfig()
+                    .getBoolean("anti_wdl.admin_notify"))
                 return;
 
             for (Player p : Bukkit.getOnlinePlayers()) {
