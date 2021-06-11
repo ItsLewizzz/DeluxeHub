@@ -1,7 +1,7 @@
 package fun.lewisdev.deluxehub.module.modules.world;
 
 import de.tr7zw.changeme.nbtapi.NBTItem;
-import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.Permissions;
 import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.config.Messages;
@@ -95,7 +95,7 @@ public class WorldProtect extends Module {
             XMaterial.OAK_BUTTON.parseMaterial(),
             XMaterial.OAK_DOOR.parseMaterial());
 
-    public WorldProtect(DeluxeHub plugin) {
+    public WorldProtect(DeluxeHubPlugin plugin) {
         super(plugin, ModuleType.WORLD_PROTECT);
     }
 

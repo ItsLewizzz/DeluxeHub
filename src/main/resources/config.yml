@@ -49,11 +49,11 @@
 # Check for latest SpigotMC updates (recommended).
 check-updates: true
 
-# List any worlds you don't want DeluxeHub to manage.
+# Disable specific worlds
 disabled-worlds:
   # Should we invert the list making it a whitelist rather than a blacklist?
   invert: false
-  # List your worlds here, set "worlds: {}" to disable
+  # List your disabled worlds HERE or "worlds: []" to disable
   worlds:
     - world_nether
 

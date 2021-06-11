@@ -2,7 +2,7 @@ package fun.lewisdev.deluxehub.hook.hooks.head;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.hook.PluginHook;
 import fun.lewisdev.deluxehub.utility.universal.XMaterial;
 import org.bukkit.inventory.ItemStack;
@@ -18,7 +18,7 @@ public class BaseHead implements PluginHook, HeadHook {
     private Map<String, ItemStack> cache;
 
     @Override
-    public void onEnable(DeluxeHub plugin) {
+    public void onEnable(DeluxeHubPlugin plugin) {
         cache = new HashMap<>();
     }
 

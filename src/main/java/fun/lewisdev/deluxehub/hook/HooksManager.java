@@ -1,6 +1,6 @@
 package fun.lewisdev.deluxehub.hook;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.hook.hooks.head.BaseHead;
 import fun.lewisdev.deluxehub.hook.hooks.head.DatabaseHead;
 import fun.lewisdev.deluxehub.utility.PlaceholderUtil;
@@ -14,7 +14,7 @@ public class HooksManager {
 
     private Map<String, PluginHook> hooks;
 
-    public HooksManager(DeluxeHub plugin) {
+    public HooksManager(DeluxeHubPlugin plugin) {
         hooks = new HashMap<>();
 
         // Base64 head

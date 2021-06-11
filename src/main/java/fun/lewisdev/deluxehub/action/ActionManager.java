@@ -1,6 +1,6 @@
 package fun.lewisdev.deluxehub.action;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.action.actions.*;
 import fun.lewisdev.deluxehub.utility.PlaceholderUtil;
 import org.apache.commons.lang.StringUtils;
@@ -13,10 +13,10 @@ import java.util.Map;
 
 public class ActionManager {
 
-    private DeluxeHub plugin;
+    private DeluxeHubPlugin plugin;
     private Map<String, Action> actions;
 
-    public ActionManager(DeluxeHub plugin) {
+    public ActionManager(DeluxeHubPlugin plugin) {
         this.plugin = plugin;
         actions = new HashMap<>();
         load();

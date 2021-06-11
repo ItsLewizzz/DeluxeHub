@@ -5,7 +5,7 @@ import cl.bgmp.bukkit.util.CommandsManagerRegistration;
 import cl.bgmp.minecraft.util.commands.CommandsManager;
 import cl.bgmp.minecraft.util.commands.exceptions.CommandException;
 import cl.bgmp.minecraft.util.commands.injection.SimpleInjector;
-import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.command.commands.*;
 import fun.lewisdev.deluxehub.command.commands.gamemode.*;
 import fun.lewisdev.deluxehub.config.ConfigType;
@@ -16,7 +16,7 @@ import java.util.*;
 
 public class CommandManager {
 
-    private DeluxeHub plugin;
+    private DeluxeHubPlugin plugin;
     private FileConfiguration config;
 
     private CommandsManager commands;
@@ -24,7 +24,7 @@ public class CommandManager {
 
     private List<CustomCommand> customCommands;
 
-    public CommandManager(DeluxeHub plugin) {
+    public CommandManager(DeluxeHubPlugin plugin) {
         this.plugin = plugin;
         this.config = plugin.getConfigManager().getFile(ConfigType.COMMANDS).getConfig();
         this.customCommands = new ArrayList<>();

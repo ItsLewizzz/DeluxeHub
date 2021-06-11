@@ -1,6 +1,6 @@
 package fun.lewisdev.deluxehub.module.modules.chat;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.Permissions;
 import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.config.Messages;
@@ -17,7 +17,7 @@ public class AntiSwear extends Module {
 
     private List<String> blockedWords;
 
-    public AntiSwear(DeluxeHub plugin) {
+    public AntiSwear(DeluxeHubPlugin plugin) {
         super(plugin, ModuleType.ANTI_SWEAR);
     }
 

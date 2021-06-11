@@ -1,6 +1,6 @@
 package fun.lewisdev.deluxehub.inventory;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.utility.ItemStackBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -16,11 +16,11 @@ import java.util.UUID;
 
 public abstract class AbstractInventory implements Listener {
 
-    private DeluxeHub plugin;
+    private DeluxeHubPlugin plugin;
     private boolean refreshEnabled = false;
     private List<UUID> openInventories;
 
-    public AbstractInventory(DeluxeHub plugin) {
+    public AbstractInventory(DeluxeHubPlugin plugin) {
         this.plugin = plugin;
         openInventories = new ArrayList<>();
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
@@ -36,7 +36,7 @@ public abstract class AbstractInventory implements Listener {
 
     protected abstract Inventory getInventory();
 
-    protected DeluxeHub getPlugin() {
+    protected DeluxeHubPlugin getPlugin() {
         return plugin;
     }
 

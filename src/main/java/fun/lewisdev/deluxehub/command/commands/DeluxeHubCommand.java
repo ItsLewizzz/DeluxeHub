@@ -3,7 +3,7 @@ package fun.lewisdev.deluxehub.command.commands;
 import cl.bgmp.minecraft.util.commands.CommandContext;
 import cl.bgmp.minecraft.util.commands.annotations.Command;
 import cl.bgmp.minecraft.util.commands.exceptions.CommandException;
-import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.Permissions;
 import fun.lewisdev.deluxehub.command.CommandManager;
 import fun.lewisdev.deluxehub.config.Messages;
@@ -28,9 +28,9 @@ import java.util.stream.Collectors;
 
 public class DeluxeHubCommand {
 
-    private DeluxeHub plugin;
+    private DeluxeHubPlugin plugin;
 
-    public DeluxeHubCommand(DeluxeHub plugin) {
+    public DeluxeHubCommand(DeluxeHubPlugin plugin) {
         this.plugin = plugin;
     }
 

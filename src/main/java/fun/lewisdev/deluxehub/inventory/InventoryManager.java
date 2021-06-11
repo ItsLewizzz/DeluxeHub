@@ -1,6 +1,6 @@
 package fun.lewisdev.deluxehub.inventory;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.inventory.inventories.CustomGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -13,7 +13,7 @@ import java.util.UUID;
 
 public class InventoryManager {
 
-    private DeluxeHub plugin;
+    private DeluxeHubPlugin plugin;
 
     private Map<String, AbstractInventory> inventories;
 
@@ -21,7 +21,7 @@ public class InventoryManager {
         inventories = new HashMap<>();
     }
 
-    public void onEnable(DeluxeHub plugin) {
+    public void onEnable(DeluxeHubPlugin plugin) {
         this.plugin = plugin;
 
         loadCustomMenus();

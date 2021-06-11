@@ -1,6 +1,6 @@
 package fun.lewisdev.deluxehub.module.modules.chat;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.Permissions;
 import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.config.Messages;
@@ -14,7 +14,7 @@ public class ChatLock extends Module {
 
     private boolean isChatLocked;
 
-    public ChatLock(DeluxeHub plugin) {
+    public ChatLock(DeluxeHubPlugin plugin) {
         super(plugin, ModuleType.CHAT_LOCK);
     }
 

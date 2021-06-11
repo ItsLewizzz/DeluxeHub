@@ -2,7 +2,7 @@ package fun.lewisdev.deluxehub.module.modules.world;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
-import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.Permissions;
 import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.config.Messages;
@@ -16,7 +16,7 @@ public class AntiWorldDownloader extends Module implements PluginMessageListener
 
     private final boolean legacy;
 
-    public AntiWorldDownloader(DeluxeHub plugin) {
+    public AntiWorldDownloader(DeluxeHubPlugin plugin) {
         super(plugin, ModuleType.ANTI_WDL);
         this.legacy = getPlugin().getServerVersionNumber() < 13;
     }

@@ -1,6 +1,6 @@
 package fun.lewisdev.deluxehub.module.modules.visual.scoreboard;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.module.Module;
 import fun.lewisdev.deluxehub.module.ModuleType;
@@ -25,7 +25,7 @@ public class ScoreboardManager extends Module {
     private String title;
     private List<String> lines;
 
-    public ScoreboardManager(DeluxeHub plugin) {
+    public ScoreboardManager(DeluxeHubPlugin plugin) {
         super(plugin, ModuleType.SCOREBOARD);
     }
 

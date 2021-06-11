@@ -1,6 +1,6 @@
 package fun.lewisdev.deluxehub.module.modules.chat;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.Permissions;
 import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.config.Messages;
@@ -16,7 +16,7 @@ public class ChatCommandBlock extends Module {
 
     private List<String> blockedCommands;
 
-    public ChatCommandBlock(DeluxeHub plugin) {
+    public ChatCommandBlock(DeluxeHubPlugin plugin) {
         super(plugin, ModuleType.COMMAND_BLOCK);
     }
 

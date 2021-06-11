@@ -3,7 +3,7 @@ package fun.lewisdev.deluxehub.command.commands;
 import cl.bgmp.minecraft.util.commands.CommandContext;
 import cl.bgmp.minecraft.util.commands.annotations.Command;
 import cl.bgmp.minecraft.util.commands.exceptions.CommandException;
-import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.Permissions;
 import fun.lewisdev.deluxehub.config.Messages;
 import fun.lewisdev.deluxehub.module.ModuleType;
@@ -13,9 +13,9 @@ import org.bukkit.entity.Player;
 
 public class VanishCommand {
 
-    private DeluxeHub plugin;
+    private DeluxeHubPlugin plugin;
 
-    public VanishCommand(DeluxeHub plugin) {
+    public VanishCommand(DeluxeHubPlugin plugin) {
         this.plugin = plugin;
     }
 

@@ -21,7 +21,7 @@
  */
 package fun.lewisdev.deluxehub.utility.reflection;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -60,7 +60,7 @@ import java.util.concurrent.Callable;
  */
 public class ActionBar {
 
-    private static final JavaPlugin PLUGIN = JavaPlugin.getProvidingPlugin(DeluxeHub.class);
+    private static final JavaPlugin PLUGIN = JavaPlugin.getProvidingPlugin(DeluxeHubPlugin.class);
     private static final MethodHandle CHAT_COMPONENT_TEXT;
     private static final MethodHandle PACKET;
     private static final Object CHAT_MESSAGE_TYPE;

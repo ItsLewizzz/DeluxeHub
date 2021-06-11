@@ -1,6 +1,6 @@
 package fun.lewisdev.deluxehub.module;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.module.modules.chat.*;
 import fun.lewisdev.deluxehub.module.modules.hologram.HologramManager;
@@ -27,11 +27,11 @@ import java.util.stream.Collectors;
 
 public class ModuleManager {
 
-    private DeluxeHub plugin;
+    private DeluxeHubPlugin plugin;
     private List<String> disabledWorlds;
     private Map<ModuleType, Module> modules = new HashMap<>();
 
-    public void loadModules(DeluxeHub plugin) {
+    public void loadModules(DeluxeHubPlugin plugin) {
         this.plugin = plugin;
 
         if (!modules.isEmpty()) unloadModules();
@@ -106,7 +106,7 @@ public class ModuleManager {
     }
 
     public void registerModule(Module module, String isEnabledPath) {
-        DeluxeHub plugin = module.getPlugin();
+        DeluxeHubPlugin plugin = module.getPlugin();
         if (isEnabledPath != null && !plugin.getConfigManager().getFile(ConfigType.SETTINGS).getConfig().getBoolean(isEnabledPath, false))
             return;
 

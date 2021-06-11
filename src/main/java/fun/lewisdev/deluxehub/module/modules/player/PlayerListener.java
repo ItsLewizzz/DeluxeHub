@@ -1,6 +1,6 @@
 package fun.lewisdev.deluxehub.module.modules.player;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.module.Module;
 import fun.lewisdev.deluxehub.module.ModuleType;
@@ -42,7 +42,7 @@ public class PlayerListener extends Module {
     private String fireworkType;
     private List<Color> fireworkColors;
 
-    public PlayerListener(DeluxeHub plugin) {
+    public PlayerListener(DeluxeHubPlugin plugin) {
         super(plugin, ModuleType.PLAYER_LISTENER);
     }
 
@@ -82,7 +82,7 @@ public class PlayerListener extends Module {
 
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         if (inDisabledWorld(player.getLocation())) return;

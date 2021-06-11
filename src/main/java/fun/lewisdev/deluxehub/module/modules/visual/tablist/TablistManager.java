@@ -1,6 +1,6 @@
 package fun.lewisdev.deluxehub.module.modules.visual.tablist;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.module.Module;
 import fun.lewisdev.deluxehub.module.ModuleType;
@@ -25,7 +25,7 @@ public class TablistManager extends Module {
 
     private String header, footer;
 
-    public TablistManager(DeluxeHub plugin) {
+    public TablistManager(DeluxeHubPlugin plugin) {
         super(plugin, ModuleType.TABLIST);
     }
 

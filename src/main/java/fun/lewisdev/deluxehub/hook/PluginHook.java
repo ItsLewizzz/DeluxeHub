@@ -1,9 +1,9 @@
 package fun.lewisdev.deluxehub.hook;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 
 public interface PluginHook {
 
-    void onEnable(DeluxeHub plugin);
+    void onEnable(DeluxeHubPlugin plugin);
 
 }

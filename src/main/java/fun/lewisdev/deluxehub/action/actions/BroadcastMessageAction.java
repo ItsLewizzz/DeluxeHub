@@ -1,6 +1,6 @@
 package fun.lewisdev.deluxehub.action.actions;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.utility.TextUtil;
 import fun.lewisdev.deluxehub.action.Action;
 import org.bukkit.Bukkit;
@@ -14,7 +14,7 @@ public class BroadcastMessageAction implements Action {
     }
 
     @Override
-    public void execute(DeluxeHub plugin, Player player, String data) {
+    public void execute(DeluxeHubPlugin plugin, Player player, String data) {
         if (data.contains("<center>") && data.contains("</center>")) data = TextUtil.getCenteredMessage(data);
 
         for (Player p : Bukkit.getOnlinePlayers()) {

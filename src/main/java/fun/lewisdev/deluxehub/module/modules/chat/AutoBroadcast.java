@@ -1,6 +1,6 @@
 package fun.lewisdev.deluxehub.module.modules.chat;
 
-import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.module.Module;
 import fun.lewisdev.deluxehub.module.ModuleType;
@@ -27,7 +27,7 @@ public class AutoBroadcast extends Module implements Runnable {
     private double volume;
     private double pitch;
 
-    public AutoBroadcast(DeluxeHub plugin) {
+    public AutoBroadcast(DeluxeHubPlugin plugin) {
         super(plugin, ModuleType.ANNOUNCEMENTS);
     }
 

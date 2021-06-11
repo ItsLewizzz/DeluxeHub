@@ -27,7 +27,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Level;
 
-public class DeluxeHub extends JavaPlugin {
+public class DeluxeHubPlugin extends JavaPlugin {
 
     private static final int BSTATS_ID = 3151;
     public static int SERVER_VERSION;

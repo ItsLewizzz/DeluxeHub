@@ -1,7 +1,7 @@
 package fun.lewisdev.deluxehub.module.modules.hotbar;
 
 import de.tr7zw.changeme.nbtapi.NBTItem;
-import fun.lewisdev.deluxehub.DeluxeHub;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.utility.ItemStackBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -37,7 +37,7 @@ public abstract class HotbarItem implements Listener {
         this.item = nbtItem.getItem();
     }
 
-    public DeluxeHub getPlugin() {
+    public DeluxeHubPlugin getPlugin() {
         return hotbarManager.getPlugin();
     }
 
@@ -128,7 +128,7 @@ public abstract class HotbarItem implements Listener {
         onInteract(player);
     }
 
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void hotbarPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         if (!getHotbarManager().inDisabledWorld(player.getLocation())) giveItem(player);
