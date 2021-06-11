@@ -64,19 +64,21 @@ public class DoubleJump extends Module {
             return;
         }
 
-        // All pre-checks passed, now handle double jump
-        event.setCancelled(true);
+
 
         // Check for cooldown
         UUID uuid = player.getUniqueId();
         if (!tryCooldown(uuid, CooldownType.DOUBLE_JUMP, cooldownDelay)) {
             player.sendMessage(Messages.DOUBLE_JUMP_COOLDOWN.toString().replace("%time%", getCooldown(uuid, CooldownType.DOUBLE_JUMP)));
+            event.setCancelled(true);
             return;
         }
 
         // Execute double jump
         player.setVelocity(player.getLocation().getDirection().multiply(launch).setY(launchY));
-        executeActions(player, actions);
+        executeActions(player, actions);        
+        // All pre-checks passed, now handle double jump
+        event.setCancelled(true);
     }
 
     @EventHandler
