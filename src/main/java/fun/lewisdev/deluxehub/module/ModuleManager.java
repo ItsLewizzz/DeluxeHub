@@ -39,11 +39,6 @@ public class ModuleManager {
         FileConfiguration config = plugin.getConfigManager().getFile(ConfigType.SETTINGS).getConfig();
         disabledWorlds = config.getStringList("disabled-worlds.worlds");
 
-        if (config.getBoolean("disabled-worlds.invert")) {
-            disabledWorlds = Bukkit.getWorlds().stream().map(World::getName).collect(Collectors.toList());
-                for (String world : config.getStringList("disabled-worlds.worlds")) disabledWorlds.remove(world);
-        }
-
         registerModule(new AntiWorldDownloader(plugin), "anti_wdl.enabled");
         registerModule(new DoubleJump(plugin), "double_jump.enabled");
         registerModule(new Launchpad(plugin), "launchpad.enabled");
@@ -69,6 +64,10 @@ public class ModuleManager {
         for (Module module : modules.values()) {
             try {
                 module.setDisabledWorlds(disabledWorlds);
+                if (config.getBoolean("disabled-worlds.invert")) {
+                    disabledWorlds = Bukkit.getWorlds().stream().map(World::getName).collect(Collectors.toList());
+                    for (String world : config.getStringList("disabled-worlds.worlds")) disabledWorlds.remove(world);
+                }
                 module.onEnable();
             } catch (Exception e) {
                 e.printStackTrace();
