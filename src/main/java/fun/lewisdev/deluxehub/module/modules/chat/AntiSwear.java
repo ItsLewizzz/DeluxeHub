@@ -42,10 +42,10 @@ public class AntiSwear extends Module {
             if (message.toLowerCase().contains(word.toLowerCase())) {
 
                 event.setCancelled(true);
-                player.sendMessage(Messages.ANTI_SWEAR_WORD_BLOCKED.toString());
+                Messages.ANTI_SWEAR_WORD_BLOCKED.send(player);
 
                 Bukkit.getOnlinePlayers().stream().filter(p -> p.hasPermission(Permissions.ANTI_SWEAR_NOTIFY.getPermission())).forEach(p -> {
-                    p.sendMessage(Messages.ANTI_SWEAR_ADMIN_NOTIFY.toString().replace("%player%", player.getName()).replace("%word%", message));
+                    Messages.ANTI_SWEAR_ADMIN_NOTIFY.send(p,"%player%", player.getName(),"%word%", message);
                 });
 
                 return;

@@ -24,7 +24,7 @@ public class ClearchatCommand {
     public void clearchat(final CommandContext args, final CommandSender sender) throws CommandException {
 
         if (!(sender.hasPermission(Permissions.COMMAND_CLEARCHAT.getPermission()))) {
-            sender.sendMessage(Messages.NO_PERMISSION.toString());
+            Messages.NO_PERMISSION.send(sender);
             return;
         }
 
@@ -33,20 +33,20 @@ public class ClearchatCommand {
                 for (int i = 0; i < 100; i++) {
                     player.sendMessage("");
                 }
-                player.sendMessage(Messages.CLEARCHAT.toString().replace("%player%", sender.getName()));
+                Messages.CLEARCHAT.send(player, "%player%", sender.getName());
             }
         } else if (args.argsLength() == 1) {
 
             Player player = Bukkit.getPlayer(args.getString(0));
             if (player == null) {
-                sender.sendMessage(Messages.INVALID_PLAYER.toString().replace("%player%", args.getString(0)));
+                Messages.INVALID_PLAYER.send(sender, "%player%", args.getString(0));
                 return;
             }
 
             for (int i = 0; i < 100; i++) {
                 player.sendMessage("");
             }
-            sender.sendMessage(Messages.CLEARCHAT_PLAYER.toString().replace("%player%", sender.getName()));
+            Messages.CLEARCHAT_PLAYER.send(sender, "%player%", sender.getName());
         }
     }
 }

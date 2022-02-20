@@ -3,7 +3,6 @@ package fun.lewisdev.deluxehub.utility;
 import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.hook.hooks.head.HeadHook;
 import fun.lewisdev.deluxehub.utility.universal.XMaterial;
-import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -15,7 +14,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +32,7 @@ public class ItemStackBuilder {
 
         if (item.getType() == XMaterial.PLAYER_HEAD.parseMaterial()) {
             if (section.contains("base64")) {
-                item = ((HeadHook) PLUGIN.getHookManager().getPluginHook("BASE64")).getHead(section.getString("base64"));
+                item = ((HeadHook) PLUGIN.getHookManager().getPluginHook("BASE64")).getHead(section.getString("base64")).clone();
             } else if (section.contains("hdb") && PLUGIN.getHookManager().isHookEnabled("HEAD_DATABASE")) {
                 item = ((HeadHook) PLUGIN.getHookManager().getPluginHook("HEAD_DATABASE")).getHead(section.getString("hdb"));
             }
@@ -62,6 +60,10 @@ public class ItemStackBuilder {
 
         if (section.contains("glow") && section.getBoolean("glow")) {
             builder.withGlow();
+        }
+
+        if (section.contains("custom_model_data")) {
+            builder.withCustomModelData(section.getInt("custom_model_data"));
         }
 
         if (section.contains("item_flags")) {
@@ -97,14 +99,14 @@ public class ItemStackBuilder {
 
     public ItemStackBuilder withName(String name) {
         final ItemMeta meta = ITEM_STACK.getItemMeta();
-        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
+        meta.setDisplayName(TextUtil.color(name));
         ITEM_STACK.setItemMeta(meta);
         return this;
     }
 
     public ItemStackBuilder withName(String name, Player player) {
         final ItemMeta meta = ITEM_STACK.getItemMeta();
-        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', PlaceholderUtil.setPlaceholders(name, player)));
+        meta.setDisplayName(TextUtil.color(PlaceholderUtil.setPlaceholders(name, player)));
         ITEM_STACK.setItemMeta(meta);
         return this;
     }
@@ -124,7 +126,7 @@ public class ItemStackBuilder {
         List<String> coloredLore = new ArrayList<String>();
         for (String s : lore) {
             s = PlaceholderUtil.setPlaceholders(s, player);
-            coloredLore.add(ChatColor.translateAlternateColorCodes('&', s));
+            coloredLore.add(TextUtil.color(s));
         }
         meta.setLore(coloredLore);
         ITEM_STACK.setItemMeta(meta);
@@ -135,9 +137,16 @@ public class ItemStackBuilder {
         final ItemMeta meta = ITEM_STACK.getItemMeta();
         List<String> coloredLore = new ArrayList<String>();
         for (String s : lore) {
-            coloredLore.add(ChatColor.translateAlternateColorCodes('&', s));
+            coloredLore.add(TextUtil.color(s));
         }
         meta.setLore(coloredLore);
+        ITEM_STACK.setItemMeta(meta);
+        return this;
+    }
+
+    public ItemStackBuilder withCustomModelData(int data) {
+        final ItemMeta meta = ITEM_STACK.getItemMeta();
+        meta.setCustomModelData(data);
         ITEM_STACK.setItemMeta(meta);
         return this;
     }

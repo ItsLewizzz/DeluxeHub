@@ -24,7 +24,7 @@ public class LobbySpawn extends Module {
 
     @Override
     public void onEnable() {
-        Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> {
+        Bukkit.getScheduler().runTask(getPlugin(), () -> {
             FileConfiguration config = getConfig(ConfigType.DATA);
             if (config.contains("spawn")) location = (Location) config.get("spawn");
         });

@@ -13,8 +13,8 @@ import java.util.Map;
 
 public class ActionManager {
 
-    private DeluxeHubPlugin plugin;
-    private Map<String, Action> actions;
+    private final DeluxeHubPlugin plugin;
+    private final Map<String, Action> actions;
 
     public ActionManager(DeluxeHubPlugin plugin) {
         this.plugin = plugin;
@@ -45,15 +45,16 @@ public class ActionManager {
 
     public void executeActions(Player player, List<String> items) {
         items.forEach(item -> {
-
-            String actionName = StringUtils.substringBetween(item, "[", "]").toUpperCase();
-            Action action = actionName.isEmpty() ? null : actions.get(actionName);
+            String actionName = StringUtils.substringBetween(item, "[", "]");
+            Action action = actionName == null ? null : actions.get(actionName.toUpperCase());
 
             if (action != null) {
                 item = item.contains(" ") ? item.split(" ", 2)[1] : "";
                 item = PlaceholderUtil.setPlaceholders(item, player);
 
                 action.execute(plugin, player, item);
+            }else{
+                plugin.getLogger().warning("There was a problem attempting to process action: '" + item + "'");
             }
         });
     }

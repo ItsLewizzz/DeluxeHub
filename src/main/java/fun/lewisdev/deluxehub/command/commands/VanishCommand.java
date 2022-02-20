@@ -26,7 +26,7 @@ public class VanishCommand {
     public void vanish(final CommandContext args, final CommandSender sender) throws CommandException {
 
         if (!sender.hasPermission(Permissions.COMMAND_VANISH.getPermission())) {
-            sender.sendMessage(Messages.NO_PERMISSION.toString());
+            Messages.NO_PERMISSION.send(sender);
             return;
         }
 

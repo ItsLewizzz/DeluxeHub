@@ -15,6 +15,7 @@ import fun.lewisdev.deluxehub.module.modules.world.AntiWorldDownloader;
 import fun.lewisdev.deluxehub.module.modules.world.Launchpad;
 import fun.lewisdev.deluxehub.module.modules.world.LobbySpawn;
 import fun.lewisdev.deluxehub.module.modules.world.WorldProtect;
+import fun.lewisdev.deluxehub.utility.universal.XMaterial;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -62,7 +63,7 @@ public class ModuleManager {
         registerModule(new HologramManager(plugin));
 
         // Requires 1.9+
-        if (plugin.getServerVersionNumber() > 8) {
+        if (XMaterial.supports(9)) {
             registerModule(new PlayerOffHandSwap(plugin), "world_settings.disable_off_hand_swap");
         }
 

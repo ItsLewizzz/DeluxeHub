@@ -5,6 +5,7 @@ import cl.bgmp.minecraft.util.commands.exceptions.CommandPermissionsException;
 import cl.bgmp.minecraft.util.commands.exceptions.CommandUsageException;
 import cl.bgmp.minecraft.util.commands.exceptions.MissingNestedCommandException;
 import cl.bgmp.minecraft.util.commands.exceptions.WrappedCommandException;
+import de.tr7zw.changeme.nbtapi.utils.MinecraftVersion;
 import fun.lewisdev.deluxehub.action.ActionManager;
 import fun.lewisdev.deluxehub.command.CommandManager;
 import fun.lewisdev.deluxehub.config.ConfigManager;
@@ -30,7 +31,6 @@ import java.util.logging.Level;
 public class DeluxeHubPlugin extends JavaPlugin {
 
     private static final int BSTATS_ID = 3151;
-    public static int SERVER_VERSION;
 
     private ConfigManager configManager;
     private ActionManager actionManager;
@@ -64,8 +64,7 @@ public class DeluxeHubPlugin extends JavaPlugin {
             return;
         }
 
-        SERVER_VERSION = Integer.parseInt(Bukkit.getBukkitVersion().split("-")[0].replace(".", "#").split("#")[1]);
-        if (SERVER_VERSION > 15) TextUtil.HEX_USE = true;
+        MinecraftVersion.disableUpdateCheck();
 
         // Enable bStats metrics
         new MetricsLite(this, BSTATS_ID);
@@ -136,7 +135,7 @@ public class DeluxeHubPlugin extends JavaPlugin {
         try {
             getCommandManager().execute(cmd.getName(), args, sender);
         } catch (CommandPermissionsException e) {
-            sender.sendMessage(Messages.NO_PERMISSION.toString());
+            Messages.NO_PERMISSION.send(sender);
         } catch (MissingNestedCommandException e) {
             sender.sendMessage(ChatColor.RED + e.getUsage());
         } catch (CommandUsageException e) {
@@ -177,10 +176,6 @@ public class DeluxeHubPlugin extends JavaPlugin {
 
     public InventoryManager getInventoryManager() {
         return inventoryManager;
-    }
-
-    public int getServerVersionNumber() {
-        return SERVER_VERSION;
     }
 
     public ConfigManager getConfigManager() {

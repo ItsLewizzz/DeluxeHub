@@ -27,37 +27,37 @@ public class FlyCommand {
             if (!(sender instanceof Player)) throw new CommandException("Console cannot clear inventory");
 
             if (!(sender.hasPermission(Permissions.COMMAND_FLIGHT.getPermission()))) {
-                sender.sendMessage(Messages.NO_PERMISSION.toString());
+                Messages.NO_PERMISSION.send(sender);
                 return;
             }
 
             Player player = (Player) sender;
 
             if (player.getAllowFlight()) {
-                player.sendMessage(Messages.FLIGHT_DISABLE.toString());
+                Messages.FLIGHT_DISABLE.send(player);
                 toggleFlight(player, false);
             } else {
-                player.sendMessage(Messages.FLIGHT_ENABLE.toString());
+                Messages.FLIGHT_ENABLE.send(player);
                 toggleFlight(player, true);
             }
         } else if (args.argsLength() == 1) {
             if (!(sender.hasPermission(Permissions.COMMAND_FLIGHT_OTHERS.getPermission()))) {
-                sender.sendMessage(Messages.NO_PERMISSION.toString());
+                Messages.NO_PERMISSION.send(sender);
                 return;
             }
 
             Player player = Bukkit.getPlayer(args.getString(0));
             if (player == null) {
-                sender.sendMessage(Messages.INVALID_PLAYER.toString().replace("%player%", args.getString(0)));
+                Messages.INVALID_PLAYER.send(sender, "%player%", args.getString(0));
                 return;
             }
             if (player.getAllowFlight()) {
-                player.sendMessage(Messages.FLIGHT_DISABLE.toString());
-                sender.sendMessage(Messages.FLIGHT_DISABLE_OTHER.toString().replace("%player%", player.getName()));
+                Messages.FLIGHT_DISABLE.send(player);
+                Messages.FLIGHT_DISABLE_OTHER.send(sender, "%player%", player.getName());
                 toggleFlight(player, false);
             } else {
-                player.sendMessage(Messages.FLIGHT_ENABLE.toString());
-                sender.sendMessage(Messages.FLIGHT_ENABLE_OTHER.toString().replace("%player%", player.getName()));
+                Messages.FLIGHT_ENABLE.send(player);
+                Messages.FLIGHT_ENABLE_OTHER.send(sender, "%player%", player.getName());
                 toggleFlight(player, true);
             }
         }

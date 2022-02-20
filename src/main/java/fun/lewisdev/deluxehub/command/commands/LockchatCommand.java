@@ -8,11 +8,12 @@ import fun.lewisdev.deluxehub.Permissions;
 import fun.lewisdev.deluxehub.config.Messages;
 import fun.lewisdev.deluxehub.module.ModuleType;
 import fun.lewisdev.deluxehub.module.modules.chat.ChatLock;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
 public class LockchatCommand {
 
-    private DeluxeHubPlugin plugin;
+    private final DeluxeHubPlugin plugin;
 
     public LockchatCommand(DeluxeHubPlugin plugin) {
         this.plugin = plugin;
@@ -25,17 +26,17 @@ public class LockchatCommand {
     public void lockchat(final CommandContext args, final CommandSender sender) throws CommandException {
 
         if (!sender.hasPermission(Permissions.COMMAND_LOCKCHAT.getPermission())) {
-            sender.sendMessage(Messages.NO_PERMISSION.toString());
+            Messages.NO_PERMISSION.send(sender);
             return;
         }
 
         ChatLock chatLockModule = (ChatLock) plugin.getModuleManager().getModule(ModuleType.CHAT_LOCK);
 
         if (chatLockModule.isChatLocked()) {
-            plugin.getServer().broadcastMessage(Messages.CHAT_UNLOCKED_BROADCAST.toString().replace("%player%", sender.getName()));
+            Bukkit.getOnlinePlayers().forEach(player -> Messages.CHAT_UNLOCKED_BROADCAST.send(player, "%player%", sender.getName()));
             chatLockModule.setChatLocked(false);
         } else {
-            plugin.getServer().broadcastMessage(Messages.CHAT_LOCKED_BROADCAST.toString().replace("%player%", sender.getName()));
+            Bukkit.getOnlinePlayers().forEach(player -> Messages.CHAT_LOCKED_BROADCAST.send(player, "%player%", sender.getName()));
             chatLockModule.setChatLocked(true);
         }
     }

@@ -1,12 +1,13 @@
 package fun.lewisdev.deluxehub.utility.reflection;
 
 import fun.lewisdev.deluxehub.DeluxeHubPlugin;
+import fun.lewisdev.deluxehub.utility.universal.XMaterial;
 import org.bukkit.entity.ArmorStand;
 
 public class ArmorStandName {
 
     public static String getName(ArmorStand stand) {
-        if (DeluxeHubPlugin.SERVER_VERSION > 8) return stand.getCustomName();
+        if (XMaterial.supports(8)) return stand.getCustomName();
 
         String name = null;
         try {

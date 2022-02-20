@@ -54,8 +54,7 @@ public class DoubleJump extends Module {
         Player player = event.getPlayer();
 
         // Perform checks
-        if (player.hasPermission(new Permission(Permissions.DOUBLE_JUMP_BYPASS.getPermission(), PermissionDefault.FALSE)))
-            return;
+        if (player.hasPermission(new Permission(Permissions.DOUBLE_JUMP_BYPASS.getPermission(), PermissionDefault.FALSE))) return;
         else if (inDisabledWorld(player.getLocation())) return;
         else if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) return;
         else if (!event.isFlying()) return;
@@ -70,7 +69,7 @@ public class DoubleJump extends Module {
         // Check for cooldown
         UUID uuid = player.getUniqueId();
         if (!tryCooldown(uuid, CooldownType.DOUBLE_JUMP, cooldownDelay)) {
-            player.sendMessage(Messages.DOUBLE_JUMP_COOLDOWN.toString().replace("%time%", getCooldown(uuid, CooldownType.DOUBLE_JUMP)));
+            Messages.DOUBLE_JUMP_COOLDOWN.send(player, "%time%", getCooldown(uuid, CooldownType.DOUBLE_JUMP));
             return;
         }
 

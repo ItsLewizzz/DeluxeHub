@@ -35,7 +35,7 @@ public class ChatLock extends Module {
         if (!isChatLocked || player.hasPermission(Permissions.LOCK_CHAT_BYPASS.getPermission())) return;
 
         event.setCancelled(true);
-        player.sendMessage(Messages.CHAT_LOCKED.toString());
+        Messages.CHAT_LOCKED.send(player);
     }
 
     public boolean isChatLocked() {

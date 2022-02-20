@@ -39,7 +39,7 @@ public class CustomCommands extends Module {
         for (CustomCommand customCommand : commands) {
             if (customCommand.getAliases().stream().anyMatch(alias -> alias.equals(command))) {
                 if (customCommand.getPermission() != null) if (!player.hasPermission(customCommand.getPermission())) {
-                    player.sendMessage(Messages.CUSTOM_COMMAND_NO_PERMISSION.toString());
+                    Messages.CUSTOM_COMMAND_NO_PERMISSION.send(player);
                     event.setCancelled(true);
                     return;
                 }

@@ -42,7 +42,7 @@ public class PlayerHider extends HotbarItem {
     protected void onInteract(Player player) {
 
         if (!getHotbarManager().tryCooldown(player.getUniqueId(), CooldownType.PLAYER_HIDER, cooldown)) {
-            player.sendMessage(Messages.COOLDOWN_ACTIVE.toString().replace("%time%", getHotbarManager().getCooldown(player.getUniqueId(), CooldownType.PLAYER_HIDER)));
+            Messages.COOLDOWN_ACTIVE.send(player, "%time%", getHotbarManager().getCooldown(player.getUniqueId(), CooldownType.PLAYER_HIDER));
             return;
         }
 
@@ -51,7 +51,7 @@ public class PlayerHider extends HotbarItem {
                 player.hidePlayer(pl);
             }
             hidden.add(player.getUniqueId());
-            player.sendMessage(Messages.PLAYER_HIDER_HIDDEN.toString());
+            Messages.PLAYER_HIDER_HIDDEN.send(player);
 
             player.getInventory().setItem(getSlot(), hiddenItem);
         } else {
@@ -59,7 +59,7 @@ public class PlayerHider extends HotbarItem {
                 player.showPlayer(pl);
             }
             hidden.remove(player.getUniqueId());
-            player.sendMessage(Messages.PLAYER_HIDER_SHOWN.toString());
+            Messages.PLAYER_HIDER_SHOWN.send(player);
 
             player.getInventory().setItem(getSlot(), getItem());
         }

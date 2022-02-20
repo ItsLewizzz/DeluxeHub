@@ -28,29 +28,29 @@ public class CreativeCommand {
 
             Player player = (Player) sender;
             if (!player.hasPermission(Permissions.COMMAND_GAMEMODE.getPermission())) {
-                player.sendMessage(Messages.NO_PERMISSION.toString());
+                Messages.NO_PERMISSION.send(sender);
                 return;
             }
 
-            player.sendMessage(Messages.GAMEMODE_CHANGE.toString().replace("%gamemode%", "CREATIVE"));
+            Messages.GAMEMODE_CHANGE.send(player, "%gamemode%", "CREATIVE");
             player.setGameMode(GameMode.CREATIVE);
         } else if (args.argsLength() == 1) {
             if (!sender.hasPermission(Permissions.COMMAND_GAMEMODE_OTHERS.getPermission())) {
-                sender.sendMessage(Messages.NO_PERMISSION.toString());
+                Messages.NO_PERMISSION.send(sender);
                 return;
             }
 
             Player player = Bukkit.getPlayer(args.getString(0));
             if (player == null) {
-                sender.sendMessage(Messages.INVALID_PLAYER.toString().replace("%player%", args.getString(0)));
+                Messages.INVALID_PLAYER.send(sender, "%player%", args.getString(0));
                 return;
             }
 
             if (sender.getName().equals(player.getName())) {
-                player.sendMessage(Messages.GAMEMODE_CHANGE.toString().replace("%gamemode%", "CREATIVE"));
+                Messages.GAMEMODE_CHANGE.send(player, "%gamemode%", "CREATIVE");
             } else {
-                player.sendMessage(Messages.GAMEMODE_CHANGE.toString().replace("%gamemode%", "CREATIVE"));
-                sender.sendMessage(Messages.GAMEMODE_CHANGE_OTHER.toString().replace("%player%", player.getName()).replace("%gamemode%", "CREATIVE"));
+                Messages.GAMEMODE_CHANGE.send(player, "%gamemode%", "CREATIVE");
+                Messages.GAMEMODE_CHANGE_OTHER.send(sender, "%player%", player.getName(), "%gamemode%", "CREATIVE");
             }
             player.setGameMode(GameMode.CREATIVE);
         }

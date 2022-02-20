@@ -28,26 +28,26 @@ public class SurvivalCommand {
 
             Player player = (Player) sender;
             if (!player.hasPermission(Permissions.COMMAND_GAMEMODE.getPermission())) {
-                sender.sendMessage(Messages.NO_PERMISSION.toString());
+                Messages.NO_PERMISSION.send(sender);
                 return;
             }
 
-            player.sendMessage(Messages.GAMEMODE_CHANGE.toString().replace("%gamemode%", "SURVIVAL"));
+            Messages.GAMEMODE_CHANGE.send(player, "%gamemode%", "SURVIVAL");
             player.setGameMode(GameMode.SURVIVAL);
         } else if (args.argsLength() == 1) {
             if (!sender.hasPermission(Permissions.COMMAND_GAMEMODE_OTHERS.getPermission())) {
-                sender.sendMessage(Messages.NO_PERMISSION.toString());
+                Messages.NO_PERMISSION.send(sender);
                 return;
             }
 
             Player player = Bukkit.getPlayer(args.getString(0));
             if (player == null) {
-                sender.sendMessage(Messages.INVALID_PLAYER.toString().replace("%player%", args.getString(0)));
+                Messages.INVALID_PLAYER.send(sender, "%player%", args.getString(0));
                 return;
             }
 
-            player.sendMessage(Messages.GAMEMODE_CHANGE.toString().replace("%gamemode%", "SURVIVAL"));
-            sender.sendMessage(Messages.GAMEMODE_CHANGE_OTHER.toString().replace("%player%", player.getName()).replace("%gamemode%", "SURVIVAL"));
+            Messages.GAMEMODE_CHANGE.send(player, "%gamemode%", "SURVIVAL");
+            Messages.GAMEMODE_CHANGE_OTHER.send(sender, "%player%", player.getName(), "%gamemode%", "SURVIVAL");
             player.setGameMode(GameMode.SURVIVAL);
         }
     }

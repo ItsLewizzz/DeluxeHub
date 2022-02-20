@@ -38,7 +38,7 @@ public class ChatCommandBlock extends Module {
 
         if (blockedCommands.contains(event.getMessage().toLowerCase())) {
             event.setCancelled(true);
-            player.sendMessage(Messages.COMMAND_BLOCKED.toString());
+            Messages.COMMAND_BLOCKED.send(player);
         }
     }
 }

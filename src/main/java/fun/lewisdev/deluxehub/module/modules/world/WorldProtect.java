@@ -148,7 +148,7 @@ public class WorldProtect extends Module {
         event.setCancelled(true);
 
         if (tryCooldown(player.getUniqueId(), CooldownType.BLOCK_BREAK, 3)) {
-            player.sendMessage(Messages.EVENT_BLOCK_BREAK.toString());
+            Messages.EVENT_BLOCK_BREAK.send(player);
         }
     }
 
@@ -171,7 +171,7 @@ public class WorldProtect extends Module {
         event.setCancelled(true);
 
         if (tryCooldown(event.getPlayer().getUniqueId(), CooldownType.BLOCK_PLACE, 3)) {
-            player.sendMessage(Messages.EVENT_BLOCK_PLACE.toString());
+            Messages.EVENT_BLOCK_PLACE.send(player);
         }
     }
 
@@ -193,7 +193,7 @@ public class WorldProtect extends Module {
             if (player.hasPermission(Permissions.EVENT_BLOCK_BREAK.getPermission())) return;
             event.setCancelled(true);
             if (tryCooldown(player.getUniqueId(), CooldownType.BLOCK_BREAK, 3)) {
-                player.sendMessage(Messages.EVENT_BLOCK_BREAK.toString());
+                Messages.EVENT_BLOCK_BREAK.send(player);
             }
         }
     }
@@ -210,7 +210,7 @@ public class WorldProtect extends Module {
         if (entity instanceof ItemFrame) {
             event.setCancelled(true);
             if (tryCooldown(player.getUniqueId(), CooldownType.BLOCK_INTERACT, 3)) {
-                player.sendMessage(Messages.EVENT_BLOCK_INTERACT.toString());
+                Messages.EVENT_BLOCK_INTERACT.send(player);
             }
         }
     }
@@ -227,7 +227,7 @@ public class WorldProtect extends Module {
             if (player.hasPermission(Permissions.EVENT_BLOCK_INTERACT.getPermission())) return;
             event.setCancelled(true);
             if (tryCooldown(player.getUniqueId(), CooldownType.BLOCK_INTERACT, 3)) {
-                player.sendMessage(Messages.EVENT_BLOCK_INTERACT.toString());
+                Messages.EVENT_BLOCK_INTERACT.send(player);
             }
         }
     }
@@ -248,7 +248,7 @@ public class WorldProtect extends Module {
 
                     event.setCancelled(true);
                     if (tryCooldown(player.getUniqueId(), CooldownType.BLOCK_INTERACT, 3)) {
-                        player.sendMessage(Messages.EVENT_BLOCK_INTERACT.toString());
+                        Messages.EVENT_BLOCK_INTERACT.send(player);
                     }
                     return;
                 }
@@ -264,11 +264,11 @@ public class WorldProtect extends Module {
         Player player = (Player) event.getEntity();
         if (inDisabledWorld(player.getLocation())) return;
 
-        if (fallDamage && event.getCause() == EntityDamageEvent.DamageCause.FALL) event.setCancelled(true);
-        else if (playerDrowning && event.getCause() == EntityDamageEvent.DamageCause.DROWNING) event.setCancelled(true);
-        else if (fireDamage && (event.getCause() == EntityDamageEvent.DamageCause.FIRE || event.getCause() == EntityDamageEvent.DamageCause.FIRE_TICK || event.getCause() == EntityDamageEvent.DamageCause.LAVA))
-            event.setCancelled(true);
-        else if (voidDeath && event.getCause() == EntityDamageEvent.DamageCause.VOID) {
+        EntityDamageEvent.DamageCause cause = event.getCause();
+        if (fallDamage && cause == EntityDamageEvent.DamageCause.FALL) event.setCancelled(true);
+        else if (playerDrowning && cause == EntityDamageEvent.DamageCause.DROWNING) event.setCancelled(true);
+        else if (fireDamage && (cause == EntityDamageEvent.DamageCause.FIRE || cause == EntityDamageEvent.DamageCause.FIRE_TICK || cause == EntityDamageEvent.DamageCause.LAVA)) event.setCancelled(true);
+        else if (voidDeath && cause == EntityDamageEvent.DamageCause.VOID) {
             player.setFallDistance(0.0F);
 
             Location location = ((LobbySpawn) getPlugin().getModuleManager().getModule(ModuleType.LOBBY)).getLocation();
@@ -309,7 +309,7 @@ public class WorldProtect extends Module {
         event.setCancelled(true);
 
         if (tryCooldown(player.getUniqueId(), CooldownType.ITEM_DROP, 3)) {
-            player.sendMessage(Messages.EVENT_ITEM_DROP.toString());
+            Messages.EVENT_ITEM_DROP.send(player);
         }
     }
 
@@ -323,7 +323,7 @@ public class WorldProtect extends Module {
 
         event.setCancelled(true);
         if (tryCooldown(player.getUniqueId(), CooldownType.ITEM_PICKUP, 3)) {
-            player.sendMessage(Messages.EVENT_ITEM_PICKUP.toString());
+            Messages.EVENT_ITEM_PICKUP.send(player);
         }
     }
 
@@ -344,14 +344,13 @@ public class WorldProtect extends Module {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onWeatherChange(WeatherChangeEvent event) {
-        if (!weatherChange) return;
+        if (!weatherChange || inDisabledWorld(event.getWorld())) return;
         event.setCancelled(event.toWeatherState());
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerDeath(PlayerDeathEvent event) {
-        if (!deathMessage) return;
-        if (inDisabledWorld(event.getEntity().getLocation())) return;
+        if (!deathMessage || inDisabledWorld(event.getEntity().getLocation())) return;
         event.setDeathMessage(null);
     }
 
@@ -368,7 +367,7 @@ public class WorldProtect extends Module {
 
         event.setCancelled(true);
         if (tryCooldown(player.getUniqueId(), CooldownType.PLAYER_PVP, 3)) {
-            event.getDamager().sendMessage(Messages.EVENT_PLAYER_PVP.toString());
+            Messages.EVENT_PLAYER_PVP.send(player);
         }
     }
 }

@@ -8,6 +8,7 @@ import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.config.Messages;
 import fun.lewisdev.deluxehub.module.Module;
 import fun.lewisdev.deluxehub.module.ModuleType;
+import fun.lewisdev.deluxehub.utility.universal.XMaterial;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
@@ -18,7 +19,7 @@ public class AntiWorldDownloader extends Module implements PluginMessageListener
 
     public AntiWorldDownloader(DeluxeHubPlugin plugin) {
         super(plugin, ModuleType.ANTI_WDL);
-        this.legacy = getPlugin().getServerVersionNumber() < 13;
+        this.legacy = !XMaterial.supports(13);
     }
 
     @Override
@@ -59,7 +60,7 @@ public class AntiWorldDownloader extends Module implements PluginMessageListener
 
             for (Player p : Bukkit.getOnlinePlayers()) {
                 if (p.hasPermission(Permissions.ANTI_WDL_NOTIFY.getPermission())) {
-                    p.sendMessage(Messages.WORLD_DOWNLOAD_NOTIFY.toString().replace("%player%", player.getName()));
+                    Messages.WORLD_DOWNLOAD_NOTIFY.send(p, "%player%", player.getName());
                 }
             }
         }

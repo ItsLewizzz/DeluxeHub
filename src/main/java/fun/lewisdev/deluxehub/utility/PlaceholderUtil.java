@@ -20,20 +20,9 @@ public class PlaceholderUtil {
             text = text.replace("%online_max%", String.valueOf(Bukkit.getServer().getMaxPlayers()));
 
         if (text.contains("%location%") && player != null) {
-            Location l = player.getLocation();
-            text = text.replace("%location%", l.getBlockX() + ", " + l.getBlockY() + ", " + l.getBlockZ());
+            Location location = player.getLocation();
+            text = text.replace("%location%", location.getBlockX() + ", " + location.getBlockY() + ", " + location.getBlockZ());
         }
-		
-		/*try {
-			final String BUNGEE_PATTERN = "%bungeecord_(\\w+)%";
-			Pattern pattern = Pattern.compile(BUNGEE_PATTERN);
-	        Matcher matcher = pattern.matcher(text);
-	        while(matcher.find()) {
-	        	text = matcher.replaceAll(String.valueOf(BungeeCord.getServerCount(player, matcher.group(1))));
-	        }
-		}catch (Exception ex) {
-			ex.printStackTrace();
-		}*/
 
         if (PAPI && player != null) text = PlaceholderAPI.setPlaceholders(player, text);
 

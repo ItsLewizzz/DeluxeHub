@@ -1,36 +1,19 @@
 package fun.lewisdev.deluxehub.utility;
 
+import fun.lewisdev.deluxehub.utility.color.IridiumColorAPI;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Color;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TextUtil {
 
     private static final int CENTER_PX = 154;
-    private static final Pattern HEX_PATTERN = Pattern.compile("#<([A-Fa-f0-9]){6}>");
-    public static boolean HEX_USE = false;
 
-    public static String color(String message) {
-        if (HEX_USE) {
-            Matcher matcher = HEX_PATTERN.matcher(message);
-
-            while (matcher.find()) {
-                String hexString = matcher.group();
-
-                hexString = "#" + hexString.substring(2, hexString.length() - 1);
-
-                final ChatColor hex = ChatColor.of(hexString);
-                final String before = message.substring(0, matcher.start());
-                final String after = message.substring(matcher.end());
-
-                message = before + hex + after;
-                matcher = HEX_PATTERN.matcher(message);
-            }
-        }
-
-        return ChatColor.translateAlternateColorCodes('&', message);
+    public static String color(final String string) {
+        return IridiumColorAPI.process(string);
     }
 
     public static String getCenteredMessage(String message) {
@@ -72,6 +55,18 @@ public class TextUtil {
 
         return sb.toString() + message;
 
+    }
+
+    public static String fromList(List<?> list) {
+        if (list == null || list.isEmpty()) return null;
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < list.size(); i++) {
+            if(org.bukkit.ChatColor.stripColor(list.get(i).toString()).equals("")) builder.append("\n&r");
+            else builder.append(list.get(i).toString()).append(i + 1 != list.size() ? "\n" : "");
+        }
+
+        return builder.toString();
     }
 
     public static String joinString(int index, String[] args) {

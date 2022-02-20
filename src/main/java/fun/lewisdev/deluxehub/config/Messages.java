@@ -1,7 +1,10 @@
 package fun.lewisdev.deluxehub.config;
 
 import fun.lewisdev.deluxehub.utility.TextUtil;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+
+import java.util.List;
 
 public enum Messages {
 
@@ -63,7 +66,7 @@ public enum Messages {
     WORLD_DOWNLOAD_NOTIFY("ANTI_WORLD_DOWNLOADER.ADMIN_NOTIFY");
 
     private static FileConfiguration config;
-    private String path;
+    private final String path;
 
     Messages(String path) {
         this.path = path;
@@ -73,16 +76,29 @@ public enum Messages {
         config = c;
     }
 
-    @Override
-    public String toString() {
-        String message = config.getString("Messages." + this.path);
+    public void send(CommandSender receiver, Object... replacements) {
+        Object value = config.get("Messages." + this.path);
 
-        if (message == null || message.isEmpty()) {
-            return "DeluxeHub: message not found (" + this.path + ")";
+        String message;
+        if (value == null) {
+            message = "DeluxeHub: message not found (" + this.path + ")";
+        }else {
+            message = value instanceof List ? TextUtil.fromList((List<?>) value) : value.toString();
+        }
+
+        if (!message.isEmpty()) {
+            receiver.sendMessage(TextUtil.color(replace(message, replacements)));
+        }
+    }
+
+    private String replace(String message, Object... replacements) {
+        for (int i = 0; i < replacements.length; i += 2) {
+            if (i + 1 >= replacements.length) break;
+            message = message.replace(String.valueOf(replacements[i]), String.valueOf(replacements[i + 1]));
         }
 
         String prefix = config.getString("Messages." + PREFIX.getPath());
-        return TextUtil.color(message.replace("%prefix%", prefix != null && !prefix.isEmpty() ? prefix : ""));
+        return message.replace("%prefix%", prefix != null && !prefix.isEmpty() ? prefix : "");
     }
 
     public String getPath() {

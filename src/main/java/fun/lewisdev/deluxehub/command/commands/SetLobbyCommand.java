@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 
 public class SetLobbyCommand {
 
-    private DeluxeHubPlugin plugin;
+    private final DeluxeHubPlugin plugin;
 
     public SetLobbyCommand(DeluxeHubPlugin plugin) {
         this.plugin = plugin;
@@ -27,7 +27,7 @@ public class SetLobbyCommand {
     public void setlobby(final CommandContext args, final CommandSender sender) throws CommandException {
 
         if (!sender.hasPermission(Permissions.COMMAND_SET_LOBBY.getPermission())) {
-            sender.sendMessage(Messages.NO_PERMISSION.toString());
+            Messages.NO_PERMISSION.send(sender);
             return;
         }
 
@@ -44,7 +44,7 @@ public class SetLobbyCommand {
 
         LobbySpawn lobbyModule = ((LobbySpawn) plugin.getModuleManager().getModule(ModuleType.LOBBY));
         lobbyModule.setLocation(player.getLocation());
-        sender.sendMessage(Messages.SET_LOBBY.toString());
+        Messages.SET_LOBBY.send(sender);
 
     }
 
