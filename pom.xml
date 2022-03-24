@@ -94,8 +94,8 @@
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
         <repository>
-            <id>bgm</id>
-            <url>https://maven.bgmp.cl/</url>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
         </repository>
         <repository>
             <id>CodeMC</id>
@@ -153,9 +153,9 @@
             <version>1.2</version>
         </dependency>
         <dependency>
-            <groupId>cl.bgmp</groupId>
-            <artifactId>command-framework-bukkit</artifactId>
-            <version>1.0.3-SNAPSHOT</version>
+            <groupId>com.github.BGMP</groupId>
+            <artifactId>CommandFramework</artifactId>
+            <version>master-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>de.tr7zw</groupId>
