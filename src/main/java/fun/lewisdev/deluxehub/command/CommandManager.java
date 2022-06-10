@@ -16,13 +16,13 @@ import java.util.*;
 
 public class CommandManager {
 
-    private DeluxeHubPlugin plugin;
-    private FileConfiguration config;
+    private final DeluxeHubPlugin plugin;
+    private final FileConfiguration config;
 
     private CommandsManager commands;
     private CommandsManagerRegistration commandRegistry;
 
-    private List<CustomCommand> customCommands;
+    private final List<CustomCommand> customCommands;
 
     public CommandManager(DeluxeHubPlugin plugin) {
         this.plugin = plugin;

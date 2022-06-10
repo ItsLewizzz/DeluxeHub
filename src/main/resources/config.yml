@@ -39,7 +39,7 @@
 # [CLOSE] - Close an open inventory gui
 #--------
 # MESSAGE FORMATTING:
-# {#hex-code} - Hex chat colour (requires Spigot 1.16+) (e.g. "{#5fad95}Hello!")
+# HEX colors formatting: https://wiki.lewisdev.fun/text-colours-rgb
 # <center> Centered message! </center> - Centers a message in chat
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
