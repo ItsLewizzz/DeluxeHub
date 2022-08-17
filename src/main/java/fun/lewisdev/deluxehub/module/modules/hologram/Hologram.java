@@ -2,6 +2,7 @@ package fun.lewisdev.deluxehub.module.modules.hologram;
 
 import fun.lewisdev.deluxehub.utility.TextUtil;
 import fun.lewisdev.deluxehub.utility.reflection.ArmorStandName;
+import io.papermc.lib.PaperLib;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -70,7 +71,7 @@ public class Hologram {
             count++;
         }
 
-        for (ArmorStand stand : standsTemp) stand.teleport(stand.getLocation().add(0, 0.25, 0));
+        for (ArmorStand stand : standsTemp) PaperLib.teleportAsync(stand, stand.getLocation().add(0, 0.25, 0));
 
         return count >= 1;
     }

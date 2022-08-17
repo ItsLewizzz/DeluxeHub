@@ -10,6 +10,7 @@ import fun.lewisdev.deluxehub.module.Module;
 import fun.lewisdev.deluxehub.module.ModuleType;
 import fun.lewisdev.deluxehub.module.modules.hologram.Hologram;
 import fun.lewisdev.deluxehub.utility.universal.XMaterial;
+import io.papermc.lib.PaperLib;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -274,7 +275,7 @@ public class WorldProtect extends Module {
             Location location = ((LobbySpawn) getPlugin().getModuleManager().getModule(ModuleType.LOBBY)).getLocation();
             if (location == null) return;
 
-            Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> player.teleport(location), 3L);
+            Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> PaperLib.teleportAsync(player, location), 3L);
             event.setCancelled(true);
         }
     }

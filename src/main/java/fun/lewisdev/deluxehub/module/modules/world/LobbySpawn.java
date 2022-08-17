@@ -4,6 +4,7 @@ import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.module.Module;
 import fun.lewisdev.deluxehub.module.ModuleType;
+import io.papermc.lib.PaperLib;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -47,7 +48,7 @@ public class LobbySpawn extends Module {
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        if (spawnJoin && location != null) player.teleport(location);
+        if (spawnJoin && location != null) PaperLib.teleportAsync(player, location);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

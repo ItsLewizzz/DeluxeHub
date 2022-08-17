@@ -7,6 +7,7 @@ import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.module.ModuleType;
 import fun.lewisdev.deluxehub.module.modules.world.LobbySpawn;
 import fun.lewisdev.deluxehub.utility.TextUtil;
+import io.papermc.lib.PaperLib;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -37,7 +38,7 @@ public class LobbyCommand {
             return;
         }
 
-        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> ((Player) sender).teleport(location), 3L);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> PaperLib.teleportAsync((Player)sender, location), 3L);
 
     }
 
