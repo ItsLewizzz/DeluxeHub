@@ -1,7 +1,6 @@
 package fun.lewisdev.deluxehub.module.modules.player;
 
 import fun.lewisdev.deluxehub.DeluxeHubPlugin;
-import fun.lewisdev.deluxehub.command.commands.FlyCommand;
 import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.module.Module;
 import fun.lewisdev.deluxehub.module.ModuleType;
