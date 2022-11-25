@@ -305,6 +305,8 @@ join_settings:
   extinguish: true
   # Should we clear their inventory?
   clear_inventory: false
+  # Should we enable flight (only if the player has the permission deluxehub.commands.fly)?
+  fly_on_join: true
   # Spawn a firework on join
   firework:
     # Should we send a firework on join?
