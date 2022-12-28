@@ -106,7 +106,8 @@ public class DoubleJump extends Module {
         Player player = event.getPlayer();
         if (player.getGameMode() != GameMode.CREATIVE && player.getGameMode() != GameMode.SPECTATOR && !inDisabledWorld(player.getLocation())) {
             player.getPlayer().setAllowFlight(true);
-            if (!canJump.containsKey(player.getUniqueId())) canJump.put(player.getUniqueId(), true);
+            canJump.remove(player.getUniqueId());
+            canJump.put(player.getUniqueId(), true);
         }
     }
 
@@ -115,7 +116,8 @@ public class DoubleJump extends Module {
         Player player = event.getPlayer();
         if (player.getGameMode() != GameMode.CREATIVE && player.getGameMode() != GameMode.SPECTATOR) {
             player.getPlayer().setAllowFlight(true);
-            if (!canJump.containsKey(player.getUniqueId())) canJump.put(player.getUniqueId(), true);
+            canJump.remove(player.getUniqueId());
+            canJump.put(player.getUniqueId(), true);
         }
     }
 
