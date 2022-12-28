@@ -10,6 +10,7 @@ import fun.lewisdev.deluxehub.module.ModuleType;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.*;
@@ -84,20 +85,18 @@ public class DoubleJump extends Module {
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
-        // Only check if the player is on the ground if they have moved to a new block for performance, this is the same thing WorldGuard does.
-        Location from = event.getFrom();
-        Location to = event.getTo();
-
-        if (to != null && from.getBlockX() == to.getBlockX() && from.getBlockY() == to.getBlockY() && from.getBlockZ() == to.getBlockZ()) {
-            return;
-        }
-
         // Set the players "jump charge" to true if they are on solid ground.
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
-        if (player.getWorld().getBlockAt(player.getLocation().subtract(0, 1, 0)).getBlockData().getMaterial().isSolid() && canJump.containsKey(uuid) && !canJump.get(uuid)) {
-            canJump.remove(uuid);
-            canJump.put(uuid, true);
+
+        if (canJump.containsKey(uuid) && !canJump.get(uuid)) {
+            if (((Entity) player).isOnGround()) {
+                //Redundant check to prevent hacked clients from spoofing the isOnGround packet. Hacked clients will be able to get a second double jump off a slab regardless of this check. (At that point they might as well fly hack)
+                if (player.getWorld().getBlockAt(player.getLocation().subtract(0, 1, 0)).getBlockData().getMaterial().isSolid()) {
+                    canJump.remove(uuid);
+                    canJump.put(uuid, true);
+                }
+            }
         }
     }
 
