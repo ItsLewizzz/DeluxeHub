@@ -33,7 +33,7 @@
 # [COMMAND] - Execute a command as the player
 # [CONSOLE] - Execute a command as console
 # [GAMEMODE] - Change a players' gamemode
-# [BUNGEE] - Send a player to a server
+# [BUNGEE] - e.g. SERVER;PERMISSION Send a player to a server
 # [EFFECT] e.g. EFFECT;LEVEL - Give a potion effect
 # [MENU] - Open a menu from (plugins/DeluxeHub/menus)
 # [CLOSE] - Close an open inventory gui
