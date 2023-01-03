@@ -1,6 +1,7 @@
 package fun.lewisdev.deluxehub.module.modules.player;
 
 import fun.lewisdev.deluxehub.DeluxeHubPlugin;
+import fun.lewisdev.deluxehub.Permissions;
 import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.module.Module;
 import fun.lewisdev.deluxehub.module.ModuleType;
@@ -111,7 +112,7 @@ public class PlayerListener extends Module {
         if (clearInventory) player.getInventory().clear();
 
         // Enable flight
-        if (flyOnJoin) player.setAllowFlight(true);
+        if (flyOnJoin && player.hasPermission(Permissions.COMMAND_FLIGHT.getPermission())) player.setAllowFlight(true);
 
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> {
