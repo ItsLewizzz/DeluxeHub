@@ -19,8 +19,7 @@ public class TextUtil {
     public static String getCenteredMessage(String message) {
         if (message == null || message.equals("")) return "";
 
-        message = ChatColor.translateAlternateColorCodes('&', message);
-        message = message.replace("<center>", "").replace("</center>", "");
+        message = color(message).replace("<center>", "").replace("</center>", "");
 
         int messagePxSize = 0;
         boolean previousCode = false;
