@@ -1,11 +1,8 @@
 package fun.lewisdev.deluxehub.module.modules.player;
 
-import fun.lewisdev.deluxehub.DeluxeHubPlugin;
-import fun.lewisdev.deluxehub.config.ConfigType;
-import fun.lewisdev.deluxehub.module.Module;
-import fun.lewisdev.deluxehub.module.ModuleType;
-import fun.lewisdev.deluxehub.utility.PlaceholderUtil;
-import fun.lewisdev.deluxehub.utility.TextUtil;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -14,13 +11,19 @@ import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
-
-import java.util.ArrayList;
-import java.util.List;
+import de.tr7zw.changeme.nbtapi.NBTItem;
+import fun.lewisdev.deluxehub.DeluxeHubPlugin;
+import fun.lewisdev.deluxehub.config.ConfigType;
+import fun.lewisdev.deluxehub.module.Module;
+import fun.lewisdev.deluxehub.module.ModuleType;
+import fun.lewisdev.deluxehub.utility.PlaceholderUtil;
+import fun.lewisdev.deluxehub.utility.TextUtil;
 
 public class PlayerListener extends Module {
 
@@ -146,6 +149,21 @@ public class PlayerListener extends Module {
         Player player = event.getPlayer();
         if (inDisabledWorld(player.getLocation()))
             player.getActivePotionEffects().forEach(effect -> player.removePotionEffect(effect.getType()));
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPlayerDeath(PlayerDeathEvent event) {
+        Player player = event.getEntity();
+        if (inDisabledWorld(player.getLocation())) return;
+
+        // Clear all hotbarItem related items
+        for (Iterator<ItemStack> iterator = event.getDrops().iterator(); iterator.hasNext();) {
+            ItemStack item = iterator.next();
+            NBTItem clone = new NBTItem(item);
+            if (item != null && clone.hasKey("hotbarItem")) {
+                iterator.remove();
+            }
+        }
     }
 
     public void spawnFirework(Player player) {
