@@ -51,7 +51,7 @@ public class SetLobbyCommand {
             lobbyModule.removeLobby();
             Messages.REMOVE_LOBBY.send(sender);
         } else {
-            sender.sendMessage("Usage: /setuplobby <set/add|delete/remove>");
+             Messages.USAGE_LOBBY.send(sender);
         }
     }
 
