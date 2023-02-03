@@ -32,6 +32,7 @@ Messages:
 
   LOBBY:
     SET_LOBBY: "%prefix% &aYou have successfully set the lobby spawn point"
+    REMOVE_LOBBY: "%prefix% &cYou have successfully removed the lobby spawn point"
 
   CHAT:
     CLEARCHAT: "&b&l* &fChat has been cleared by &e%player% &b&l*"
