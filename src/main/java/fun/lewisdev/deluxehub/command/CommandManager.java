@@ -99,8 +99,8 @@ public class CommandManager {
             case "LOCKCHAT":
                 commandRegistry.register(LockchatCommand.class, aliases);
                 break;
-            case "SETLOBBY":
-                commandRegistry.register(SetLobbyCommand.class, aliases);
+            case "SETUPLOBBY":
+                commandRegistry.register(SetupLobbyCommand.class, aliases);
                 break;
             case "LOBBY":
                 commandRegistry.register(LobbyCommand.class, aliases);
