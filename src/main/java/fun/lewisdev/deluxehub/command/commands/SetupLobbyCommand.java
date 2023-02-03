@@ -21,8 +21,8 @@ public class SetLobbyCommand {
     }
 
     @Command(
-            aliases = {"setlobby"},
-            desc = "Set the lobby location"
+            aliases = {"setuplobby"},
+            desc = "Setup the lobby location"
     )
     public void setlobby(final CommandContext args, final CommandSender sender) throws CommandException {
 
@@ -41,11 +41,18 @@ public class SetLobbyCommand {
             sender.sendMessage(TextUtil.color("&cYou cannot set the lobby location in a disabled world."));
             return;
         }
-
-        LobbySpawn lobbyModule = ((LobbySpawn) plugin.getModuleManager().getModule(ModuleType.LOBBY));
-        lobbyModule.setLocation(player.getLocation());
-        Messages.SET_LOBBY.send(sender);
-
+        
+        if(args[0] == "set" || args[0] == "add"){
+            LobbySpawn lobbyModule = ((LobbySpawn) plugin.getModuleManager().getModule(ModuleType.LOBBY));
+            lobbyModule.setLocation(player.getLocation());
+            Messages.SET_LOBBY.send(sender);
+        } else if (args[0] == "remove" || args[0] == "delete") {
+            LobbySpawn lobbyModule = ((LobbySpawn) plugin.getModuleManager().getModule(ModuleType.LOBBY));
+            lobbyModule.removeLobby();
+            Messages.REMOVE_LOBBY.send(sender);
+        } else {
+            sender.sendMessage("Usage: /setuplobby <set/add|delete/remove>");
+        }
     }
 
 }
