@@ -12,11 +12,11 @@ import fun.lewisdev.deluxehub.utility.TextUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class SetLobbyCommand {
+public class SetupLobbyCommand {
 
     private final DeluxeHubPlugin plugin;
 
-    public SetLobbyCommand(DeluxeHubPlugin plugin) {
+    public SetupLobbyCommand(DeluxeHubPlugin plugin) {
         this.plugin = plugin;
     }
 
