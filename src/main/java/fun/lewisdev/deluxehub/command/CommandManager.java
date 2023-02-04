@@ -126,7 +126,7 @@ public class CommandManager {
         return result;
     }
     
-    public void unRegisterBukkitCommand(PluginCommand cmd) {
+    private void unRegisterBukkitCommand(PluginCommand cmd) {
         try {
             Object result = this.getPrivateField(this.getServer().getPluginManager(), "commandMap");
             SimpleCommandMap commandMap = (SimpleCommandMap) result;
