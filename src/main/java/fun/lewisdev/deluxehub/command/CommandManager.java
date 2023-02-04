@@ -38,7 +38,9 @@ public class CommandManager {
         commands.setInjector(new SimpleInjector(plugin));
 
         commandRegistry.register(DeluxeHubCommand.class);
-
+        for(String[] command : config.getList("commands.disabled")){
+            this.unregisterCommand(command);
+        }
         for (String command : config.getConfigurationSection("commands").getKeys(false)) {
             if (!config.getBoolean("commands." + command + ".enabled")) continue;
 
