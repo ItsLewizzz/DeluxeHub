@@ -56,3 +56,13 @@ commands:
     enabled: true
     aliases:
       - v
+      
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# | DISABLE COMMANDS                         |
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# Disable other plugin commands. It's recommended to restart your server.
+disabledCommands:
+      - "version"
+      - "say"
+      - "tell"
+      - "disabledCommand"
