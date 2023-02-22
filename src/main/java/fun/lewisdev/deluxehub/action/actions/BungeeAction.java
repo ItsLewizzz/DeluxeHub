@@ -21,7 +21,7 @@ public class BungeeAction implements Action {
             data = params[0];
             if(params[1].strip().toUpperCase().equals("RESTRICTED")) {
                 if(!player.hasPermission("bungeecord.server."+data)) {
-                    player.sendMessage(TextUtil.color("&cYou don't have permission to access "+data));
+                    player.sendMessage(TextUtil.color("&cYou don't have permission to access "+data+"."));
                     return;
                 }
             }
