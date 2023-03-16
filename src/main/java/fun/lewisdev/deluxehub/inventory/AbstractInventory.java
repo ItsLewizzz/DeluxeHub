@@ -28,7 +28,7 @@ public abstract class AbstractInventory implements Listener {
 
     public void setInventoryRefresh(long value) {
         if (value <= 0) return;
-        plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, new InventoryTask(this), 0L, value);
+        plugin.getServer().getScheduler().runTaskTimer(plugin, new InventoryTask(this), 0L, value);
         refreshEnabled = true;
     }
 
