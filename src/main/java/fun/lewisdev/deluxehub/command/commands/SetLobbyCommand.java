@@ -21,7 +21,7 @@ public class SetLobbyCommand {
     }
 
     @Command(
-            aliases = {"setlobby"},
+            aliases = {"setlobby", "setspawn", "setl", "sets"},
             desc = "Set the lobby location"
     )
     public void setlobby(final CommandContext args, final CommandSender sender) throws CommandException {
