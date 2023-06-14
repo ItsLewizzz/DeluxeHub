@@ -108,8 +108,6 @@ public class TeleportBow extends HotbarItem {
             return;
         }
 
-        System.out.println("Projectile hit");
-
         if (!entity.hasMetadata("teleportEntity")) {
             return;
         }
