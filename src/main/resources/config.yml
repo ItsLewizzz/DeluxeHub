@@ -382,3 +382,28 @@ player_hider:
     display_name: '&dPlayers &8&l> &cHidden &7(Right-Click)'
     lore:
       - '&7Click to show all players!'
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# | TELEPORT BOW                             |
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+teleport_bow:
+  # Should the teleport bow feature be enabled?
+  enabled: true
+  # Slot the item should be given to?
+  slot: 0
+  # Slot the arrow should be given to?
+  arrow_slot: 1
+  # Should we prevent them from moving/dropping the item?
+  disable_inventory_movement: true
+  # Cooldown in seconds
+  # Set to 0 to disable
+  cooldown: 3
+  # The Teleport Bow item
+  item:
+    material: BOW
+    amount: 1
+    display_name: "&dTeleport Bow"
+    lore:
+      - "&7Right-click to teleport to where the arrow lands!"
+    item_flags:
+      - HIDE_ENCHANTS

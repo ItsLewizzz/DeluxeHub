@@ -6,6 +6,7 @@ import fun.lewisdev.deluxehub.module.Module;
 import fun.lewisdev.deluxehub.module.ModuleType;
 import fun.lewisdev.deluxehub.module.modules.hotbar.items.CustomItem;
 import fun.lewisdev.deluxehub.module.modules.hotbar.items.PlayerHider;
+import fun.lewisdev.deluxehub.module.modules.hotbar.items.TeleportBow;
 import fun.lewisdev.deluxehub.utility.ItemStackBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -28,7 +29,6 @@ public class HotbarManager extends Module {
         FileConfiguration config = getConfig(ConfigType.SETTINGS);
 
         if (config.getBoolean("custom_join_items.enabled")) {
-
             for (String entry : config.getConfigurationSection("custom_join_items.items").getKeys(false)) {
                 ItemStack item = ItemStackBuilder.getItemStack(config.getConfigurationSection("custom_join_items.items." + entry)).build();
                 CustomItem customItem = new CustomItem(this, item, config.getInt("custom_join_items.items." + entry + ".slot"), entry);
@@ -51,6 +51,19 @@ public class HotbarManager extends Module {
             playerHider.setAllowMovement(config.getBoolean("player_hider.disable_inventory_movement"));
 
             registerHotbarItem(playerHider);
+        }
+
+        if (config.getBoolean("teleport_bow.enabled")) {
+            ItemStack item = ItemStackBuilder.getItemStack(config.getConfigurationSection("teleport_bow.item")).build();
+
+            // Add arrow infinity enchantment
+            item.addUnsafeEnchantment(org.bukkit.enchantments.Enchantment.ARROW_INFINITE, 1);
+
+            TeleportBow teleportBow = new TeleportBow(this, item, config.getInt("teleport_bow.slot"), "TELEPORT_BOW");
+
+            teleportBow.setAllowMovement(config.getBoolean("teleport_bow.disable_inventory_movement"));
+
+            registerHotbarItem(teleportBow);
         }
 
         giveItems();

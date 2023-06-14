@@ -1,5 +1,5 @@
 name: ${project.name}
-author: ItsLewizzz
+authors: [ ItsLewizzz, VertCode ]
 version: ${project.version}
 description: ${project.description}
 website: ${project.url}
