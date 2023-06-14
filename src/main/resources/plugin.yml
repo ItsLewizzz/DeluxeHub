@@ -1,12 +1,12 @@
 name: ${project.name}
-authors: [ ItsLewizzz, VertCode ]
+authors: [ ItsLewizzz ]
 version: ${project.version}
 description: ${project.description}
 website: ${project.url}
 api-version: 1.13
 main: fun.lewisdev.deluxehub.DeluxeHubPlugin
-loadbefore: [Essentials]
-softdepend: [PlaceholderAPI, HeadDatabase, Multiverse-Core]
+loadbefore: [ Essentials ]
+softdepend: [ PlaceholderAPI, HeadDatabase, Multiverse-Core ]
 permissions:
   deluxehub.*:
     description: Gives access to all DeluxeHub permissions
