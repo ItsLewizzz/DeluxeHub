@@ -1,10 +1,10 @@
 package fun.lewisdev.deluxehub.command;
 
-import cl.bgmp.bukkit.util.BukkitCommandsManager;
-import cl.bgmp.bukkit.util.CommandsManagerRegistration;
-import cl.bgmp.minecraft.util.commands.CommandsManager;
-import cl.bgmp.minecraft.util.commands.exceptions.CommandException;
-import cl.bgmp.minecraft.util.commands.injection.SimpleInjector;
+import cl.bgm.bukkit.util.BukkitCommandsManager;
+import cl.bgm.bukkit.util.CommandsManagerRegistration;
+import cl.bgm.minecraft.util.commands.CommandsManager;
+import cl.bgm.minecraft.util.commands.exceptions.CommandException;
+import cl.bgm.minecraft.util.commands.injection.SimpleInjector;
 import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.command.commands.*;
 import fun.lewisdev.deluxehub.command.commands.gamemode.*;
@@ -12,7 +12,8 @@ import fun.lewisdev.deluxehub.config.ConfigType;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommandManager {
 

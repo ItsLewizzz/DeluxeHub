@@ -1,12 +1,9 @@
 package fun.lewisdev.deluxehub.utility;
 
 import fun.lewisdev.deluxehub.utility.color.IridiumColorAPI;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Color;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class TextUtil {
 

@@ -40,7 +40,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.4.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -51,7 +51,7 @@
                             <artifactSet>
                                 <includes>
                                     <include>org.bstats:bstats-bukkit-lite</include>
-                                    <include>com.github.BGMP.CommandFramework:command-framework-bukkit</include>
+                                    <include>cl.bgm:command-framework-bukkit</include>
                                     <include>javax.inject:javax.inject</include>
                                     <include>de.tr7zw:item-nbt-api</include>
                                 </includes>
@@ -109,6 +109,10 @@
             <id>mojang</id>
             <url>https://libraries.minecraft.net/</url>
         </repository>
+        <repository>
+            <id>bgm</id>
+            <url>https://maven.bgm.cl/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -119,16 +123,16 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>net.md-5</groupId>
-            <artifactId>bungeecord-chat</artifactId>
-            <version>1.16-R0.1</version>
+            <groupId>com.mojang</groupId>
+            <artifactId>authlib</artifactId>
+            <version>3.11.50</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.mojang</groupId>
-            <artifactId>authlib</artifactId>
-            <version>1.5.21</version>
-            <scope>provided</scope>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>24.0.0</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>me.clip</groupId>
@@ -153,20 +157,22 @@
             <version>1.2</version>
         </dependency>
         <dependency>
-            <groupId>com.github.BGMP.CommandFramework</groupId>
+            <groupId>cl.bgm</groupId>
             <artifactId>command-framework-bukkit</artifactId>
-            <version>master</version>
+            <version>1.0.3-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>de.tr7zw</groupId>
             <artifactId>item-nbt-api</artifactId>
             <version>2.11.3</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.shynixn.headdatabase</groupId>
             <artifactId>hdb-api</artifactId>
             <version>1.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

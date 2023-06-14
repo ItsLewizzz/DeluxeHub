@@ -23,9 +23,9 @@ package fun.lewisdev.deluxehub.utility.reflection;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
@@ -105,18 +105,18 @@ public class ReflectionUtils {
         GET_HANDLE = getHandle;
     }
 
-    private ReflectionUtils() {}
+    private ReflectionUtils() {
+    }
 
     /**
      * Get a NMS (net.minecraft.server) class.
      *
      * @param name the name of the class.
-     *
      * @return the NMS class or null if not found.
      * @since 1.0.0
      */
-    @Nullable
-    public static Class<?> getNMSClass(@Nonnull String name) {
+    @NotNull
+    public static Class<?> getNMSClass(@NotNull String name) {
         try {
             return Class.forName(NMS + name);
         } catch (ClassNotFoundException ex) {
@@ -131,13 +131,12 @@ public class ReflectionUtils {
      *
      * @param player  the player to send the packet to.
      * @param packets the packets to send.
-     *
      * @return the async thread handling the packet.
      * @see #sendPacketSync(Player, Object...)
      * @since 1.0.0
      */
-    @Nonnull
-    public static CompletableFuture<Void> sendPacket(@Nonnull Player player, @Nonnull Object... packets) {
+    @NotNull
+    public static CompletableFuture<Void> sendPacket(@NotNull Player player, @NotNull Object... packets) {
         return CompletableFuture.runAsync(() -> sendPacketSync(player, packets))
                 .exceptionally(ex -> {
                     ex.printStackTrace();
@@ -150,11 +149,10 @@ public class ReflectionUtils {
      *
      * @param player  the player to send the packet to.
      * @param packets the packets to send.
-     *
      * @see #sendPacket(Player, Object...)
      * @since 2.0.0
      */
-    public static void sendPacketSync(@Nonnull Player player, @Nonnull Object... packets) {
+    public static void sendPacketSync(@NotNull Player player, @NotNull Object... packets) {
         try {
             Object handle = GET_HANDLE.invoke(player);
             Object connection = PLAYER_CONNECTION.invoke(handle);
@@ -169,7 +167,7 @@ public class ReflectionUtils {
     }
 
     @Nullable
-    public static Object getHandle(@Nonnull Player player) {
+    public static Object getHandle(@NotNull Player player) {
         Objects.requireNonNull(player, "Cannot get handle of null player");
         try {
             return GET_HANDLE.invoke(player);
@@ -180,7 +178,7 @@ public class ReflectionUtils {
     }
 
     @Nullable
-    public static Object getConnection(@Nonnull Player player) {
+    public static Object getConnection(@NotNull Player player) {
         Objects.requireNonNull(player, "Cannot get connection of null player");
         try {
             Object handle = GET_HANDLE.invoke(player);
@@ -195,12 +193,11 @@ public class ReflectionUtils {
      * Get a CraftBukkit (org.bukkit.craftbukkit) class.
      *
      * @param name the name of the class to load.
-     *
      * @return the CraftBukkit class or null if not found.
      * @since 1.0.0
      */
     @Nullable
-    public static Class<?> getCraftClass(@Nonnull String name) {
+    public static Class<?> getCraftClass(@NotNull String name) {
         try {
             return Class.forName(CRAFTBUKKIT + name);
         } catch (ClassNotFoundException ex) {
