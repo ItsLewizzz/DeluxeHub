@@ -38,7 +38,11 @@ public class CommandManager {
         commands.setInjector(new SimpleInjector(plugin));
 
         commandRegistry.register(DeluxeHubCommand.class);
-
+        
+        for(String[] command : config.getList("disabledCommands")){
+            this.unregisterCommand(command);
+        }
+        
         for (String command : config.getConfigurationSection("commands").getKeys(false)) {
             if (!config.getBoolean("commands." + command + ".enabled")) continue;
 
@@ -99,8 +103,8 @@ public class CommandManager {
             case "LOCKCHAT":
                 commandRegistry.register(LockchatCommand.class, aliases);
                 break;
-            case "SETLOBBY":
-                commandRegistry.register(SetLobbyCommand.class, aliases);
+            case "SETUPLOBBY":
+                commandRegistry.register(SetupLobbyCommand.class, aliases);
                 break;
             case "LOBBY":
                 commandRegistry.register(LobbyCommand.class, aliases);
@@ -114,4 +118,39 @@ public class CommandManager {
     public List<CustomCommand> getCustomCommands() {
         return customCommands;
     }
+    
+    
+    private Object getPrivateField(Object object, String field)throws SecurityException,
+        NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+        Class<?> clazz = object.getClass();
+        Field objectField = clazz.getDeclaredField(field);
+        objectField.setAccessible(true);
+        Object result = objectField.get(object);
+        objectField.setAccessible(false);
+        return result;
+    }
+    
+    private void unRegisterBukkitCommand(PluginCommand cmd) {
+        try {
+            Object result = this.getPrivateField(this.getServer().getPluginManager(), "commandMap");
+            SimpleCommandMap commandMap = (SimpleCommandMap) result;
+            Object map = this.getPrivateField(commandMap, "knownCommands");
+            @SuppressWarnings("unchecked")
+            HashMap<String, Command> knownCommands = (HashMap<String, Command>) map;
+            knownCommands.remove(cmd.getName());
+            for (String alias : cmd.getAliases()){
+                if(knownCommands.containsKey(alias) && knownCommands.get(alias).toString().contains(this.getName())){
+                    knownCommands.remove(alias);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+}
+
+    public void unregisterCommand(string command){
+        PluginCommand cmd = this.getCommand(command);
+        this.unRegisterBukkitCommand(cmd);
+    }
+
 }

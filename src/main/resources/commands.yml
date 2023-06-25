@@ -48,7 +48,7 @@ commands:
     enabled: true
     aliases:
       - lc
-  setlobby:
+  setuplobby:
     enabled: true
   lobby:
     enabled: true
@@ -56,3 +56,13 @@ commands:
     enabled: true
     aliases:
       - v
+      
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# | DISABLE COMMANDS                         |
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# Disable other plugin commands. It's recommended to restart your server.
+disabledCommands:
+      - "version"
+      - "say"
+      - "tell"
+      - "disabledCommand"

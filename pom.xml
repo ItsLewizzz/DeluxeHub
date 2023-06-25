@@ -109,6 +109,12 @@
             <id>mojang</id>
             <url>https://libraries.minecraft.net/</url>
         </repository>
+        <repositories>
+        <repository>
+            <id>sonatype-oss-snapshots1</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
+</repositories>
     </repositories>
 
     <dependencies>
@@ -167,6 +173,11 @@
             <groupId>com.github.shynixn.headdatabase</groupId>
             <artifactId>hdb-api</artifactId>
             <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-text-minimessage</artifactId>
+            <version>4.12.0</version>
         </dependency>
     </dependencies>
 </project>

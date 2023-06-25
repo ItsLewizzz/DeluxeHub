@@ -43,6 +43,10 @@ public class LobbySpawn extends Module {
     public void setLocation(Location location) {
         this.location = location;
     }
+    
+    public void removeLocation() {
+        this.location = null;
+    }
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerJoin(PlayerJoinEvent event) {
