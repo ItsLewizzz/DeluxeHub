@@ -8,17 +8,17 @@ import fun.lewisdev.deluxehub.cooldown.CooldownType;
 import fun.lewisdev.deluxehub.module.Module;
 import fun.lewisdev.deluxehub.module.ModuleType;
 import org.bukkit.GameMode;
-import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerToggleFlightEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class DoubleJump extends Module {
@@ -27,6 +27,8 @@ public class DoubleJump extends Module {
     private double launch;
     private double launchY;
     private List<String> actions;
+
+    private final Map<UUID, Boolean> canJump = new HashMap<>();
 
     public DoubleJump(DeluxeHubPlugin plugin) {
         super(plugin, ModuleType.DOUBLE_JUMP);
@@ -50,7 +52,6 @@ public class DoubleJump extends Module {
 
     @EventHandler
     public void onPlayerToggleFlight(PlayerToggleFlightEvent event) {
-
         Player player = event.getPlayer();
 
         // Perform checks
@@ -58,24 +59,44 @@ public class DoubleJump extends Module {
         else if (inDisabledWorld(player.getLocation())) return;
         else if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) return;
         else if (!event.isFlying()) return;
-        else if (player.getWorld().getBlockAt(player.getLocation().subtract(0, 2, 0)).getType() == Material.AIR) {
-            event.setCancelled(true);
-            return;
-        }
 
-        // All pre-checks passed, now handle double jump
-        event.setCancelled(true);
-
-        // Check for cooldown
         UUID uuid = player.getUniqueId();
-        if (!tryCooldown(uuid, CooldownType.DOUBLE_JUMP, cooldownDelay)) {
-            Messages.DOUBLE_JUMP_COOLDOWN.send(player, "%time%", getCooldown(uuid, CooldownType.DOUBLE_JUMP));
-            return;
-        }
 
-        // Execute double jump
-        player.setVelocity(player.getLocation().getDirection().multiply(launch).setY(launchY));
-        executeActions(player, actions);
+        // Check if the player has a "jump charge"
+        if (canJump.containsKey(uuid) && canJump.get(uuid)) {
+            // Check for cooldown
+            if (!tryCooldown(uuid, CooldownType.DOUBLE_JUMP, cooldownDelay)) {
+                Messages.DOUBLE_JUMP_COOLDOWN.send(player, "%time%", getCooldown(uuid, CooldownType.DOUBLE_JUMP));
+                event.setCancelled(true);
+                return;
+            }
+
+            // Execute double jump
+            player.setVelocity(player.getLocation().getDirection().multiply(launch).setY(launchY));
+            executeActions(player, actions);
+
+            //Set the players "jump charge" to false
+            canJump.remove(uuid);
+            canJump.put(uuid, false);
+        }
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent event) {
+        // Set the players "jump charge" to true if they are on solid ground.
+        Player player = event.getPlayer();
+        UUID uuid = player.getUniqueId();
+
+        if (canJump.containsKey(uuid) && !canJump.get(uuid)) {
+            if (((Entity) player).isOnGround()) {
+                //Redundant check to prevent hacked clients from spoofing the isOnGround packet. Hacked clients will be able to get a second double jump off a slab regardless of this check. (At that point they might as well fly hack)
+                if (player.getWorld().getBlockAt(player.getLocation().subtract(0, 1, 0)).getBlockData().getMaterial().isSolid()) {
+                    canJump.remove(uuid);
+                    canJump.put(uuid, true);
+                }
+            }
+        }
     }
 
     @EventHandler
@@ -83,13 +104,24 @@ public class DoubleJump extends Module {
         Player player = event.getPlayer();
         if (player.getGameMode() != GameMode.CREATIVE && player.getGameMode() != GameMode.SPECTATOR && !inDisabledWorld(player.getLocation())) {
             player.getPlayer().setAllowFlight(true);
+            canJump.remove(player.getUniqueId());
+            canJump.put(player.getUniqueId(), true);
         }
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        if (player.getGameMode() != GameMode.CREATIVE && player.getGameMode() != GameMode.SPECTATOR)
+        if (player.getGameMode() != GameMode.CREATIVE && player.getGameMode() != GameMode.SPECTATOR) {
             player.getPlayer().setAllowFlight(true);
+            canJump.remove(player.getUniqueId());
+            canJump.put(player.getUniqueId(), true);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerLeave(PlayerQuitEvent event) {
+        Player player = event.getPlayer();
+        canJump.remove(player.getUniqueId());
     }
 }
