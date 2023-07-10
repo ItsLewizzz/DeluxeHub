@@ -21,7 +21,7 @@ public class LobbyCommand {
     }
 
     @Command(
-            aliases = {"lobby"},
+            aliases = {"lobby", "spawn"},
             desc = "Teleport to the lobby (if set)"
     )
     public void lobby(final CommandContext args, final CommandSender sender) throws CommandException {
