@@ -23,7 +23,6 @@ public enum Permissions {
     BLOCKED_COMMANDS_BYPASS("bypass.commands"),
     LOCK_CHAT_BYPASS("bypass.lockchat"),
     GROUP_CHAT("chat.group"),
-
     COLOR_CHAT("chat.color"),
     ANTI_WDL_BYPASS("bypass.antiwdl"),
     DOUBLE_JUMP_BYPASS("bypass.doublejump"),
