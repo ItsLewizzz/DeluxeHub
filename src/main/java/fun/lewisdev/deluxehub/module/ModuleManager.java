@@ -50,6 +50,7 @@ public class ModuleManager {
         registerModule(new Launchpad(plugin), "launchpad.enabled");
         registerModule(new ScoreboardManager(plugin), "scoreboard.enabled");
         registerModule(new TablistManager(plugin), "tablist.enabled");
+        registerModule(new ChatFormat(plugin), "chat_format.enabled");
         registerModule(new AutoBroadcast(plugin), "announcements.enabled");
         registerModule(new AntiSwear(plugin), "anti_swear.enabled");
         registerModule(new ChatCommandBlock(plugin), "command_block.enabled");

@@ -4,6 +4,7 @@ public enum ModuleType {
 
     ANTI_WDL,
     CHAT_LOCK,
+    CHAT_FORMAT,
     CUSTOM_COMMANDS,
     DOUBLE_JUMP,
     LAUNCHPAD,

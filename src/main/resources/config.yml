@@ -207,6 +207,12 @@ double_jump:
 # | CHAT MANAGEMENT                          |
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
+chat_format:
+  enabled: true
+
+  group_formats:
+    default: "&f%player% &7» &f%message%"
+
 command_block:
   # Should the command blocker feature be enabled?
   enabled: true
