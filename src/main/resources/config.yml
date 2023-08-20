@@ -207,6 +207,19 @@ double_jump:
 # | CHAT MANAGEMENT                          |
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
+chat_format:
+  # Should the chat formatting feature be enabled?
+  enabled: true
+
+  # Format is assigned relative to the assigned permissions from the highest priority
+  # Therefore, the lowest rank should always be at the bottom and the highest at the top
+  # Adding formatting: deluxehub.chat.group.<group>
+  # If you want a player to be able to use coloring in chat add permission: deluxehub.chat.color
+  group_formats:
+    admin: "&eADMIN &f%player% &7» &f%message%"
+    # Default formatting, DO NOT REMOVE THIS
+    default: "&f%player% &7» &f%message%"
+
 command_block:
   # Should the command blocker feature be enabled?
   enabled: true

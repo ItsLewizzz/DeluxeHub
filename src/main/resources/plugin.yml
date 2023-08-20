@@ -17,6 +17,7 @@ permissions:
       deluxehub.item.*: true
       deluxehub.player.*: true
       deluxehub.block.*: true
+      deluxehub.chat.color: true
   deluxehub.command.*:
     description: Gives access to all command permissions
     children:
