@@ -57,6 +57,9 @@ disabled-worlds:
   worlds:
     - world_nether
 
+# Automatically load new worlds
+automatic-world-loading: false
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # | ANTI-WORLD DOWNLOADER                    | 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#

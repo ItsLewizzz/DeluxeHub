@@ -45,12 +45,41 @@ public class ModuleManager {
     }
 
     /**
-     * @param string name of a world
+     * @param world name of a world
      */
-    public boolean disableWorld(String string) {
-        if(Bukkit.getWorld(string) != null)
-            return disabledWorlds.add(string);
-        throw new IllegalArgumentException("cant find world: " + string)
+    public boolean disableWorld(String world) {
+        if(Bukkit.getWorld(world) != null)
+            return disabledWorlds.add(world);
+        throw new IllegalArgumentException("cant find world: " + world);
+    }
+
+    public void registerNewWorld(String world) {
+        if(Bukkit.getWorld(world) != null)
+        {
+            FileConfiguration config = plugin.getConfigManager().getFile(ConfigType.SETTINGS).getConfig();
+            if (config.getBoolean("disabled-worlds.invert")) { //whitelist
+                if (config.getStringList("disabled-worlds.worlds").contains(world)) {
+                    //allow
+                    disabledWorlds.remove(world); // just in case
+                    plugin.getLogger().info("Loaded new world: " + world + "! The world was added to the whitelist!");
+                }else {
+                    disableWorld(world);
+                    plugin.getLogger().info("Loaded new world: " + world + "! The world is not on the whitelist and was marked as disabled!");
+                }
+            }else {
+                if (config.getStringList("disabled-worlds.worlds").contains(world)) {
+                    //deny
+                    disableWorld(world);
+                    plugin.getLogger().info("Loaded new world: " + world + "! The world is on the blacklist and was marked as disabled!");
+                }else {
+                    disabledWorlds.remove(world); //just in case
+                    plugin.getLogger().info("Loaded new world: " + world + "! The world is not on the blacklist and was marked as enabled!");
+                }
+            }
+            return;
+
+        }
+        throw new IllegalArgumentException("cant find world: " + world);
     }
 
     public void loadModules(DeluxeHubPlugin plugin) {
