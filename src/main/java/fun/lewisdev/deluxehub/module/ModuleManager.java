@@ -32,18 +32,34 @@ public class ModuleManager {
     private List<String> disabledWorlds;
     private Map<ModuleType, Module> modules = new HashMap<>();
 
+
+    public void loadWorlds() {
+        FileConfiguration config = plugin.getConfigManager().getFile(ConfigType.SETTINGS).getConfig();
+        if (config.getBoolean("disabled-worlds.invert")) {
+            disabledWorlds = Bukkit.getWorlds().stream().map(World::getName).collect(Collectors.toList());
+            for (String world : config.getStringList("disabled-worlds.worlds")) disabledWorlds.remove(world);
+        }else {
+            disabledWorlds = config.getStringList("disabled-worlds.worlds");
+        }
+
+    }
+
+    /**
+     * @param string name of a world
+     */
+    public boolean disableWorld(String string) {
+        if(Bukkit.getWorld(string) != null)
+            return disabledWorlds.add(string);
+        throw new IllegalArgumentException("cant find world: " + string)
+    }
+
     public void loadModules(DeluxeHubPlugin plugin) {
         this.plugin = plugin;
 
         if (!modules.isEmpty()) unloadModules();
 
-        FileConfiguration config = plugin.getConfigManager().getFile(ConfigType.SETTINGS).getConfig();
-        disabledWorlds = config.getStringList("disabled-worlds.worlds");
-
-        if (config.getBoolean("disabled-worlds.invert")) {
-            disabledWorlds = Bukkit.getWorlds().stream().map(World::getName).collect(Collectors.toList());
-                for (String world : config.getStringList("disabled-worlds.worlds")) disabledWorlds.remove(world);
-        }
+        //#loadWorlds
+        loadWorlds();
 
         registerModule(new AntiWorldDownloader(plugin), "anti_wdl.enabled");
         registerModule(new DoubleJump(plugin), "double_jump.enabled");
