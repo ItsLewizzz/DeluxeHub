@@ -6,7 +6,7 @@
 
     <groupId>fun.lewisdev</groupId>
     <artifactId>DeluxeHub</artifactId>
-    <version>3.5.4</version>
+    <version>3.5.5</version>
     <packaging>jar</packaging>
 
     <name>DeluxeHub</name>
@@ -17,8 +17,11 @@
         <developer>
             <name>ItsLewizzz</name>
             <url>https://lewisdev.fun</url>
+			<!-- I dont know about your policy to add contributors to this section -->
         </developer>
     </developers>
+	
+	
 
     <properties>
         <java.version>1.8</java.version>

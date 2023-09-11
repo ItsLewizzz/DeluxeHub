@@ -17,12 +17,14 @@ import fun.lewisdev.deluxehub.inventory.InventoryManager;
 import fun.lewisdev.deluxehub.module.ModuleManager;
 import fun.lewisdev.deluxehub.module.ModuleType;
 import fun.lewisdev.deluxehub.module.modules.hologram.HologramManager;
+import fun.lewisdev.deluxehub.module.modules.world.WorldLoadListener;
 import fun.lewisdev.deluxehub.utility.TextUtil;
 import fun.lewisdev.deluxehub.utility.UpdateChecker;
 import org.bstats.bukkit.MetricsLite;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -96,6 +98,12 @@ public class DeluxeHubPlugin extends JavaPlugin {
 
         // Action system
         actionManager = new ActionManager(this);
+
+        //Automatic world loading
+        if(getConfigManager().getFile(ConfigType.SETTINGS).getConfig().getBoolean("automatic-world-loading")) {
+            getLogger().info("Enabled automatic world loading!");
+            Bukkit.getPluginManager().registerEvents(new WorldLoadListener(this), this);
+        }
 
         // Load update checker (if enabled)
         if (getConfigManager().getFile(ConfigType.SETTINGS).getConfig().getBoolean("update-check"))

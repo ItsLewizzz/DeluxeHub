@@ -32,18 +32,63 @@ public class ModuleManager {
     private List<String> disabledWorlds;
     private Map<ModuleType, Module> modules = new HashMap<>();
 
+
+    public void loadWorlds() {
+        FileConfiguration config = plugin.getConfigManager().getFile(ConfigType.SETTINGS).getConfig();
+        if (config.getBoolean("disabled-worlds.invert")) {
+            disabledWorlds = Bukkit.getWorlds().stream().map(World::getName).collect(Collectors.toList());
+            for (String world : config.getStringList("disabled-worlds.worlds")) disabledWorlds.remove(world);
+        }else {
+            disabledWorlds = config.getStringList("disabled-worlds.worlds");
+        }
+
+    }
+
+    /**
+     * @param world name of a world
+     */
+    public boolean disableWorld(String world) {
+        if(Bukkit.getWorld(world) != null)
+            return disabledWorlds.add(world);
+        throw new IllegalArgumentException("cant find world: " + world);
+    }
+
+    public void registerNewWorld(String world) {
+        if(Bukkit.getWorld(world) != null)
+        {
+            FileConfiguration config = plugin.getConfigManager().getFile(ConfigType.SETTINGS).getConfig();
+            if (config.getBoolean("disabled-worlds.invert")) { //whitelist
+                if (config.getStringList("disabled-worlds.worlds").contains(world)) {
+                    //allow
+                    disabledWorlds.remove(world); // just in case
+                    plugin.getLogger().info("Loaded new world: " + world + "! The world was added to the whitelist!");
+                }else {
+                    disableWorld(world);
+                    plugin.getLogger().info("Loaded new world: " + world + "! The world is not on the whitelist and was marked as disabled!");
+                }
+            }else {
+                if (config.getStringList("disabled-worlds.worlds").contains(world)) {
+                    //deny
+                    disableWorld(world);
+                    plugin.getLogger().info("Loaded new world: " + world + "! The world is on the blacklist and was marked as disabled!");
+                }else {
+                    disabledWorlds.remove(world); //just in case
+                    plugin.getLogger().info("Loaded new world: " + world + "! The world is not on the blacklist and was marked as enabled!");
+                }
+            }
+            return;
+
+        }
+        throw new IllegalArgumentException("cant find world: " + world);
+    }
+
     public void loadModules(DeluxeHubPlugin plugin) {
         this.plugin = plugin;
 
         if (!modules.isEmpty()) unloadModules();
 
-        FileConfiguration config = plugin.getConfigManager().getFile(ConfigType.SETTINGS).getConfig();
-        disabledWorlds = config.getStringList("disabled-worlds.worlds");
-
-        if (config.getBoolean("disabled-worlds.invert")) {
-            disabledWorlds = Bukkit.getWorlds().stream().map(World::getName).collect(Collectors.toList());
-                for (String world : config.getStringList("disabled-worlds.worlds")) disabledWorlds.remove(world);
-        }
+        //#loadWorlds
+        loadWorlds();
 
         registerModule(new AntiWorldDownloader(plugin), "anti_wdl.enabled");
         registerModule(new DoubleJump(plugin), "double_jump.enabled");
