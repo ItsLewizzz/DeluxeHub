@@ -56,7 +56,7 @@ import java.util.regex.Pattern;
  * 1.8: http://docs.codelanx.com/Bukkit/1.8/org/bukkit/Sound.html
  * Latest: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
  * Basics: https://bukkit.org/threads/151517/
- * playSound command: https://minecraft.gamepedia.com/Commands/playsound
+ * playSound command: https://minecraft.wiki/w/Commands/playsound
  *
  * @author Crypto Morin
  * @version 2.2.0
