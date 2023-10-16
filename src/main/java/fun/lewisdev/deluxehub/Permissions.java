@@ -7,6 +7,7 @@ public enum Permissions {
     COMMAND_DELUXEHUB_RELOAD("command.reload"),
     COMMAND_SCOREBOARD_TOGGLE("command.scoreboard"),
     COMMAND_OPEN_MENUS("command.openmenu"),
+    COMMAND_OPEN_MENUS_OTHERS("command.openmenu.others"),
     COMMAND_HOLOGRAMS("command.holograms"),
 
     COMMAND_GAMEMODE("command.gamemode"),
