@@ -17,6 +17,7 @@ import fun.lewisdev.deluxehub.module.modules.hotbar.HotbarManager;
 import fun.lewisdev.deluxehub.module.modules.visual.scoreboard.ScoreboardManager;
 import fun.lewisdev.deluxehub.module.modules.world.LobbySpawn;
 import fun.lewisdev.deluxehub.utility.TextUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -59,7 +60,7 @@ public class DeluxeHubCommand {
             sender.sendMessage("");
             sender.sendMessage(TextUtil.color(" &d/deluxehub info &8- &7&oDisplays information about the current config"));
             sender.sendMessage(TextUtil.color(" &d/deluxehub scoreboard &8- &7&oToggle the scoreboard"));
-            sender.sendMessage(TextUtil.color(" &d/deluxehub open <menu> &8- &7&oOpen a custom menu"));
+            sender.sendMessage(TextUtil.color(" &d/deluxehub open <menu> [player] &8- &7&oOpen a custom menu"));
             sender.sendMessage(TextUtil.color(" &d/deluxehub hologram &8- &7&oView the hologram help"));
             sender.sendMessage("");
             sender.sendMessage(TextUtil.color("  &d/vanish &8- &7&oToggle vanish mode"));
@@ -172,14 +173,30 @@ public class DeluxeHubCommand {
 		Description: opens a custom menu
 		*/
         else if (args.getString(0).equalsIgnoreCase("open")) {
-            if (!(sender instanceof Player)) throw new CommandException("Console cannot open menus");
+            int argsLength = args.argsLength();
+            Player target = null;
+            if (argsLength >= 3 && sender.hasPermission(Permissions.COMMAND_OPEN_MENUS_OTHERS.getPermission())) {
+                String targetName = args.getString(2);
+                target = Bukkit.getPlayer(targetName);
+            }
+
+            if (target == null) {
+                if (sender instanceof Player) target = (Player) sender;
+                else {
+                    if(argsLength < 3) {
+                        sender.sendMessage(TextUtil.color("&cUsage: /deluxehub open <menu> <player>"));
+                        return;
+                    }
+                    throw new CommandException("Player not found");
+                }
+            }
 
             if (!sender.hasPermission(Permissions.COMMAND_OPEN_MENUS.getPermission())) {
                 Messages.NO_PERMISSION.send(sender);
                 return;
             }
 
-            if (args.argsLength() == 1) {
+            if (argsLength < 2) {
                 sender.sendMessage(TextUtil.color("&cUsage: /deluxehub open <menu>"));
                 return;
             }
@@ -189,7 +206,7 @@ public class DeluxeHubCommand {
                 sender.sendMessage(TextUtil.color("&c" + args.getString(1) + " is not a valid menu ID."));
                 return;
             }
-            inventory.openInventory((Player) sender);
+            inventory.openInventory(target);
         }
 
         /*
