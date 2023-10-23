@@ -215,6 +215,20 @@ public class WorldProtect extends Module {
         }
     }
 
+    // Prevent books being taken from lecterns
+    @EventHandler(priority = EventPriority.HIGH)
+    public void onEntityInteract(PlayerTakeLecternBookEvent event) {
+        if (!blockInteract || inDisabledWorld(event.getLectern().getLocation())) return;
+        Entity player = event.getPlayer();
+
+        if (player.hasPermission(Permissions.EVENT_BLOCK_INTERACT.getPermission())) return;
+
+        event.setCancelled(true);
+        if (tryCooldown(player.getUniqueId(), CooldownType.BLOCK_INTERACT, 3)) {
+            player.sendMessage(Messages.EVENT_BLOCK_INTERACT.toString());
+        }
+    }
+
     // Prevent items being taken from item frames
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
