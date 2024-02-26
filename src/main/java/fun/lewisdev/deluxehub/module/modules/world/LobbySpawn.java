@@ -34,7 +34,7 @@ public class LobbySpawn extends Module {
     @Override
     public void onDisable() {
         getConfig(ConfigType.DATA).set("spawn", location);
-        getConfig(ConfigType.DATA).save();
+        plugin.getConfigManager().saveFiles();
     }
 
     public Location getLocation() {
