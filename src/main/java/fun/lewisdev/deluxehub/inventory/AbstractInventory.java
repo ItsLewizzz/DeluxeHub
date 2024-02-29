@@ -2,13 +2,18 @@ package fun.lewisdev.deluxehub.inventory;
 
 import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.utility.ItemStackBuilder;
+import fun.lewisdev.deluxehub.utility.universal.XMaterial;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.profile.PlayerProfile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +53,37 @@ public abstract class AbstractInventory implements Listener {
             ItemStackBuilder newItem = new ItemStackBuilder(item.clone());
             if (item.getItemMeta().hasDisplayName()) newItem.withName(item.getItemMeta().getDisplayName(), player);
             if (item.getItemMeta().hasLore()) newItem.withLore(item.getItemMeta().getLore(), player);
-            inventory.setItem(i, newItem.build());
+            ItemStack itemStack = newItem.build();
+            if (item.getType() == XMaterial.PLAYER_HEAD.parseMaterial()) {
+                SkullMeta meta = (SkullMeta) item.getItemMeta();
+                // This is a mess
+                // But it works
+                if (meta.hasOwner()) {
+                    if (meta.getOwner().equalsIgnoreCase("%player%")) {
+                        if (XMaterial.supports(18)) {
+                            PlayerProfile profile = player.getPlayerProfile();
+                            meta.setOwnerProfile(profile);
+                        } else if (XMaterial.supports(12)) {
+                            meta.setOwningPlayer(player);
+                        } else {
+                            meta.setOwner(player.getName());
+                        }
+                    } else {
+                        OfflinePlayer player1 = Bukkit.getOfflinePlayer(meta.getOwner());
+                        if (XMaterial.supports(18)) {
+                            PlayerProfile profile = player1.getPlayerProfile();
+                            meta.setOwnerProfile(profile);
+                        } else if (XMaterial.supports(12)) {
+                            meta.setOwningPlayer(player1);
+                        } else {
+                            meta.setOwner(meta.getOwner());
+                        }
+                    }
+                }
+                itemStack.setItemMeta(meta);
+            }
+
+            inventory.setItem(i, itemStack);
         }
         return inventory;
     }
