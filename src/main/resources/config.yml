@@ -53,6 +53,8 @@ check-updates: true
 disabled-worlds:
   # Should we invert the list making it a whitelist rather than a blacklist?
   invert: false
+  # Should we automatically add loaded worlds to the disabled/enabled list?
+  auto-add: false
   # List your disabled worlds HERE or "worlds: []" to disable
   worlds:
     - world_nether

@@ -3,10 +3,12 @@ package fun.lewisdev.deluxehub.utility;
 import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.hook.hooks.head.HeadHook;
 import fun.lewisdev.deluxehub.utility.universal.XMaterial;
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Display;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -14,8 +16,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class ItemStackBuilder {
 
@@ -44,8 +48,8 @@ public class ItemStackBuilder {
             builder.withAmount(section.getInt("amount"));
         }
 
-        if (section.contains("username") && player != null) {
-            builder.setSkullOwner(section.getString("username").replace("%player%", player.getName()));
+        if (section.contains("username")) {
+            builder.setSkullOwner(section.getString("username"));
         }
 
         if (section.contains("display_name")) {
@@ -111,10 +115,21 @@ public class ItemStackBuilder {
         return this;
     }
 
+
     public ItemStackBuilder setSkullOwner(String owner) {
         try {
             SkullMeta im = (SkullMeta) ITEM_STACK.getItemMeta();
             im.setOwner(owner);
+            ITEM_STACK.setItemMeta(im);
+        } catch (ClassCastException expected) {
+        }
+        return this;
+    }
+
+    public ItemStackBuilder setOwningPlayer(String name) {
+        try {
+            SkullMeta im = (SkullMeta) ITEM_STACK.getItemMeta();
+            im.setOwningPlayer(Bukkit.getOfflinePlayer(name));
             ITEM_STACK.setItemMeta(im);
         } catch (ClassCastException expected) {
         }
