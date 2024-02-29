@@ -19,30 +19,47 @@ import fun.lewisdev.deluxehub.utility.universal.XMaterial;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
+import org.bukkit.event.Listener;
+import org.bukkit.event.world.WorldLoadEvent;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ModuleManager {
+public class ModuleManager implements Listener {
 
     private DeluxeHubPlugin plugin;
     private List<String> disabledWorlds;
+    private boolean autoAdd = false;
+    private boolean invert = false;
     private Map<ModuleType, Module> modules = new HashMap<>();
+
 
     public void loadModules(DeluxeHubPlugin plugin) {
         this.plugin = plugin;
+
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
 
         if (!modules.isEmpty()) unloadModules();
 
         FileConfiguration config = plugin.getConfigManager().getFile(ConfigType.SETTINGS).getConfig();
         disabledWorlds = config.getStringList("disabled-worlds.worlds");
+        autoAdd = config.getBoolean("disabled-worlds.auto-add");
 
         if (config.getBoolean("disabled-worlds.invert")) {
-            disabledWorlds = Bukkit.getWorlds().stream().map(World::getName).collect(Collectors.toList());
-                for (String world : config.getStringList("disabled-worlds.worlds")) disabledWorlds.remove(world);
+            invert = true;
+            for (World world : Bukkit.getWorlds()) {
+                String name = world.getName();
+
+                disabledWorlds.add(name);
+
+            }
+
+            for (String world : config.getStringList("disabled-worlds.worlds")) disabledWorlds.remove(world);
+
         }
 
         registerModule(new AntiWorldDownloader(plugin), "anti_wdl.enabled");
@@ -122,4 +139,17 @@ public class ModuleManager {
     public List<String> getDisabledWorlds() {
         return disabledWorlds;
     }
+
+    @EventHandler
+    public void onWorldLoad(WorldLoadEvent event) {
+        if (!autoAdd) return;
+
+        World world = event.getWorld();
+
+        if (disabledWorlds.contains(world.getName())) return;
+
+        disabledWorlds.add(world.getName());
+
+    }
+
 }
