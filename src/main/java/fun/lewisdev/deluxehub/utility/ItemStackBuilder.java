@@ -5,6 +5,8 @@ import fun.lewisdev.deluxehub.hook.hooks.head.HeadHook;
 import fun.lewisdev.deluxehub.utility.universal.XMaterial;
 import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -177,7 +179,11 @@ public class ItemStackBuilder {
         final ItemMeta meta = ITEM_STACK.getItemMeta();
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         ITEM_STACK.setItemMeta(meta);
-        ITEM_STACK.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1);
+        Enchantment infinity = Registry.ENCHANTMENT.get(NamespacedKey.minecraft("infinity"));
+        if (infinity == null) {
+            throw new NullPointerException("infinity enchantment");
+        }
+        ITEM_STACK.addUnsafeEnchantment(infinity, 1);
         return this;
     }
 
