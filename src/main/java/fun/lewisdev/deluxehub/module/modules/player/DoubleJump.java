@@ -54,10 +54,7 @@ public class DoubleJump extends Module {
         Player player = event.getPlayer();
 
         // Perform checks
-        if (player.hasPermission(new Permission(Permissions.DOUBLE_JUMP_BYPASS.getPermission(), PermissionDefault.FALSE))) return;
-        else if (inDisabledWorld(player.getLocation())) return;
-        else if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) return;
-        else if (!event.isFlying()) return;
+        if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) return;
         else if (player.getWorld().getBlockAt(player.getLocation().subtract(0, 2, 0)).getType() == Material.AIR) {
             event.setCancelled(true);
             return;

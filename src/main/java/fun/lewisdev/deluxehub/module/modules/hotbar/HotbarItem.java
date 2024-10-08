@@ -1,6 +1,6 @@
 package fun.lewisdev.deluxehub.module.modules.hotbar;
 
-import de.tr7zw.changeme.nbtapi.NBTItem;
+import de.tr7zw.nbtapi.NBTItem;
 import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.utility.ItemStackBuilder;
 import fun.lewisdev.deluxehub.utility.universal.XMaterial;

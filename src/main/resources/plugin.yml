@@ -1,5 +1,5 @@
 name: ${project.name}
-author: ItsLewizzz
+author: ItsLewizzz, OhDave
 version: ${project.version}
 description: ${project.description}
 website: ${project.url}
@@ -40,7 +40,7 @@ permissions:
       deluxehub.bypass.commands: true
       deluxehub.bypass.lockchat: true
       deluxehub.bypass.antiwdl: true
-      deluxehub.bypass.doublejump: false
+      deluxehub.bypass.doublejump: true
   deluxehub.alert.*:
     description: Gives access to all alert permissions
     children:

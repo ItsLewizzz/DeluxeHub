@@ -1,11 +1,7 @@
 package fun.lewisdev.deluxehub;
 
-import cl.bgmp.minecraft.util.commands.exceptions.CommandException;
-import cl.bgmp.minecraft.util.commands.exceptions.CommandPermissionsException;
-import cl.bgmp.minecraft.util.commands.exceptions.CommandUsageException;
-import cl.bgmp.minecraft.util.commands.exceptions.MissingNestedCommandException;
-import cl.bgmp.minecraft.util.commands.exceptions.WrappedCommandException;
-import de.tr7zw.changeme.nbtapi.utils.MinecraftVersion;
+import cl.bgmp.minecraft.util.commands.exceptions.*;
+import de.tr7zw.nbtapi.utils.MinecraftVersion;
 import fun.lewisdev.deluxehub.action.ActionManager;
 import fun.lewisdev.deluxehub.command.CommandManager;
 import fun.lewisdev.deluxehub.config.ConfigManager;
@@ -17,7 +13,6 @@ import fun.lewisdev.deluxehub.inventory.InventoryManager;
 import fun.lewisdev.deluxehub.module.ModuleManager;
 import fun.lewisdev.deluxehub.module.ModuleType;
 import fun.lewisdev.deluxehub.module.modules.hologram.HologramManager;
-import fun.lewisdev.deluxehub.utility.TextUtil;
 import fun.lewisdev.deluxehub.utility.UpdateChecker;
 import org.bstats.bukkit.MetricsLite;
 import org.bukkit.Bukkit;
@@ -49,6 +44,7 @@ public class DeluxeHubPlugin extends JavaPlugin {
         getLogger().log(Level.INFO, "");
         getLogger().log(Level.INFO, "Version: " + getDescription().getVersion());
         getLogger().log(Level.INFO, "Author: ItsLewizzz");
+        getLogger().log(Level.INFO, "Forked by: OhDaveDev");
         getLogger().log(Level.INFO, "");
 
         // Check if using Spigot

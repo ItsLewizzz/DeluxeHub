@@ -1,8 +1,8 @@
 package fun.lewisdev.deluxehub.action.actions;
 
 import fun.lewisdev.deluxehub.DeluxeHubPlugin;
-import fun.lewisdev.deluxehub.utility.TextUtil;
 import fun.lewisdev.deluxehub.action.Action;
+import fun.lewisdev.deluxehub.utility.TextUtil;
 import org.bukkit.entity.Player;
 
 public class MessageAction implements Action {

@@ -1,7 +1,6 @@
 package fun.lewisdev.deluxehub.module.modules.visual.tablist;
 
 import com.google.common.base.Strings;
-import fun.lewisdev.deluxehub.DeluxeHubPlugin;
 import fun.lewisdev.deluxehub.utility.TextUtil;
 import fun.lewisdev.deluxehub.utility.reflection.ReflectionUtils;
 import fun.lewisdev.deluxehub.utility.universal.XMaterial;

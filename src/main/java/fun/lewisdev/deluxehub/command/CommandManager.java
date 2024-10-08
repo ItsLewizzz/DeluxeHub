@@ -12,7 +12,8 @@ import fun.lewisdev.deluxehub.config.ConfigType;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommandManager {
 
