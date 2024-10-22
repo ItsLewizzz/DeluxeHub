@@ -1,6 +1,7 @@
 package fun.lewisdev.deluxehub.module.modules.player;
 
 import fun.lewisdev.deluxehub.DeluxeHubPlugin;
+import fun.lewisdev.deluxehub.Permissions;
 import fun.lewisdev.deluxehub.config.ConfigType;
 import fun.lewisdev.deluxehub.module.Module;
 import fun.lewisdev.deluxehub.module.ModuleType;
@@ -33,6 +34,7 @@ public class PlayerListener extends Module {
     private boolean spawnHeal;
     private boolean extinguish;
     private boolean clearInventory;
+    private boolean flyOnJoin;
 
     private boolean fireworkEnabled;
     private boolean fireworkFirstJoin;
@@ -60,6 +62,7 @@ public class PlayerListener extends Module {
         spawnHeal = config.getBoolean("join_settings.heal", false);
         extinguish = config.getBoolean("join_settings.extinguish", false);
         clearInventory = config.getBoolean("join_settings.clear_inventory", false);
+        flyOnJoin = config.getBoolean("join_settings.fly_on_join", false);
 
         fireworkEnabled = config.getBoolean("join_settings.firework.enabled", true);
         if (fireworkEnabled) {
@@ -107,6 +110,10 @@ public class PlayerListener extends Module {
 
         // Clear the player inventory
         if (clearInventory) player.getInventory().clear();
+
+        // Enable flight
+        if (flyOnJoin && player.hasPermission(Permissions.COMMAND_FLIGHT.getPermission())) player.setAllowFlight(true);
+
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> {
             // Join events
