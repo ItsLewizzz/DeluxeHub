@@ -4,7 +4,7 @@
     DeluxeHub is the all-in-one hub server solution compacting a large amount of hub essentials into one plugin.
     <br />
     <br />
-    <a href="https://wiki.lewisdev.fun/free-resources/deluxehub">Wiki</a>
+    <a href="https://docs.zithium.net/other-plugins/deluxehub">Wiki</a>
     ·
     <a href="https://www.spigotmc.org/resources/49425/">SpigotMC</a>
     ·
