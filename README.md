@@ -8,6 +8,8 @@
     ·
     <a href="https://www.spigotmc.org/resources/49425/">SpigotMC</a>
     ·
+    <a href="https://modrinth.com/plugin/deluxehub">Modrinth</a>
+    ·
     <a href="https://discord.lewisdev.fun">Discord</a>
   
   [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0daefdcd09d14086b2f96934d283371e)](https://www.codacy.com/manual/ItsLewizzz/DeluxeHub?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ItsLewizzz/DeluxeHub&amp;utm_campaign=Badge_Grade)
